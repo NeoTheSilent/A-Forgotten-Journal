@@ -50,13 +50,11 @@ function _init()
 					{
 							dialogue = {"nothing"},
 							choice = {"nothing"}
-							followupchoice = {"nothing"}
 					},
 					//room 4 information
 					{
 							dialogue = {"nothing"},
 							choice = {"nothing"}
-							followupchoice = {"nothing"}
 					},
 					//room 5 information
 					{
@@ -67,7 +65,7 @@ function _init()
 									"option 1",
 									"option 2",
 									"option 3",
-							}
+							},
 							followupchoice = {
 							"choice 1",
 							"choice 2",
