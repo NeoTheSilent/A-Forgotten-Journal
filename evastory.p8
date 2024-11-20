@@ -3,6 +3,8 @@ version 42
 __lua__
 --default functions
 function _init()
+		//if i need to bugtest
+		bugtesting = true
 		//info for the player
 		player = {}
 			 player.item1 = 0
@@ -33,6 +35,7 @@ function _init()
 				 {
 							dialogue = {
 									"this is test dialogue to ensure\neverything is working",
+									"this should appear next to ensure\ni can have multiple strings."
 							},
 							choice = {
 									"pick up the key",
@@ -40,10 +43,15 @@ function _init()
 									"go to next room"
 							},
 							followupchoice = {
-									{"you have picked up the key."},
+									{
+									"you have picked up the key.",
+									"there is nothing left to pick up."
+									},
 									{"this is more test dialogue"},
-									{"you move to the next room.",
-									"the door is locked"}
+									{
+									"you move to the next room.",
+									"the door is locked"
+									}
 							}
 					},
 					//room 3 information
@@ -93,11 +101,16 @@ function _init()
 							choice = {"nothing"}
 					},
 		}
+	 --[[
+	 the initial dialogue that should be displayed
+	 we're putting it here due to necessity
+		]]--
+		currentdialogue = story[player.room].dialogue[1]
 end
 
 function _update()
 		//scrolling, we use #string to see length
-		if textscroll < #story[player.room].dialogue[1]
+		if textscroll < #currentdialogue
 		then
 				textscroll+=1
 		end
@@ -153,8 +166,7 @@ function ui()
 		}
 		//holder for room ui
 		rect(96,88,123,123,2)
-		//holder for trigger ui
-		print("key1: "..triggers.key,8,81)
+
 		//dialogue ui
 		rect(5,88,91,123,2)
 		//using this to place a grid from the info in room
@@ -204,30 +216,46 @@ function dialogue(item)
 				]]--
 				if events(player.room,selectedchoice,1)
 				then
-						print(sub(item.followupchoice[dialogueselection][1],1,textscroll),3,3)
+						currentdialogue = item.followupchoice[dialogueselection][1]
 				else
-						print(sub(item.followupchoice[dialogueselection][2],1,textscroll),3,3)		
+						currentdialogue = item.followupchoice[dialogueselection][2]
 				end
 		else
-				print(sub(item.dialogue[1],1,textscroll),3,3)
+				currentdialogue = item.dialogue[1]
 		end
+		displaydialogue(currentdialogue)
+
 		
 		//only for testing
-		print(selectedchoice)
-		print(lockchoice)
-		
-		//we create all possible buttons
-		for i = 1, #item.choice+1 do
-				//creating buttons
-				if item.choice[i]
-				then 
-		  		print(item.choice[i],8,81+(i*10))
-		  		currentsel(i,80,79+(i*10))
-				end
+		if bugtesting
+		then
+				print("selected choice: "..selectedchoice,8,53)
+				print("locked choice: "..tostr(lockchoice),8,60)
+				print("dialogue length: "..#currentdialogue,8,67)
+				print("text scroll: "..textscroll,8,74)
+				print("key1: "..triggers.key,8,81)
 		end
 		
+		if not lockchoice
+		then
+				//we create all possible buttons
+				for i = 1, #item.choice+1 do
+						//creating buttons
+						if item.choice[i]
+						then 
+				  		print(item.choice[i],8,81+(i*10))
+				  		currentsel(i,80,79+(i*10),textscroll == #currentdialogue)
+						end
+				end
+		else
+				print("continue",8,91)
+				currentsel(dialogueselection,80,89,textscroll == #currentdialogue)
+		end
+
+		
 		//making button functionality
-		if btnp(4) then
+		if btnp(4) and textscroll == #currentdialogue
+		then
 				//reset the text scroll for new dialogue
 				textscroll = 0
 				--[[ we run a check: if selection is 0, it means 
@@ -268,8 +296,16 @@ function dialogue(item)
 		end
 end
 
-function currentsel(currentselect,x,y) 
-		if currentselect == dialogueselection
+//help show off the correct selection
+function currentsel(currentselect,x,y,tf) 
+		--[[
+		we're running two checks:
+		is this the current selection
+		is the dialogue finished displaying
+		if both are correct, then we will make it blink
+		otherwise, we display normally
+		]]--
+		if (currentselect == dialogueselection) and (tf == true)
 		then
 				spr(selectionspr[swapblinkstate],x,y)
 		else
@@ -277,6 +313,10 @@ function currentsel(currentselect,x,y)
 		end
 end
 
+function displaydialogue(dial,cond)
+
+		print(sub(dial,1,textscroll),3,3)
+end
 -->8
 --event tracker
 
@@ -325,7 +365,22 @@ function events(place,choice,check)
 		then
 				if choice == 1
 				then
-						triggers.key = 1
+						//did we pick-up the key
+						if triggers.key == 0
+						then
+								//we see if we're just checking if we have the key
+								if check == 1
+								then
+										//we tell the dialogue we can pick up the key
+										return true
+								else
+										//we use the key
+										triggers.key = 1
+								end
+						else
+								//we already have the key
+								return false		
+						end
 				elseif choice == 2
 				then
 				--[[
