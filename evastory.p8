@@ -4,7 +4,7 @@ __lua__
 --default functions
 function _init()
 		//if i need to bugtest
-		bugtesting = true
+		bugtesting = false
 		//info for the player
 		player = {}
 			 player.item1 = 0
@@ -13,6 +13,8 @@ function _init()
 		triggers = {
 				key=0,
 		}
+		//info so we understand which rooms we've been in
+		visitedroom={0,0,0,0,0,0,0,0,0}
 		//variables for blinking objects
 		blinktimer = 15
 		swapblinkstate = 1
@@ -21,6 +23,9 @@ function _init()
 		dialogueselection = 1
 		selectedchoice = 0
 		lockchoice = false
+		//variables for long main dialogue
+		disable = false
+		initialmainval = 1
 		selectionspr={003,004}
 		//test
 		textscroll=1
@@ -35,7 +40,7 @@ function _init()
 				 {
 							dialogue = {
 									"this is test dialogue to ensure\neverything is working",
-									"this should appear next to ensure\ni can have multiple strings."
+									"this should appear next to\nensure i can have multiple strings."
 							},
 							choice = {
 									"pick up the key",
@@ -67,7 +72,8 @@ function _init()
 					//room 5 information
 					{
 							dialogue = {
-									"this is room 5"
+									"this is room 5",
+									"this is the final room 5 dialogue"
 							},
 							choice = {
 									"option 1",
@@ -138,6 +144,7 @@ function _draw()
 		//to help see screen, deleteme
 		rectfill(0,0,128,128,1)
 		ui()
+		bugs()
 		//handle the dialogue
 		dialogue(story[player.room])
 end
@@ -200,42 +207,65 @@ exists yet.]]--
 				end
 		end
 end
--->8
---dialogue page
 
-function dialogue(item) 
-		--[[show the main dialogue for the room.
-		if we make a selection on side dialogue, then we show the side dialogue
-		otherwise, we show the dialogue for the room.
-		]]--
-		if selectedchoice != 0 
-		then
-				--[[
-				we want to use variant dialogue
-				depending on whether we're allowed to do the event
-				]]--
-				if events(player.room,selectedchoice,1)
-				then
-						currentdialogue = item.followupchoice[dialogueselection][1]
-				else
-						currentdialogue = item.followupchoice[dialogueselection][2]
-				end
-		else
-				currentdialogue = item.dialogue[1]
-		end
-		displaydialogue(currentdialogue)
-
-		
-		//only for testing
+function bugs()
+		//only for testing, change for various varriables
 		if bugtesting
 		then
-				print("selected choice: "..selectedchoice,8,53)
+				print("visitedroom[2]: "..visitedroom[2],8,53)
 				print("locked choice: "..tostr(lockchoice),8,60)
 				print("dialogue length: "..#currentdialogue,8,67)
 				print("text scroll: "..textscroll,8,74)
 				print("key1: "..triggers.key,8,81)
 		end
+end
+-->8
+--dialogue page
+
+--[[
+show the main dialogue for the room.
+if we make a selection on side dialogue, then we show the side dialogue
+otherwise, we show the dialogue for the room.
+]]--
+
+function dialogue(item) 
+		--[[
+		we want to use variant dialogue
+		depending on whether we're allowed to do the event
+		]]--
+		if selectedchoice != 0 
+		then
+				if events(player.room,selectedchoice,1)
+				then
+						currentdialogue = item.followupchoice[dialogueselection][1]
+				else
+						currentdialogue = item.followupchoice[dialogueselection][2]
+				end			
+				displaydialogue(currentdialogue)
+		--[[
+		if we're in the main dialogue,
+		we want to only display the
+		full dialogue if it's our first visit
+		to that room
+		]]--		
+		else	
+				//if we haven't been here yet
+				if visitedroom[player.room] == 0
+				then
+						//disable other functions, and display the dialogue from the start
+						disable = true
+						displaydialogue(item.dialogue,false)
+				else
+						--[[
+						otherwise, we've seen this room's dialogue before, 
+						and don't need to repeat it
+						]]--
+						currentdialogue = item.dialogue[#item.dialogue]
+						displaydialogue(currentdialogue)
+				end
+		end
 		
+		//if we're allowed to look at the branching dialogues
 		if not lockchoice
 		then
 				//we create all possible buttons
@@ -248,13 +278,14 @@ function dialogue(item)
 						end
 				end
 		else
+				//otherwise, we just put down a 'continue' the player can press when the dialogue is complete.
 				print("continue",8,91)
 				currentsel(dialogueselection,80,89,textscroll == #currentdialogue)
+				//also, reset the selection since it was taken away
 		end
-
-		
-		//making button functionality
-		if btnp(4) and textscroll == #currentdialogue
+				
+		//make branching dialogue events occur
+		if btnp(4) and textscroll == #currentdialogue and not disable
 		then
 				//reset the text scroll for new dialogue
 				textscroll = 0
@@ -270,7 +301,7 @@ function dialogue(item)
 				in the future: we will also use this as a chance to update
 				our events and triggers to allow us
 				to move rooms, or get items.
-				]]--
+			 ]]--
 				if selectedchoice == 0
 				then 
 						lockchoice = true
@@ -281,10 +312,10 @@ function dialogue(item)
 						lockchoice = false
 						selectedchoice = 0
 				end
-				//events to change room
 		end
-		
-		if not lockchoice
+
+		//enable us to scroll between the options.
+		if not lockchoice and not disable
 		then
 				if btnp(3) and dialogueselection < #item.choice
 				then
@@ -296,6 +327,8 @@ function dialogue(item)
 		end
 end
 
+
+
 //help show off the correct selection
 function currentsel(currentselect,x,y,tf) 
 		--[[
@@ -305,7 +338,7 @@ function currentsel(currentselect,x,y,tf)
 		if both are correct, then we will make it blink
 		otherwise, we display normally
 		]]--
-		if (currentselect == dialogueselection) and (tf == true)
+		if (currentselect == dialogueselection) and tf and not disable
 		then
 				spr(selectionspr[swapblinkstate],x,y)
 		else
@@ -313,9 +346,48 @@ function currentsel(currentselect,x,y,tf)
 		end
 end
 
-function displaydialogue(dial,cond)
 
-		print(sub(dial,1,textscroll),3,3)
+
+function displaydialogue(dial,branch)
+		//if this is the main dialogue
+		if branch == false
+		then
+				//if we haven't fully displayed this dialogue yet
+				if visitedroom[player.room] == 0
+				then
+						//we display the initial dialogue
+						print(sub(dial[initialmainval],1,textscroll),3,3)
+						//when the player presses the button, it advances the dialogue
+						if btnp(4) and textscroll == #currentdialogue
+						then 
+								textscroll = 0
+								--[[
+								we check to see if the player is 
+								reaching the end of the dialogue.
+								we do this by seeing if
+								the next dialogue will be the
+								final one.
+								]]--
+								if #dial > initialmainval+1
+								then
+										//if not, keep going
+										initialmainval += 1
+										currentdialogue = dial[initialmainval]
+								else
+										//if so, reset values and mark that we saw this room's dialogue
+										initialmainval = 1
+										visitedroom[player.room] = 1
+										disable = false
+								end
+						end
+				else
+						//if we've been here already, just display the final dialogue
+						print(sub(dial[#dial],1,textscroll),3,3)
+				end
+		//in all other cases, just display it normally
+		else
+				print(sub(dial,1,textscroll),3,3)
+		end
 end
 -->8
 --event tracker
