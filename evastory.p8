@@ -39,8 +39,9 @@ function _init()
 					//room 2 information
 				 {
 							dialogue = {
-									"this is test dialogue to ensure\neverything is working",
-									"this should appear next to\nensure i can have multiple strings."
+									"you've heard plenty of rumors\nabout the abandoned apartment\ncomplex on the edge of town.\n          \nthere was an explosion a year\nago that killed a number of\npeople, and ever since then\nthe complex was abandoned.\n          \nthere were countless rumors\nabout what had happened.",
+									"one rumor had it that it was a\ndrug operation that went south.\n          \nanother rumor had it that\nit was a terrorist group that\nwas trying to make a bomb but\nended up blowing themselves up\non accident.\n          \nthere was even a rumor that it\nwas a spy base that was\ndiscovered, and it blew up as\na safety precaution.",
+							  "whatever the case, the owners\nabandoned it. it was put under\ninvestigation for a time by the\npolice, but nothing turned up.\n          \nstill, it always felt odd to\nyou and before you realized it,\nyou had found yourself outside\nof the broken doors of the\ninfamous facility.\n          \nyou walk inside carefully,\nfeeling your curiousity grow."
 							},
 							choice = {
 									"pick up the key",
@@ -118,7 +119,7 @@ function _update()
 		//scrolling, we use #string to see length
 		if textscroll < #currentdialogue
 		then
-				textscroll+=1
+				textscroll+=0.5
 		end
 		//blinking ui code
 		if blinktimer > 0
@@ -179,6 +180,7 @@ function ui()
 		//using this to place a grid from the info in room
 		for i = 0, 3 do
 				for j = 1, 3 do
+						temp = (i*3)+j
 --[[first, we check to see if 
 we're in the room that the 
 player is in. the player has an inbuilt room variable for this reason
@@ -189,7 +191,7 @@ i+j calculation to see if the
 player is in "that" room, and
 if they are, we do an alternative
 sprite to show it.]]--
-						if (i*3)+j==player.room
+						if temp==player.room
 						then
 							spr(blinkmap[swapblinkstate],122-(8*j),114-(8*i))
 --[[alternatively, if the player
@@ -200,7 +202,7 @@ then the player has stepped into
 it before. otherwise, we display
 nothing, as they don't know it 
 exists yet.]]--
-						elseif room[(i*3)+j]==1
+						elseif room[(temp)]==1 and visitedroom[temp]==1
 						then
 								spr(001,122-(8*j),114-(8*i))
 						end
@@ -212,7 +214,7 @@ function bugs()
 		//only for testing, change for various varriables
 		if bugtesting
 		then
-				print("visitedroom[2]: "..visitedroom[2],8,53)
+				print("value of space: "..ord(","),8,53)
 				print("locked choice: "..tostr(lockchoice),8,60)
 				print("dialogue length: "..#currentdialogue,8,67)
 				print("text scroll: "..textscroll,8,74)
@@ -349,7 +351,7 @@ end
 
 
 function displaydialogue(dial,branch)
-		//if this is the main dialogue
+		//if this is the main dialogue		
 		if branch == false
 		then
 				//if we haven't fully displayed this dialogue yet
@@ -357,6 +359,7 @@ function displaydialogue(dial,branch)
 				then
 						//we display the initial dialogue
 						print(sub(dial[initialmainval],1,textscroll),3,3)
+						sound(dial[initialmainval])
 						//when the player presses the button, it advances the dialogue
 						if btnp(4) and textscroll == #currentdialogue
 						then 
@@ -383,12 +386,36 @@ function displaydialogue(dial,branch)
 				else
 						//if we've been here already, just display the final dialogue
 						print(sub(dial[#dial],1,textscroll),3,3)
+						sound(dial[#dial])
 				end
 		//in all other cases, just display it normally
 		else
 				print(sub(dial,1,textscroll),3,3)
+				sound(dial)
 		end
 end
+
+//function to make sound happen as dialogue plays
+function sound(string)
+		--[[
+		we use ord to check the value of the current character being written.
+		- if it's " ", "," or ".", we don't play sound. furthermore,
+		- if the previous character were one of those,
+		we won't play any sound.
+		- if we're at the end of the string, we won't
+		make any sound since it's over.
+		- finally, we use text scroll's delay to make the sounds 
+		happen only when it's just written.
+		]]--
+  if ord(string[textscroll])!=(32 or 44 or 46)
+  and ord(string[textscroll-1])!=(32 or 44 or 46)
+  and textscroll != #string
+  and textscroll % 1 == 0
+		then
+				sfx(00)
+		end
+end
+
 -->8
 --event tracker
 
@@ -488,3 +515,5 @@ __gfx__
 0007700003000030030bb03003000003030bb0030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00700700030000300300003003000030030000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000033333300333333003333300033333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+__sfx__
+0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
