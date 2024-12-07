@@ -9,7 +9,7 @@ function _init()
 		player = {}
 			 player.item1 = 0
 			 player.room  = 2
-		//info for any events
+		//info for the events
 		triggers = {
 				key=0,
 		}
@@ -41,7 +41,8 @@ function _init()
 							dialogue = {
 									"you've heard plenty of rumors\nabout the abandoned apartment\ncomplex on the edge of town.\n          \nthere was an explosion a year\nago that killed a number of\npeople, and ever since then\nthe complex was abandoned.\n          \nthere were countless rumors\nabout what had happened.",
 									"one rumor had it that it was a\ndrug operation that went south.\n          \nanother rumor had it that\nit was a terrorist group that\nwas trying to make a bomb but\nended up blowing themselves up\non accident.\n          \nthere was even a rumor that it\nwas a spy base that was\ndiscovered, and it blew up as\na safety precaution.",
-							  "whatever the case, the owners\nabandoned it. it was put under\ninvestigation for a time by the\npolice, but nothing turned up.\n          \nstill, it always felt odd to\nyou and before you realized it,\nyou had found yourself outside\nof the broken doors of the\ninfamous facility.\n          \nyou walk inside carefully,\nfeeling your curiousity grow."
+							  "whatever the case, the owners\nabandoned it. it was put under\ninvestigation for a time by the\npolice, but nothing turned up.\n          \nstill, it always felt odd to\nyou and before you realized it,\nyou had found yourself outside\nof the broken doors of the\ninfamous facility.\n          \nyou walk inside carefully,\nfeeling your curiousity grow.",
+							  "you venture inside the facility."
 							},
 							choice = {
 									"pick up the key",
@@ -120,6 +121,11 @@ function _update()
 		if textscroll < #currentdialogue
 		then
 				textscroll+=0.5
+				//skip dialogue button
+				if btnp(5)
+				then
+						textscroll = #currentdialogue
+				end
 		end
 		//blinking ui code
 		if blinktimer > 0
@@ -350,7 +356,7 @@ end
 
 
 
-function displaydialogue(dial,branch)
+function displaydialogue(dial,branch)		
 		//if this is the main dialogue		
 		if branch == false
 		then
