@@ -4,7 +4,7 @@ __lua__
 --default functions
 function _init()
 		//if i need to bugtest
-		bugtesting = false
+		bugtesting = true
 		//info for the player
 		player = {}
 			 player.item1 = 0
@@ -39,14 +39,16 @@ function _init()
 					//room 2 information
 				 {
 							dialogue = {
-									"you've heard plenty of rumors\nabout the abandoned apartment\ncomplex on the edge of town.\n          \nthere was an explosion a year\nago that killed a number of\npeople, and ever since then\nthe complex was abandoned.\n          \nthere were countless rumors\nabout what had happened.",
+									".",
+									"you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened.",
 									"one rumor had it that it was a\ndrug operation that went south.\n          \nanother rumor had it that\nit was a terrorist group that\nwas trying to make a bomb but\nended up blowing themselves up\non accident.\n          \nthere was even a rumor that it\nwas a spy base that was\ndiscovered, and it blew up as\na safety precaution.",
 							  "whatever the case, the owners\nabandoned it. it was put under\ninvestigation for a time by the\npolice, but nothing turned up.\n          \nstill, it always felt odd to\nyou and before you realized it,\nyou had found yourself outside\nof the broken doors of the\ninfamous facility.\n          \nyou walk inside carefully,\nfeeling your curiousity grow.",
-							  "you venture inside the facility."
+							  "you venture inside the facility.\nit's difficult getting past the\ndoor, as something inside\nhad blocked the door, and it wouldn't\nbudge. thankfully, upon looking around,\nyou spotted an open window and\nmanaged to climb in.",
+							  "as you look around the entrance room, it's clear that the decrepit building isn't exactly safe. water drips from the ceiling, and there's rubble along the floor.",
 							},
 							choice = {
 									"pick up the key",
-									"advance dialogue",
+									"look around the room.",
 									"go to next room"
 							},
 							followupchoice = {
@@ -54,7 +56,9 @@ function _init()
 									"you have picked up the key.",
 									"there is nothing left to pick up."
 									},
-									{"this is more test dialogue"},
+									{
+									"the bookshelf"
+									},
 									{
 									"you move to the next room.",
 									"the door is locked"
@@ -217,14 +221,16 @@ exists yet.]]--
 end
 
 function bugs()
-		//only for testing, change for various varriables
+		
 		if bugtesting
 		then
-				print("value of space: "..ord(","),8,53)
-				print("locked choice: "..tostr(lockchoice),8,60)
-				print("dialogue length: "..#currentdialogue,8,67)
-				print("text scroll: "..textscroll,8,74)
-				print("key1: "..triggers.key,8,81)
+				--print("value of space: "..ord(","),8,53)
+				print(splitdialogue(),3,3)
+				--print("locked choice: "..tostr(lockchoice),8,60)
+				--print("dialogue length: "..#currentdialogue,8,67)
+				--print("text scroll: "..textscroll,8,74)
+				--print("key1: "..triggers.key,8,81)
+				--print(ceil(#story[player.room].dialogue[1]/31),8,81)
 		end
 end
 -->8
@@ -512,6 +518,110 @@ function events(place,choice,check)
 				end
 		end
 		return true
+end
+-->8
+-- dialogue splitter
+
+function splitdialogue()
+		--[[
+		this function exists to 
+		automatically add the breakline
+		to a given string, so we won't
+		need to do it manually, as it's
+		tedious. we take a given string
+		and we can make it add a new
+		line with any posotive number
+		for the sentence length
+		]]--
+		nstring = "you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened."
+		--[[
+		our length must be 1 higher than
+		what we want. this is because
+		we're adding the newline
+		character "\n" at the end of
+		every sentence, and thus
+		must accomodate for it.
+		
+		the second value will update
+		dynamically once the loop starts
+		but we wish to keep the first
+		number the same incase we wish
+		to change how long it is.
+		]]--
+		setlength=31
+		length=setlength
+		--[[
+		we dynamically calculate the 
+		length of the string and divide
+		it by our length to know how
+		many rows we want, and thus
+		how many newlines we'll add
+		]]--
+		for i=0,ceil(#nstring/setlength) do
+		--[[
+		we must also check before we
+		insert the newline if we'll
+		cut off a word by doing this.
+		if the given character isn't
+		an empty space, we'll run a
+		check and simply adjust where
+		we put the new line. i.e:
+		if it's cutting off the word
+		like so
+		
+		..... hel
+		lo world
+		
+		then we will see how many
+		characters it must take to
+		move it to the next sentence.
+		in this case, we must move
+		'hel' and we'll adjust our
+		number appropriately so it
+		will display
+		
+		.....
+		hello world
+		
+		assuming that it can all be
+		displayed on one line, of
+		course.
+		]]--
+				if sub(nstring,length-1,length-1)!=" "
+				then
+						for j=1,ceil(setlength/3) do
+								if sub(nstring,length-j,length-j)==" "
+								then
+										length-=j-1
+										break
+								end
+						end
+				end
+		--[[
+		once we are sure that adding
+		a new line is safe, we will
+		do so by creating a temporary
+		placeholder, and it's value will
+		be what we have already done,
+		the newline, and then what we
+		haven't done yet.
+		
+		thus, each time we go through
+		this loop again, it'll only
+		affect the next line, without
+		compromising any previous lines.
+		
+		we also increase our length
+		appropriately each line.
+		]]--
+				temporary = sub(nstring,1,length-1).."\n"..sub(nstring,length)
+ 			nstring = temporary		
+ 			length+=setlength
+		end
+		--[[
+		once we're finished
+		]]--
+		return nstring
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
