@@ -39,9 +39,8 @@ function _init()
 					//room 2 information
 				 {
 							dialogue = {
-									".",
 									"you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened.",
-									"one rumor had it that it was a\ndrug operation that went south.\n          \nanother rumor had it that\nit was a terrorist group that\nwas trying to make a bomb but\nended up blowing themselves up\non accident.\n          \nthere was even a rumor that it\nwas a spy base that was\ndiscovered, and it blew up as\na safety precaution.",
+									"one rumor had it that it was a drug operation that went south.another rumor had it that it was a terrorist group that was trying to make a bomb but ended up blowing themselves up on accident. there was even a rumor that it was a spy base that was discovered, and it blew up as a safety precaution.",
 							  "whatever the case, the owners\nabandoned it. it was put under\ninvestigation for a time by the\npolice, but nothing turned up.\n          \nstill, it always felt odd to\nyou and before you realized it,\nyou had found yourself outside\nof the broken doors of the\ninfamous facility.\n          \nyou walk inside carefully,\nfeeling your curiousity grow.",
 							  "you venture inside the facility.\nit's difficult getting past the\ndoor, as something inside\nhad blocked the door, and it wouldn't\nbudge. thankfully, upon looking around,\nyou spotted an open window and\nmanaged to climb in.",
 							  "as you look around the entrance room, it's clear that the decrepit building isn't exactly safe. water drips from the ceiling, and there's rubble along the floor.",
@@ -122,13 +121,13 @@ end
 
 function _update()
 		//scrolling, we use #string to see length
-		if textscroll < #currentdialogue
+		if textscroll < #splitdialogue(currentdialogue)
 		then
 				textscroll+=0.5
 				//skip dialogue button
 				if btnp(5)
 				then
-						textscroll = #currentdialogue
+						textscroll = #splitdialogue(currentdialogue)
 				end
 		end
 		//blinking ui code
@@ -225,10 +224,9 @@ function bugs()
 		if bugtesting
 		then
 				--print("value of space: "..ord(","),8,53)
-				print(splitdialogue(),3,3)
 				--print("locked choice: "..tostr(lockchoice),8,60)
 				--print("dialogue length: "..#currentdialogue,8,67)
-				--print("text scroll: "..textscroll,8,74)
+				print("text scroll: "..textscroll,8,74)
 				--print("key1: "..triggers.key,8,81)
 				--print(ceil(#story[player.room].dialogue[1]/31),8,81)
 		end
@@ -243,9 +241,54 @@ otherwise, we show the dialogue for the room.
 ]]--
 
 function dialogue(item) 
+
+		//if we haven't been here yet
+		if visitedroom[player.room] == 0
+		then
+				//disable other functions, and display the dialogue from the start
+				disable = true
+				displaydialogue(item.dialogue,false)
+		else
+				--[[
+				otherwise, we've seen this room's dialogue before, 
+				and don't need to repeat it
+				]]--
+				currentdialogue = item.dialogue[#item.dialogue]
+				displaydialogue(currentdialogue)
+		end
+		
+		--test = item.dialogue[1]
+		--print(splitdialogue(test),3,2)
+end
+
+function displaydialogue(item)
+		--[[
+		if this is the main dialogue		
+		we display the initial dialogue
+		]]--
+		if visitedroom[player.room]==0
+		then
+				print(sub(splitdialogue(item[initialmainval]),1,textscroll),3,3)
+				sound(splitdialogue(item[initialmainval]))
+				//when the player presses the button, it advances the dialogue
+				if btnp(4) and #item > initialmainval
+				then 
+						textscroll = 0
+						initialmainval += 1
+						currentdialogue = item[initialmainval]
+				end
+		else
+				currentdialogue = item[#item]
+				initialmainval = 1
+				visitedroom[player.room] = 1
+		end
+end
+
+function test() 
 		--[[
 		we want to use variant dialogue
-		depending on whether we're allowed to do the event
+		depending on whether we're 
+		allowed to do the event
 		]]--
 		if selectedchoice != 0 
 		then
@@ -263,20 +306,7 @@ function dialogue(item)
 		to that room
 		]]--		
 		else	
-				//if we haven't been here yet
-				if visitedroom[player.room] == 0
-				then
-						//disable other functions, and display the dialogue from the start
-						disable = true
-						displaydialogue(item.dialogue,false)
-				else
-						--[[
-						otherwise, we've seen this room's dialogue before, 
-						and don't need to repeat it
-						]]--
-						currentdialogue = item.dialogue[#item.dialogue]
-						displaydialogue(currentdialogue)
-				end
+
 		end
 		
 		//if we're allowed to look at the branching dialogues
@@ -357,53 +387,6 @@ function currentsel(currentselect,x,y,tf)
 				spr(selectionspr[swapblinkstate],x,y)
 		else
 				spr(selectionspr[1],x,y)
-		end
-end
-
-
-
-function displaydialogue(dial,branch)		
-		//if this is the main dialogue		
-		if branch == false
-		then
-				//if we haven't fully displayed this dialogue yet
-				if visitedroom[player.room] == 0
-				then
-						//we display the initial dialogue
-						print(sub(dial[initialmainval],1,textscroll),3,3)
-						sound(dial[initialmainval])
-						//when the player presses the button, it advances the dialogue
-						if btnp(4) and textscroll == #currentdialogue
-						then 
-								textscroll = 0
-								--[[
-								we check to see if the player is 
-								reaching the end of the dialogue.
-								we do this by seeing if
-								the next dialogue will be the
-								final one.
-								]]--
-								if #dial > initialmainval+1
-								then
-										//if not, keep going
-										initialmainval += 1
-										currentdialogue = dial[initialmainval]
-								else
-										//if so, reset values and mark that we saw this room's dialogue
-										initialmainval = 1
-										visitedroom[player.room] = 1
-										disable = false
-								end
-						end
-				else
-						//if we've been here already, just display the final dialogue
-						print(sub(dial[#dial],1,textscroll),3,3)
-						sound(dial[#dial])
-				end
-		//in all other cases, just display it normally
-		else
-				print(sub(dial,1,textscroll),3,3)
-				sound(dial)
 		end
 end
 
@@ -522,7 +505,7 @@ end
 -->8
 -- dialogue splitter
 
-function splitdialogue()
+function splitdialogue(input)
 		--[[
 		this function exists to 
 		automatically add the breakline
@@ -532,9 +515,7 @@ function splitdialogue()
 		and we can make it add a new
 		line with any posotive number
 		for the sentence length
-		]]--
-		nstring = "you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened."
-		--[[
+
 		our length must be 1 higher than
 		what we want. this is because
 		we're adding the newline
@@ -557,7 +538,8 @@ function splitdialogue()
 		many rows we want, and thus
 		how many newlines we'll add
 		]]--
-		for i=0,ceil(#nstring/setlength) do
+		
+		for i=0,ceil(#input/setlength) do
 		--[[
 		we must also check before we
 		insert the newline if we'll
@@ -587,16 +569,18 @@ function splitdialogue()
 		displayed on one line, of
 		course.
 		]]--
-				if sub(nstring,length-1,length-1)!=" "
+		
+				if sub(input,length-1,length-1)!=" "
 				then
 						for j=1,ceil(setlength/3) do
-								if sub(nstring,length-j,length-j)==" "
+								if sub(input,length-j,length-j)==" "
 								then
 										length-=j-1
 										break
 								end
 						end
 				end
+
 		--[[
 		once we are sure that adding
 		a new line is safe, we will
@@ -614,14 +598,14 @@ function splitdialogue()
 		we also increase our length
 		appropriately each line.
 		]]--
-				temporary = sub(nstring,1,length-1).."\n"..sub(nstring,length)
- 			nstring = temporary		
+				temporary = sub(input,1,length-1).."\n"..sub(input,length)
+ 			input = temporary		
  			length+=setlength
 		end
 		--[[
 		once we're finished
 		]]--
-		return nstring
+		return input
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
