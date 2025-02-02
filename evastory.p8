@@ -3,11 +3,8 @@ version 42
 __lua__
 --default functions
 function _init()
-		//if i need to bugtest
-		bugtesting = true
 		//info for the player
 		player = {}
-			 player.item1 = 0
 			 player.room  = 2
 		//info for the events
 		triggers = {
@@ -15,19 +12,25 @@ function _init()
 		}
 		//info so we understand which rooms we've been in
 		visitedroom={0,0,0,0,0,0,0,0,0}
-		//variables for blinking objects
-		blinktimer = 15
+		
+		--[[
+		variables for making various
+		objects "blink", i.e flicker
+		between two sprites
+		]]--
+		
 		swapblinkstate = 1
+		blinktimer = 15
 		blinkmap={001,002}
-		//variables for branch dialogue
+		blinksel={003,004}
+		
+		//variables for dialogue
 		dialogueselection = 1
 		selectedchoice = 0
 		lockchoice = false
-		//variables for long main dialogue
 		disable = false
 		initialmainval = 1
-		selectionspr={003,004}
-		//test
+		//variable to scroll text
 		textscroll=1
 		//array that holds room info
 		story = {
@@ -41,8 +44,8 @@ function _init()
 							dialogue = {
 									"you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened.",
 									"one rumor had it that it was a drug operation that went south.another rumor had it that it was a terrorist group that was trying to make a bomb but ended up blowing themselves up on accident. there was even a rumor that it was a spy base that was discovered, and it blew up as a safety precaution.",
-							  "whatever the case, the owners\nabandoned it. it was put under\ninvestigation for a time by the\npolice, but nothing turned up.\n          \nstill, it always felt odd to\nyou and before you realized it,\nyou had found yourself outside\nof the broken doors of the\ninfamous facility.\n          \nyou walk inside carefully,\nfeeling your curiousity grow.",
-							  "you venture inside the facility.\nit's difficult getting past the\ndoor, as something inside\nhad blocked the door, and it wouldn't\nbudge. thankfully, upon looking around,\nyou spotted an open window and\nmanaged to climb in.",
+							  "whatever the case, the owners abandoned it. it was put under investigation for a time by the police, but nothing turned up. still, it always felt odd to you and before you realized it, you had found yourself outside of the broken doors of the infamous facility. you walk inside carefully, feeling your curiousity grow.",
+							  "you venture inside the facility. it's difficult getting past the door, as something inside had blocked the door, and it wouldn't budge. thankfully, upon looking around, you spotted an open window and managed to climb in.",
 							  "as you look around the entrance room, it's clear that the decrepit building isn't exactly safe. water drips from the ceiling, and there's rubble along the floor.",
 							},
 							choice = {
@@ -219,16 +222,105 @@ exists yet.]]--
 		end
 end
 
-function bugs()
-		
-		if bugtesting
+
+function selection(currentselection,x,y,binary) 
+		--[[
+		a function to ensure that only
+		the correct option should blink
+		in this case, this means that
+		what the player is choosing to
+		do will blink.
+		]]--
+		if currentselection == dialogueselection and binary
 		then
-				--print("value of space: "..ord(","),8,53)
-				--print("locked choice: "..tostr(lockchoice),8,60)
-				--print("dialogue length: "..#currentdialogue,8,67)
-				print("text scroll: "..textscroll,8,74)
-				--print("key1: "..triggers.key,8,81)
-				--print(ceil(#story[player.room].dialogue[1]/31),8,81)
+				spr(blinksel[swapblinkstate],x,y)
+		else
+				spr(blinksel[1],x,y)
+		end
+end
+
+//function to make sound happen as dialogue plays
+function sound(string)
+		--[[
+		we use ord to check the value of the current character being written.
+		- if it's " ", "," or ".", we don't play sound. furthermore,
+		- if the previous character were one of those,
+		we won't play any sound.
+		- if we're at the end of the string, we won't
+		make any sound since it's over.
+		- finally, we use text scroll's delay to make the sounds 
+		happen only when it's just written.
+		]]--
+  if ord(string[textscroll])!=(32 or 44 or 46)
+  and ord(string[textscroll-1])!=(32 or 44 or 46)
+  and textscroll != #string
+  and textscroll % 1 == 0
+		then
+				sfx(00)
+		end
+end
+
+function choices(item)
+		--[[
+		we must check to see if our
+		choices are currently locked.
+		if they are, we can't do
+		anything. hence, lockchoice
+		]]--
+		if not lockchoice
+		then
+				--[[
+				we use a for loop to display
+				all possible choices, though
+				for most cases, it should
+				only be 2 or 3
+				
+				we print out the choice,
+				then we print out the button
+				that allows it to blink if
+				we're selecting it or not.
+				]]--
+				for i = 1, #item.choice+1 do
+						if item.choice[i]
+						then 
+				  		print(item.choice[i],8,81+(i*10))
+				  		selection(i,80,79+(i*10),textscroll == #splitdialogue(currentdialogue))
+						end
+				end
+				--[[
+				this also allows us to choose
+				what branching path we wish to
+				explore. we can only explore if
+				the dialogue has finished displaying
+				]]--
+				if not disable and textscroll == #splitdialogue(currentdialogue)
+						then
+						if btnp(3) and dialogueselection < #item.choice
+						then
+								dialogueselection += 1
+						elseif btnp(2) and dialogueselection > 1
+						then
+								dialogueselection -= 1
+						end
+				end
+		else
+				--[[
+				if we're locked in the main
+				dialogue, we'll put in a 
+				simple 'continue' button
+				to allow the player to 
+				move through the dialogue.
+				]]--
+				print("continue",8,91)
+				selection(1,80,89,textscroll == #splitdialogue(currentdialogue))
+		end
+end
+
+function bugs()		
+		if true
+		then
+				print("textscroll: "..textscroll,8,73)
+				print("currentdialogue: "..#splitdialogue(currentdialogue),8,81)
 		end
 end
 -->8
@@ -242,56 +334,12 @@ otherwise, we show the dialogue for the room.
 
 function dialogue(item) 
 
-		//if we haven't been here yet
-		if visitedroom[player.room] == 0
-		then
-				//disable other functions, and display the dialogue from the start
-				disable = true
-				displaydialogue(item.dialogue,false)
-		else
-				--[[
-				otherwise, we've seen this room's dialogue before, 
-				and don't need to repeat it
-				]]--
-				currentdialogue = item.dialogue[#item.dialogue]
-				displaydialogue(currentdialogue)
-		end
-		
-		--test = item.dialogue[1]
-		--print(splitdialogue(test),3,2)
-end
-
-function displaydialogue(item)
-		--[[
-		if this is the main dialogue		
-		we display the initial dialogue
-		]]--
-		if visitedroom[player.room]==0
-		then
-				print(sub(splitdialogue(item[initialmainval]),1,textscroll),3,3)
-				sound(splitdialogue(item[initialmainval]))
-				//when the player presses the button, it advances the dialogue
-				if btnp(4) and #item > initialmainval
-				then 
-						textscroll = 0
-						initialmainval += 1
-						currentdialogue = item[initialmainval]
-				end
-		else
-				currentdialogue = item[#item]
-				initialmainval = 1
-				visitedroom[player.room] = 1
-		end
-end
-
-function test() 
-		--[[
-		we want to use variant dialogue
-		depending on whether we're 
-		allowed to do the event
-		]]--
+		--main dialogue code
 		if selectedchoice != 0 
 		then
+		
+		--next priority!
+			--arbitrary code
 				if events(player.room,selectedchoice,1)
 				then
 						currentdialogue = item.followupchoice[dialogueselection][1]
@@ -299,39 +347,31 @@ function test()
 						currentdialogue = item.followupchoice[dialogueselection][2]
 				end			
 				displaydialogue(currentdialogue)
-		--[[
-		if we're in the main dialogue,
-		we want to only display the
-		full dialogue if it's our first visit
-		to that room
-		]]--		
-		else	
 
-		end
-		
-		//if we're allowed to look at the branching dialogues
-		if not lockchoice
-		then
-				//we create all possible buttons
-				for i = 1, #item.choice+1 do
-						//creating buttons
-						if item.choice[i]
-						then 
-				  		print(item.choice[i],8,81+(i*10))
-				  		currentsel(i,80,79+(i*10),textscroll == #currentdialogue)
-						end
-				end
+		--[[
+		this area is for the main
+		dialogue, i.e the dialogue
+		that by default in a room, 
+		such as when you enter or
+		re-enter it.
+		]]--
 		else
-				//otherwise, we just put down a 'continue' the player can press when the dialogue is complete.
-				print("continue",8,91)
-				currentsel(dialogueselection,80,89,textscroll == #currentdialogue)
-				//also, reset the selection since it was taken away
+				if visitedroom[player.room] == 0
+				then
+						lockchoice = true
+						disable = true
+						displaydialogue(item.dialogue,lockchoice)
+				else
+						displaydialogue(item.dialogue,lockchoice)
+				end
 		end
-				
+
+		--in ui page
+		choices(item)
+		
 		//make branching dialogue events occur
 		if btnp(4) and textscroll == #currentdialogue and not disable
 		then
-				//reset the text scroll for new dialogue
 				textscroll = 0
 				--[[ we run a check: if selection is 0, it means 
 				we're in the main dialogue, so pressing the button means we're
@@ -357,60 +397,41 @@ function test()
 						selectedchoice = 0
 				end
 		end
+end
 
-		//enable us to scroll between the options.
-		if not lockchoice and not disable
+function displaydialogue(item,binary)
+		--[[
+		if this is the main dialogue		
+		we display the initial dialogue
+		]]--
+		if binary
 		then
-				if btnp(3) and dialogueselection < #item.choice
+				if visitedroom[player.room] == 0
 				then
-						dialogueselection += 1
-				elseif btnp(2) and dialogueselection > 1
-				then
-						dialogueselection -= 1
+						print(sub(splitdialogue(item[initialmainval]),1,textscroll),3,3)
+						sound(splitdialogue(item[initialmainval]))
+						//when the player presses the button, it advances the dialogue
+						if btnp(4)	and textscroll==#splitdialogue(item[initialmainval])
+						then 
+								textscroll = 0
+								if #item-1 > initialmainval
+								then
+										initialmainval += 1
+										currentdialogue = item[initialmainval]
+								else
+										initialmainval = 1
+										visitedroom[player.room] = 1
+										disable = false
+										lockchoice = false
+								end
+						end
 				end
-		end
-end
-
-
-
-//help show off the correct selection
-function currentsel(currentselect,x,y,tf) 
-		--[[
-		we're running two checks:
-		is this the current selection
-		is the dialogue finished displaying
-		if both are correct, then we will make it blink
-		otherwise, we display normally
-		]]--
-		if (currentselect == dialogueselection) and tf and not disable
-		then
-				spr(selectionspr[swapblinkstate],x,y)
 		else
-				spr(selectionspr[1],x,y)
+				currentdialogue = item[#item]
+				print(sub(splitdialogue(currentdialogue),1,textscroll),3,3)
+				sound(splitdialogue(currentdialogue))
 		end
 end
-
-//function to make sound happen as dialogue plays
-function sound(string)
-		--[[
-		we use ord to check the value of the current character being written.
-		- if it's " ", "," or ".", we don't play sound. furthermore,
-		- if the previous character were one of those,
-		we won't play any sound.
-		- if we're at the end of the string, we won't
-		make any sound since it's over.
-		- finally, we use text scroll's delay to make the sounds 
-		happen only when it's just written.
-		]]--
-  if ord(string[textscroll])!=(32 or 44 or 46)
-  and ord(string[textscroll-1])!=(32 or 44 or 46)
-  and textscroll != #string
-  and textscroll % 1 == 0
-		then
-				sfx(00)
-		end
-end
-
 -->8
 --event tracker
 
