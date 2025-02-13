@@ -7,12 +7,21 @@ function _init()
 		player = {}
 			 player.room  = 2
 		//info for the events
-		triggers = {
-				key=0,
-		}
+		triggers = {}
+				triggers.key=0
 		//info so we understand which rooms we've been in
 		visitedroom={0,0,0,0,0,0,0,0,0}
-		
+		visitedsub ={
+				{},
+				{0,0,0},
+				{0,0,0},
+				{0,0,0},
+				{0,0,0},
+				{0,0,0},
+				{0,0,0},
+				{0,0,0},
+				{0,0,0},
+		}
 		--[[
 		variables for making various
 		objects "blink", i.e flicker
@@ -49,17 +58,21 @@ function _init()
 							  "as you look around the entrance room, it's clear that the decrepit building isn't exactly safe. water drips from the ceiling, and there's rubble along the floor.",
 							},
 							choice = {
-									"pick up the key",
-									"look around the room.",
+									"check front desk",
+									"look around room.",
 									"go to next room"
 							},
 							followupchoice = {
 									{
-									"you have picked up the key.",
-									"there is nothing left to pick up."
+									"you look around the rugged front desk, seeing if there was anything worth salvaging inside of it. despite not expecting much, as you open it up, you notice that the back of the drawer seems broken, revealing that there's a hidden compartment.",
+									"it's difficult feeling around for whats inside of it, and ultimately your efforts break the already decaying entrance of the compartment open. within is a keycard stained green. seeing nothing else within, you take the keycard in case it may be helpful later.",
+									"there is nothing left inside of the front desk."
 									},
 									{
-									"the bookshelf"
+									"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
+									"after spending a few minutes scavenging the place, its clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
+									"if nothing else, you had some fun while you were doing it, so it's not like this was a complete waste.",
+									"you check around again, but there's still not much of note."
 									},
 									{
 									"you move to the next room.",
@@ -319,8 +332,10 @@ end
 function bugs()		
 		if true
 		then
-				print("textscroll: "..textscroll,8,73)
-				print("currentdialogue: "..#splitdialogue(currentdialogue),8,81)
+				print("textscroll: "..textscroll,8,70)
+				print("#currentdialogue: "..#splitdialogue(currentdialogue),8,76)
+				--print("initmain: "..initialmainval,8,82)
+				print("room 2 choices: "..visitedsub[2][1].." "..visitedsub[2][2].." "..visitedsub[2][3],8,82)
 		end
 end
 -->8
@@ -334,20 +349,15 @@ otherwise, we show the dialogue for the room.
 
 function dialogue(item) 
 
-		--main dialogue code
+		--[[
+		if we have a choice we can make,
+		then we're in the branching dialogue
+		thus, we can continue the story
+		by using our followup dialogue.
+		]]--
 		if selectedchoice != 0 
 		then
-		
-		--next priority!
-			--arbitrary code
-				if events(player.room,selectedchoice,1)
-				then
-						currentdialogue = item.followupchoice[dialogueselection][1]
-				else
-						currentdialogue = item.followupchoice[dialogueselection][2]
-				end			
-				displaydialogue(currentdialogue)
-
+				displaydialogue(item.followupchoice[selectedchoice],visitedsub[player.room][dialogueselection]==0,1)
 		--[[
 		this area is for the main
 		dialogue, i.e the dialogue
@@ -360,73 +370,149 @@ function dialogue(item)
 				then
 						lockchoice = true
 						disable = true
-						displaydialogue(item.dialogue,lockchoice)
-				else
-						displaydialogue(item.dialogue,lockchoice)
 				end
+				displaydialogue(item.dialogue,lockchoice)
 		end
 
 		--in ui page
 		choices(item)
-		
-		//make branching dialogue events occur
-		if btnp(4) and textscroll == #currentdialogue and not disable
+
+		--give better notes
+		if btnp(4) and textscroll == #splitdialogue(currentdialogue) and not disable
 		then
-				textscroll = 0
-				--[[ we run a check: if selection is 0, it means 
-				we're in the main dialogue, so pressing the button means we're
-				making a choice, so we'll lock our ability to choose otherwise temporarily
-				and make our choice what we selected. this allows us
-				to tell the system that if we picked option 1
-				that it should give us the corresponding dialogue
-				for option 1.
-				otherwise, we simply tell the system to put
-				us back on the main dialogue for now.
-				in the future: we will also use this as a chance to update
-				our events and triggers to allow us
-				to move rooms, or get items.
-			 ]]--
+				textscroll = 0			 
 				if selectedchoice == 0
 				then 
 						lockchoice = true
 						selectedchoice = dialogueselection
 				elseif selectedchoice == dialogueselection
 				then
-						events(player.room,selectedchoice)
 						lockchoice = false
 						selectedchoice = 0
 				end
 		end
 end
 
-function displaydialogue(item,binary)
+function displaydialogue(item,binary,branch)
 		--[[
-		if this is the main dialogue		
-		we display the initial dialogue
-		]]--
+		we use this to determine if we should
+		go through the entire dialogue,
+		or if the player has already read it.
+		
+		if binary is true, then we haven't
+		seen the dialogue yet and should
+		display it all. otherwise, just
+		skip to the last part.
+		]]--			
 		if binary
-		then
-				if visitedroom[player.room] == 0
-				then
-						print(sub(splitdialogue(item[initialmainval]),1,textscroll),3,3)
-						sound(splitdialogue(item[initialmainval]))
-						//when the player presses the button, it advances the dialogue
-						if btnp(4)	and textscroll==#splitdialogue(item[initialmainval])
-						then 
-								textscroll = 0
-								if #item-1 > initialmainval
-								then
-										initialmainval += 1
-										currentdialogue = item[initialmainval]
-								else
-										initialmainval = 1
-										visitedroom[player.room] = 1
-										disable = false
-										lockchoice = false
+	 then
+		--[[
+		for our various dialogue options,
+		it's important to ensure that the
+		system knows what our current
+		dialogue is. thus, we have it
+		set so it'll always initialize
+		to the 'start', and we can simply 
+		update it as we go along.
+		]]--
+	 		currentdialogue = item[initialmainval]
+				print(sub(splitdialogue(currentdialogue),1,textscroll),3,3)
+				sound(splitdialogue(currentdialogue))		
+		--[[
+		we have it set so the dialogue can
+		only be advanced once we have reached
+		the end of the paragraph, and that
+		the button is pressed.
+		]]--
+				if btnp(4)	and textscroll==#splitdialogue(item[initialmainval])
+				then 
+		--[[
+		once we move to the next 
+		paragraph, we should start from
+		the beginning of the next
+		sentence, hence we reset the
+		textscroll, which dictates
+		where we are in the sentence.
+		]]--
+						textscroll = 0
+		--[[
+		next, we check if we're about
+		to reach the end of the current
+		dialogue.	if we're not, then
+		we'll continue moving through
+		the paragraphs.
+		
+		otherwise, if we're about to
+		finish, then we'll tell the
+		program that it's time to 
+		adjust	our variables to get
+		ready for allowing the player
+		to make choices again.
+		
+		notably: with how the program
+		works, in one iteration of the
+		loops, it will never display
+		the final part of our dialogue.
+		
+		this is intentional, as for the
+		main dialogue, once the program
+		completes, it will then update
+		our numbers and the program will
+		run again, this time seeing 
+		that it should only run the last
+		line of dialogue and nothing else.
+		
+		this creates a seemless line
+		that ensures we go straight from
+		second to last to last without
+		any issues for the main dialogue.
+		
+		it also ensures that we will 
+		display the last main dialogue
+		after we finish making a choice,
+		giving us something to always
+		go back to.
+		
+		for the branching dialogue, it
+		also works just fine as we can
+		use that last line of dialogue
+		to simply be used as a
+		'reinvestigation' note, i.e
+		after a player checks the same
+		point again, it'll display
+		a short message for the player
+		to understand that they have
+		everything.
+		
+		we're also able to run
+		our events here to ensure that
+		our various checks are being
+		updated.
+		]]--
+						if #item-1 > initialmainval
+						then
+								initialmainval += 1
+				 	else
+				 			if branch
+				 			then
+				 					events(player.room,selectedchoice)
+				 					selectedchoice = 0
+				 			else
+				 					visitedroom[player.room] = 1
 								end
+								initialmainval = 1
+								disable = false
+								lockchoice = false
 						end
 				end
 		else
+		--[[
+		if the binary is false, it
+		means that we've seen this 
+		dialogue before and we can
+		skip straight to the end
+		without fear.
+		]]--		
 				currentdialogue = item[#item]
 				print(sub(splitdialogue(currentdialogue),1,textscroll),3,3)
 				sound(splitdialogue(currentdialogue))
@@ -473,12 +559,20 @@ once the conditions are met, i'll
 then actually update the event once
 i've done what i want first, so it
 won't display incorrectly.
-]]--
 
-function events(place,choice,check)
-		if place == 2
+
+this is the next fix priority
+if we can do this, then we are
+essentially finished giving this
+a 'brain' and can focus on story
+]]--
+function events(check)
+		
+		visitedsub[player.room][selectedchoice] = 1
+		
+		if player.room == 2
 		then
-				if choice == 1
+				if selectedchoice == 1
 				then
 						//did we pick-up the key
 						if triggers.key == 0
@@ -506,15 +600,8 @@ function events(place,choice,check)
 						//we see if we have the key
 						if triggers.key == 1
 						then
-								//we see if we're just checking if we have the key
-								if check == 1
-								then
-										//we have it and say so
-										return true
-								else
-										//we use the key
-										player.room = 5
-								end
+						//we use the key
+								player.room = 5
 						else
 								//we are keyless. possibly kingdom heartless as well
 								return false
