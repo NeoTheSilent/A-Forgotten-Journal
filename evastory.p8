@@ -75,8 +75,9 @@ function _init()
 									"you check around again, but there's still not much of note."
 									},
 									{
-									"you move to the next room.",
-									"the door is locked"
+									"try as you might, the door to the next room is locked, and it'll need a keycard to get through.",
+									"you spend a few minutes trying to get through without one, but it's not budging. it seems you'll need to find a keycard somewhere...",
+									"",
 									}
 							}
 					},
@@ -104,7 +105,10 @@ function _init()
 							followupchoice = {
 							"choice 1",
 							"choice 2",
-							"choice 3",
+									{
+									"choice 3",
+									"choice 3 pt 2"
+									},
 							}
 					},
 					//room 6 information
@@ -335,6 +339,7 @@ function bugs()
 				print("textscroll: "..textscroll,8,70)
 				print("#currentdialogue: "..#splitdialogue(currentdialogue),8,76)
 				--print("initmain: "..initialmainval,8,82)
+				--print("key "..triggers.key,8,82)
 				print("room 2 choices: "..visitedsub[2][1].." "..visitedsub[2][2].." "..visitedsub[2][3],8,82)
 		end
 end
@@ -495,7 +500,7 @@ function displaydialogue(item,binary,branch)
 				 	else
 				 			if branch
 				 			then
-				 					events(player.room,selectedchoice)
+				 					events()
 				 					selectedchoice = 0
 				 			else
 				 					visitedroom[player.room] = 1
@@ -512,61 +517,36 @@ function displaydialogue(item,binary,branch)
 		dialogue before and we can
 		skip straight to the end
 		without fear.
-		]]--		
+		
+		the only thing we should do
+		is display the dialogue, and
+		if we're in a branch, then
+		we should run the event just
+		in case.
+		]]--
 				currentdialogue = item[#item]
 				print(sub(splitdialogue(currentdialogue),1,textscroll),3,3)
-				sound(splitdialogue(currentdialogue))
+				sound(splitdialogue(currentdialogue))				
 		end
 end
 -->8
 --event tracker
 
 --[[
-this is probably spaghetti code
-but it works for my purposes.
-hopefully.
+we're using this program to
+update our events as certain
+things happen due to the player's
+choices.
 
-the three variables are the place
-that the player is in. even though
-we will always use player.room,
-it's less tokens in the long run
-to shorten it here.
-
-variable 2 is choice, so we know
-what the current choice is. thus: with
-the place and the choice, we can
-create custom events for each room!
-i'll likely have to revamp it later,
-but it works for now.
-
-check is the final variable that's used
-more as a way to "check" if an
-event is valid. as an example,
-to move from room 2 to room 5,
-you must have the first key.
-i use check on my first events
-dialogue to know if i should 
-display success or fail dialogue
-doing this, it won't update the flags
-prematurely, which is important as
-if it did update the flag, i would
-go straighto room 5's choice 3
-dialogue and event, despite not
-selecting it.
-
-similarly, later on in dialogue,
-once the conditions are met, i'll
-then actually update the event once
-i've done what i want first, so it
-won't display incorrectly.
-
-
-this is the next fix priority
-if we can do this, then we are
-essentially finished giving this
-a 'brain' and can focus on story
+with my current design philosophy,
+i want to ensure that the various
+checks can only update should
+the player achieve the necessary
+condition. i don't wish to create
+a game that plays itself after all
+with minimal input.
 ]]--
-function events(check)
+function events()
 		
 		visitedsub[player.room][selectedchoice] = 1
 		
@@ -574,41 +554,85 @@ function events(check)
 		then
 				if selectedchoice == 1
 				then
-						//did we pick-up the key
-						if triggers.key == 0
-						then
-								//we see if we're just checking if we have the key
-								if check == 1
-								then
-										//we tell the dialogue we can pick up the key
-										return true
-								else
-										//we use the key
-										triggers.key = 1
-								end
-						else
-								//we already have the key
-								return false		
-						end
-				elseif choice == 2
+				--[[
+				checking this area gives the
+				player a key. as the player
+				never revisits this area
+				after "using" the key, there
+				is no need to reset the key,
+				especially as logically they
+				wouldn't just go and throw
+				it away after using it.
+				
+				we also want to ensure that
+				the player sees the correct
+				message. if the player has
+				picked up the key, then
+				the door dialogue will update
+				accordingly.
+				
+				while it is not 100% necessary
+				at this time to create new
+				dialogue, at a later stage
+				in the program, i will want
+				to completely overwrite a
+				room's information when the
+				player backtracks through it,
+				to more accurately display
+				the information.
+				
+				as such, this is being used
+				as a proof of concept to ensure
+				we can update the information
+				as necessary.
+				]]--
+						triggers.key = 1
+						story[2].followupchoice[3]={
+						"after using the keycard, the door opens with a small cloud of mist dispersing into the room. you can smell fresh plant life up ahead. a faint light illuminates the room, showing that a spiral staircase is what awaits you with vines growing throughout the room. with no other option, you descend the stairs",
+						"you slowly make your way down the stairs, being as careful as you can. each step causes the stairs to let out an awful creak, and whether it'll be from the stair underneath you breaking or tripping on an errant vine, a fall from here wouldn't be pretty.",
+						""
+						}
+				--[[
+				due to the second option
+				not accomplishing anything,
+				only used for story telling,
+				there is no need to give it
+				any special events.
+				
+				for the third option,
+				if we have the key, then 
+				it'll transport us to the
+				next room. otherwise,
+				nothing happens.
+				
+				in the event of the latter,
+				we have it reset the choice
+				so the player can reread it
+				if they get confused on what
+				they need.
+				
+				granted, this isn't that 
+				complex of a puzzle, but
+				being able to reset room
+				states will be important later.
+				]]--
+				elseif selectedchoice == 3
 				then
 				--[[
-				nothing happens, just reading
+				we see if we have the key
+				if we do, we go through
+				to room "5", otherwise
+				we do nothing.
 				]]--
-				elseif choice == 3
-				then
-						//we see if we have the key
-						if triggers.key == 1
+						if triggers.key == 1 
+						and visitedsub[2][3] == 1
 						then
-						//we use the key
 								player.room = 5
 						else
-								//we are keyless. possibly kingdom heartless as well
-								return false
+								visitedsub[2][3] = 0
 						end					
 				end
 		end
-		return true
 end
 -->8
 -- dialogue splitter
