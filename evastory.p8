@@ -5,11 +5,35 @@ __lua__
 function _init()
 		//info for the player
 		player = {}
-			 player.room  = 2
-		//info for the events
-		triggers = {}
-				triggers.key=0
-		//info so we understand which rooms we've been in
+				--default is 2
+			 player.room  = 5
+		bugtest = false	 
+		
+		--[[
+		a list of event triggers
+		for important variables.
+		i'm aware that putting it as
+		trigger.key for example may
+		be better to ensure that
+		everything is properly placed,
+		but for now i'm prefering this
+		to limit the amount of tokens
+		i'm using, and to make the
+		program more readable in
+		pico8 specifically.
+		]]--
+		direction = "left"
+		key1=0
+		journal1=0
+		computer1=0
+		
+		--[[
+		it's important to know which 
+		rooms we have entered already
+		so we use these tables to
+		learn which rooms we've already
+		been in.
+		]]--
 		visitedroom={0,0,0,0,0,0,0,0,0}
 		visitedsub ={
 				{},
@@ -94,17 +118,27 @@ function _init()
 					//room 5 information
 					{
 							dialogue = {
-									"this is room 5",
-									"this is the final room 5 dialogue"
+									"ultimately, you make your way to the base of the stairs without issue. the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you. it'll be impossible to keep your shoes dry, as there's a few puddles on the floor. it's odd, the plant life around you shouldn't have grown so quickly.",
+									"if it were a few decades, it'd be expected but it was only a year since that explosion. some growth could have occurred, but with only a few flickering lightbulbs as a source of light, it doesn't make sense for the plants around you to have gotten so lively. looking at them closer won't answer any of your lingering questions.",
+									"the door ahead of you is closed, but it doesn't match the decor of the apartment above. it's a painfully white door, the type that you'd expect in a hospital or laboratory, though there's faint stains of red on the door and floor near it. it's not too late to go back up the stairs and leave... but you won't get the answer to what happened here.",
+									"it's an automatic door, but unsurprisingly it's broken after all this time. it takes a few minutes, but you force it open. it seemed that this place appears to be a laboratory. if the stairs looked overgrown, then this was a proper jungle! the plants had completely taken over, it was impossible to find a single surface that didn't have some sort of flora growing on it.",
+									"you carefully make your way into the room, trying not to step on any of the plants while carefully looking around. there was a clear glass window in front of you, showing the room on the otherside... or at least it would. it was completely obscured by the plants on the otherside, with a few cracks at certain points.",
+									"from an initial glance, there's a lot to look at on both sides of this room. you decide to start by looking at the left. towards the left side, on a desk, there seems to be a book covered in vines, and there's a door on the left wall with a dull light shining from it. it also seems to be cracked open."
 							},
 							choice = {
-									"option 1",
-									"option 2",
-									"option 3",
+									"check journal",
+									"check other side",
+									"enter left room.",
 							},
 							followupchoice = {
-							"choice 1",
-							"choice 2",
+									{
+									"it takes a few moments to pry the journal from the vines, as they were hugging it rather tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant. you decide to open the book, and see if anything is even in it.",
+									"you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are illegible.",
+									},
+									{
+									"you decide to start looking around on the other side of the room, to see if there's anything special there. it won't hurt to take a proper look.",
+									"you look back to the otherside, to see if you missed anything. it's not like taking a closer look will hurt."
+									},
 									{
 									"choice 3",
 									"choice 3 pt 2"
@@ -334,13 +368,13 @@ function choices(item)
 end
 
 function bugs()		
-		if true
+		if bugtest
 		then
-				print("textscroll: "..textscroll,8,70)
-				print("#currentdialogue: "..#splitdialogue(currentdialogue),8,76)
+				print("computer1: "..computer1,8,70)
+				print("selectedchoice: "..selectedchoice,8,76)
 				--print("initmain: "..initialmainval,8,82)
 				--print("key "..triggers.key,8,82)
-				print("room 2 choices: "..visitedsub[2][1].." "..visitedsub[2][2].." "..visitedsub[2][3],8,82)
+				print("room 5 choices: "..visitedsub[5][1].." "..visitedsub[5][2].." "..visitedsub[5][3],8,82)
 		end
 end
 -->8
@@ -586,8 +620,8 @@ function events()
 				we can update the information
 				as necessary.
 				]]--
-						triggers.key = 1
-						story[2].followupchoice[3]={
+						key1 = 1
+						story[2].followupchoice[3] = {
 						"after using the keycard, the door opens with a small cloud of mist dispersing into the room. you can smell fresh plant life up ahead. a faint light illuminates the room, showing that a spiral staircase is what awaits you with vines growing throughout the room. with no other option, you descend the stairs",
 						"you slowly make your way down the stairs, being as careful as you can. each step causes the stairs to let out an awful creak, and whether it'll be from the stair underneath you breaking or tripping on an errant vine, a fall from here wouldn't be pretty.",
 						""
@@ -624,13 +658,119 @@ function events()
 				to room "5", otherwise
 				we do nothing.
 				]]--
-						if triggers.key == 1 
+						if key1 == 1 
 						and visitedsub[2][3] == 1
 						then
 								player.room = 5
 						else
 								visitedsub[2][3] = 0
 						end					
+				end
+		elseif player.room == 5
+		then
+				if selectedchoice == 1
+				then
+						if direction == "right"
+						and computer1 == 0
+						then
+								computer1 = 1
+						elseif direction == "left"
+						and journal1 == 0
+						then
+								journal1 = 1
+						end
+				end
+				if selectedchoice == 2
+				then
+				--[[
+				we change the dialogue to 
+				ensure we can turn around
+				and have more than 3 options
+				for a given room.
+				
+				in theory, we can have up
+				to 12 checks for a given room
+				by looking up down left or
+				right.
+				
+				due to how our events
+				currently work, we must
+				always ensure that the
+				room is marked as "unentered"
+				otherwise it won't repeat events.
+				
+				that will need to be bugfixed.
+				]]--
+						visitedsub[5][2] = 0
+				--[[
+				we also need to ensure each
+				room isn't marked as "entered"
+				if it hasn't been entered.
+				]]--
+						if direction == "left"
+						then
+								if computer1 == 0
+								then
+										visitedsub[5][1] = 0
+								else
+										visitedsub[5][1] = 1
+								end
+								story[5].dialogue[6] = "as you look on the right side, there seems to be a few computers as well that may be worth checking. you can also see that along the right wall, there seems to be a door with a red light above the doorframe."
+								story[5].choice[1] = "look at computers"
+								story[5].followupchoice[1] = 
+								{
+										"you check the computers, but it seems that they're broken. they won't turn on, no matter what you press. considering that the room has a number of puddles, this doesn't come as a huge surprise.",
+										"you check again to see if the computers might have somehow started working, but they're still unresponsive.",
+								}
+								story[5].choice[3] = "enter right room"
+								direction = "right"
+								return true
+						elseif direction == "right"
+						then
+								if journal1 == 0
+								then
+										visitedsub[5][1] = 0
+								else
+										visitedsub[5][1] = 1
+								end
+								story[5].dialogue[6] =	"as you look on the left side. on a desk, there seems to be a book covered in vines, and there's a door on the left wall with a dull light shining from it. it also seems to be cracked open."
+								story[5].choice[1] = "check journal"
+								story[5].followupchoice[1] = 
+								{
+										"it takes a few moments to pry the journal from the vines, as they were hugging it rather tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant. you decide to open the book, and see if anything is even in it.",
+									 "you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are illegible.",
+								}
+								story[5].choice[3] = "enter left room"
+								direction = "left"
+								return true
+						end
+				end
+				--[[
+				while room movement is
+				usually locked for most rooms,
+				i.e: "you can only move
+				this way", room 5 lets the
+				player choose which room they
+				wish to go to, so depending
+				if certain triggers are set,
+				they can go to a number of rooms.
+				
+				initially: they can go to
+				room 4 without any issue, but
+				room 6 requires a key.
+				
+				i have yet to implement the key
+				that is my next goal.
+				]]--
+			 if selectedchoice == 3
+		  then
+						if direction == "left"
+						then
+								player.room = 4
+						elseif direction == "right"
+						then
+								player.room = 6
+						end
 				end
 		end
 end
