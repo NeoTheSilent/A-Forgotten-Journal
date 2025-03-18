@@ -6,7 +6,7 @@ function _init()
 		//info for the player
 		player = {}
 				--default is 2
-			 player.room  = 5
+			 player.room  = 4
 		bugtest = false	 
 		
 		--[[
@@ -23,9 +23,14 @@ function _init()
 		pico8 specifically.
 		]]--
 		direction = "left"
+		--located in room2
 		key1=0
+		--located in room 4
+		key2=0
+		--located in room 5
 		journal1=0
 		computer1=0
+		door6=0
 		
 		--[[
 		it's important to know which 
@@ -34,7 +39,7 @@ function _init()
 		learn which rooms we've already
 		been in.
 		]]--
-		visitedroom={0,0,0,0,0,0,0,0,0}
+		visitedroom={0,1,0,1,1,0,0,0,0}
 		visitedsub ={
 				{},
 				{0,0,0},
@@ -112,8 +117,33 @@ function _init()
 					},
 					//room 4 information
 					{
-							dialogue = {"nothing"},
-							choice = {"nothing"}
+							dialogue = {
+							"it seemed that this room had quite a few rather odd looking plants inside, they almost seemed to glow with vibrancy. furthermore, there were certainly a few computers in here and storage cabinets. though, with the computers, they seemed to be non operational. the odd looking plants were locked away in glass containers, almost like it was meant for observation.",
+							"as you walk in, a small alarm goes off. it was barely audible, and after a few moments the sprinklers in the room go off, letting a very gentle mist of water into the room. it certainly wouldn't put out any fires, but it'd at least water the plants that had taken root in here.",
+							"if nothing else, it wouldn't hurt to take a look around this room. with some luck, perhaps something valuable could be found, or at least some sort of clue to help you understand what happened. you can't exactly go back empty handed now... you're doing this for your sister after all. if you can't find anything here...",
+							"these thoughts won't help you now. gently slapping your own cheeks, you regain the confidence to continue searching."
+							},
+							choice = {
+									"check cabinets",
+									"check doors",
+									"leave the room."
+							},
+							followupchoice = {
+									{
+									"the cabinets are in a rather sorry state, banged up from having fallen over. thankfully, they seem to be unlocked, so opening it isn't an issue. there's plenty in here, though you're not exactly sure what much of it is. ultimately, the only thing you take from the cabinet is a keycard marked with the number marked 6 on it.",
+									"you take a second look to be extra safe. while you do find some scientific instruments that could sell for a pretty penny, there's nothing useful for you at the moment here. you make a mental note to return before you leave."
+									},
+									{
+									"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
+									"after spending a few minutes scavenging the place, its clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
+									"if nothing else, you had some fun while you were doing it, so it's not like this was a complete waste.",
+									"you check around again, but there's still not much of note."
+									},
+									{
+									"you walk out of the room, careful not to bump into anything on the way out. as you step through the door, you're careful to leave it open slightly, on the off chance that closing it could get the door stuck.",
+									"",
+									}
+							}
 					},
 					//room 5 information
 					{
@@ -140,8 +170,8 @@ function _init()
 									"you look back to the otherside, to see if you missed anything. it's not like taking a closer look will hurt."
 									},
 									{
-									"choice 3",
-									"choice 3 pt 2"
+									"you open the door slowly. it resists slightly, though it comes as little surprise considering the state of the room. it's a miracle that something hadn't fallen over and blocked the door after all. you look inside the room.",
+									""
 									},
 							}
 					},
@@ -256,7 +286,7 @@ if they are, we do an alternative
 sprite to show it.]]--
 						if temp==player.room
 						then
-							spr(blinkmap[swapblinkstate],122-(8*j),114-(8*i))
+							spr(blinkmap[swapblinkstate],90+(8*j),114-(8*i))
 --[[alternatively, if the player
 isn't in the room, we show off
 if the room is discovered by seeing
@@ -267,7 +297,7 @@ nothing, as they don't know it
 exists yet.]]--
 						elseif room[(temp)]==1 and visitedroom[temp]==1
 						then
-								spr(001,122-(8*j),114-(8*i))
+								spr(001,90+(8*j),114-(8*i))
 						end
 				end
 		end
@@ -666,8 +696,62 @@ function events()
 								visitedsub[2][3] = 0
 						end					
 				end
+		--[[
+		room 3
+		intentionally omitted, due
+		to the facility's layout
+		not showing one.
+
+ 	elseif player.room == 3
+		then
+				if selectedchoice == 1
+				then
+				
+				if selectedchoice == 2
+				then
+				
+				if selectedchoice == 3
+				then
+				
+				
+		]]--		
+		--[[
+		room 4
+		]]--
+		elseif player.room == 4
+		then
+				if selectedchoice == 1
+				then
+						key2 = 1
+				end
+				
+				if selectedchoice == 2
+				then
+				end
+				
+				if selectedchoice == 3
+				then
+						visitedsub[4][3] = 0
+						story[5].dialogue[6] = "this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
+				  story[5].followupchoice[3] = 
+							{
+					    "thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
+					    "",
+					  }	
+						player.room = 5
+				end
+	
+		--[[
+	 room 5
+		]]--
 		elseif player.room == 5
 		then
+				--[[
+				we are marking that the
+				player has checked these
+				locations if they actually
+				check them.
+				]]--
 				if selectedchoice == 1
 				then
 						if direction == "right"
@@ -722,17 +806,75 @@ function events()
 										"you check the computers, but it seems that they're broken. they won't turn on, no matter what you press. considering that the room has a number of puddles, this doesn't come as a huge surprise.",
 										"you check again to see if the computers might have somehow started working, but they're still unresponsive.",
 								}
+								--[[
+								acess to room 6
+								we must switch sides
+								to go to the next room
+								so after leaving room 4
+								this check should always
+								happen
+								]]--
+								if key2 == 1
+								then
+										visitedsub[5][3] = 0
+										story[5].followupchoice[3] = 
+										{
+												"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door.",
+											 "",
+										}
+								else
+										if door6 == 0
+										then
+												visitedsub[5][3] = 0
+										end
+										story[5].followupchoice[3] = 
+										{
+												"the door on the right side seems to be fully intact. a red light is present above the door. furthermore, there seems to be a card scanner to the right. you try using the card that you found upstairs, swiping it through. the scanner flashes red and lets out a negative beep. it seems this won't work, you'll have to find a new card.",
+												"you swipe through the card again, to see if maybe you had done it incorrectly. the scanner rejects this attempt as well. you try once more for good measure, but the scanner flashes red once again. this isn't going to work, in all likelyhood."
+										}
+								end
+
 								story[5].choice[3] = "enter right room"
 								direction = "right"
 								return true
 						elseif direction == "right"
 						then
+								--[[
+								ensuring that checks
+								from one side of the
+								room don't affect the 
+								other side.
+								]]--
 								if journal1 == 0
 								then
 										visitedsub[5][1] = 0
 								else
 										visitedsub[5][1] = 1
 								end
+								--[[
+								the best way to check
+								if we've entered a room
+								before is by using
+								visitedroom. thus,
+								we can use that to
+								set the correct dialogue
+								each time we switch.
+								]]--
+								visitedsub[5][3] = 0
+								if visitedroom[4] == 0
+								then
+										story[5].followupchoice[3] = 
+								  {
+								    "you open the door slowly. it resists slightly, though it comes as little surprise considering the state of the room. it's a miracle that something hadn't fallen over and blocked the door after all. you look inside the room.",
+								    "",
+								  }
+								else	
+								  story[5].followupchoice[3] = 
+								  {
+								    "thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
+								    "",
+								  }									
+								end		
 								story[5].dialogue[6] =	"as you look on the left side. on a desk, there seems to be a book covered in vines, and there's a door on the left wall with a dull light shining from it. it also seems to be cracked open."
 								story[5].choice[1] = "check journal"
 								story[5].followupchoice[1] = 
@@ -769,7 +911,11 @@ function events()
 								player.room = 4
 						elseif direction == "right"
 						then
-								player.room = 6
+								if key2 == 1
+								then
+										player.room = 6
+								end
+								door6 = 1
 						end
 				end
 		end
