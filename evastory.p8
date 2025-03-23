@@ -6,7 +6,7 @@ function _init()
 		//info for the player
 		player = {}
 				--default is 2
-			 player.room  = 4
+			 player.room  = 5
 		bugtest = false	 
 		
 		--[[
@@ -29,8 +29,6 @@ function _init()
 		key2=0
 		--located in room 5
 		journal1=0
-		computer1=0
-		door6=0
 		
 		--[[
 		it's important to know which 
@@ -39,17 +37,17 @@ function _init()
 		learn which rooms we've already
 		been in.
 		]]--
-		visitedroom={0,1,0,1,1,0,0,0,0}
+		visitedroom={0,1,0,0,0,0,0,0,0}
 		visitedsub ={
 				{},
-				{0,0,0},
-				{0,0,0},
-				{0,0,0},
-				{0,0,0},
-				{0,0,0},
-				{0,0,0},
-				{0,0,0},
-				{0,0,0},
+				{0,0,0,0,0,0},
+				{},
+				{0,0,0,0,0,0},
+				{0,0,0,0,0,0},
+				{0,0,0,0,0,0},
+				{0,0,0,0,0,0},
+				{0,0,0,0,0,0},
+				{0,0,0,0,0,0},
 		}
 		--[[
 		variables for making various
@@ -61,6 +59,8 @@ function _init()
 		blinktimer = 15
 		blinkmap={001,002}
 		blinksel={003,004}
+		blinkchc={005,006}		
+		blinkchc2={007,008}
 		
 		//variables for dialogue
 		dialogueselection = 1
@@ -157,6 +157,46 @@ function _init()
 							},
 							choice = {
 									"check journal",
+								 "check computers",
+								 "check glass",
+									"enter left door.",
+									"enter right door.",
+									"go back upstairs.",
+							},
+							followupchoice = {
+									{
+									"it takes a few moments to pry the journal from the vines, as they were hugging it rather tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant. you decide to open the book, and see if anything is even in it.",
+									"you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are illegible.",
+									},
+									{
+										"you check the computers, but it seems that they're broken. they won't turn on, no matter what you press. considering that the room has a number of puddles, this doesn't come as a huge surprise.",
+										"you check again to see if the computers might have somehow started working, but they're still unresponsive.",
+								 },
+								 {
+										"considering that there's a giant pane of glass in front of you, it wouldn't hurt to try and look through it. you spend a few moments trying to look through, the glass has gotten foggy and the lights don't seem to be on considering it's pitch black in there. all you can manage to see is that there's vines near the glass.",
+										"you take a second look to see if anything you've done made it more visible. unfortunately, it didn't and you still can't see anything within."
+								 },
+									{
+									 "you open the left door slowly. it doesn't open easily, you can feel some resistance but it doesn't take much effort to open it. it's a pleasant surprise, considering the state of the facility, it's a miracle that something hadn't fallen over and blocked the door after all. you look inside the room.",
+									 ""
+									},
+									{
+										"the door on the right side seems to be fully intact. a red light is present above the door. furthermore, there seems to be a card scanner to the right. you try using the card that you found upstairs, swiping it through. the scanner flashes red and lets out a negative beep. it seems this won't work, you'll have to find a new card.",
+										"you swipe through the card again, to see if maybe you had done it incorrectly. the scanner rejects this attempt as well. you try once more for good measure, but the scanner flashes red once again. this isn't going to work, in all likelyhood."
+									},
+									{
+										"you just came down here. leaving now would be a waste, as you haven't found anything valuable. it may be safer to leave, but what would be the point?"
+									}
+							}
+					},
+					//room 6 information
+					//do later
+					{
+							dialogue = {
+									"you step into the room carefully. "
+							},
+							choice = {
+									"check journal",
 									"check other side",
 									"enter left room.",
 							},
@@ -174,11 +214,6 @@ function _init()
 									""
 									},
 							}
-					},
-					//room 6 information
-					{
-							dialogue = {"nothing"},
-							choice = {"nothing"}
 					},
 					//room 7 information
 					{
@@ -268,7 +303,7 @@ function ui()
 		//holder for room ui
 		rect(96,88,123,123,2)
 
-		//dialogue ui
+		//room ui
 		rect(5,88,91,123,2)
 		//using this to place a grid from the info in room
 		for i = 0, 3 do
@@ -304,19 +339,64 @@ exists yet.]]--
 end
 
 
-function selection(currentselection,x,y,binary) 
-		--[[
-		a function to ensure that only
-		the correct option should blink
-		in this case, this means that
-		what the player is choosing to
-		do will blink.
-		]]--
-		if currentselection == dialogueselection and binary
+function selection(blinker,cond1,cond2,x,y)
+		if cond1 and cond2
 		then
-				spr(blinksel[swapblinkstate],x,y)
+				spr(blinker[swapblinkstate],x,y)
 		else
-				spr(blinksel[1],x,y)
+				spr(blinker[1],x,y)
+		end
+end
+
+function choices(item)
+		//
+		if not lockchoice
+		then
+		//
+				if #item.choice > 3
+				then
+						selection(blinkchc,
+						dialogueselection!=1,
+						textscroll == #splitdialogue(currentdialogue),
+						78,116)
+						selection(blinkchc2,
+						dialogueselection!=#item.choice,
+						textscroll == #splitdialogue(currentdialogue),
+						84,116)
+				//
+				end
+				
+				if dialogueselection >= 3
+				then
+						over3 = dialogueselection-3
+				else
+						over3 = 0
+				end
+				
+		 	for i = 1, 3 do	 	
+				  		print(item.choice[i+over3],8,81+(i*10))
+				  		selection(blinksel,
+				  		i+over3==dialogueselection,
+				  		textscroll == #splitdialogue(currentdialogue),
+				  		80,79+(i*10))
+				end
+				
+				if not disable and textscroll == #splitdialogue(currentdialogue)
+						then
+						if btnp(3) and dialogueselection < #item.choice
+						then
+								dialogueselection += 1
+						elseif btnp(2) and dialogueselection > 1
+						then
+								dialogueselection -= 1
+						end
+				end
+		else
+				print("continue",8,91)
+				selection(blinksel,
+				true,
+				textscroll == #splitdialogue(currentdialogue),
+				80,89)
 		end
 end
 
@@ -338,62 +418,6 @@ function sound(string)
   and textscroll % 1 == 0
 		then
 				sfx(00)
-		end
-end
-
-function choices(item)
-		--[[
-		we must check to see if our
-		choices are currently locked.
-		if they are, we can't do
-		anything. hence, lockchoice
-		]]--
-		if not lockchoice
-		then
-				--[[
-				we use a for loop to display
-				all possible choices, though
-				for most cases, it should
-				only be 2 or 3
-				
-				we print out the choice,
-				then we print out the button
-				that allows it to blink if
-				we're selecting it or not.
-				]]--
-				for i = 1, #item.choice+1 do
-						if item.choice[i]
-						then 
-				  		print(item.choice[i],8,81+(i*10))
-				  		selection(i,80,79+(i*10),textscroll == #splitdialogue(currentdialogue))
-						end
-				end
-				--[[
-				this also allows us to choose
-				what branching path we wish to
-				explore. we can only explore if
-				the dialogue has finished displaying
-				]]--
-				if not disable and textscroll == #splitdialogue(currentdialogue)
-						then
-						if btnp(3) and dialogueselection < #item.choice
-						then
-								dialogueselection += 1
-						elseif btnp(2) and dialogueselection > 1
-						then
-								dialogueselection -= 1
-						end
-				end
-		else
-				--[[
-				if we're locked in the main
-				dialogue, we'll put in a 
-				simple 'continue' button
-				to allow the player to 
-				move through the dialogue.
-				]]--
-				print("continue",8,91)
-				selection(1,80,89,textscroll == #splitdialogue(currentdialogue))
 		end
 end
 
@@ -720,20 +744,23 @@ function events()
 		]]--
 		elseif player.room == 4
 		then
+				//
 				if selectedchoice == 1
 				then
 						key2 = 1
+						visitedsub[5][5] = 0
+						story[5].followupchoice[5] = 
+							{
+									"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door.",
+							}
 				end
-				
-				if selectedchoice == 2
-				then
-				end
-				
+				//
 				if selectedchoice == 3
 				then
-						visitedsub[4][3] = 0
+						visitedsub[4][3] = 0						
+						visitedsub[5][4] = 0
 						story[5].dialogue[6] = "this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
-				  story[5].followupchoice[3] = 
+				  story[5].followupchoice[4] = 
 							{
 					    "thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
 					    "",
@@ -746,179 +773,21 @@ function events()
 		]]--
 		elseif player.room == 5
 		then
-				--[[
-				we are marking that the
-				player has checked these
-				locations if they actually
-				check them.
-				]]--
 				if selectedchoice == 1
 				then
-						if direction == "right"
-						and computer1 == 0
-						then
-								computer1 = 1
-						elseif direction == "left"
-						and journal1 == 0
-						then
-								journal1 = 1
-						end
+						journal1 = 1
 				end
-				if selectedchoice == 2
-				then
-				--[[
-				we change the dialogue to 
-				ensure we can turn around
-				and have more than 3 options
-				for a given room.
-				
-				in theory, we can have up
-				to 12 checks for a given room
-				by looking up down left or
-				right.
-				
-				due to how our events
-				currently work, we must
-				always ensure that the
-				room is marked as "unentered"
-				otherwise it won't repeat events.
-				
-				that will need to be bugfixed.
-				]]--
-						visitedsub[5][2] = 0
-				--[[
-				we also need to ensure each
-				room isn't marked as "entered"
-				if it hasn't been entered.
-				]]--
-						if direction == "left"
-						then
-								if computer1 == 0
-								then
-										visitedsub[5][1] = 0
-								else
-										visitedsub[5][1] = 1
-								end
-								story[5].dialogue[6] = "as you look on the right side, there seems to be a few computers as well that may be worth checking. you can also see that along the right wall, there seems to be a door with a red light above the doorframe."
-								story[5].choice[1] = "look at computers"
-								story[5].followupchoice[1] = 
-								{
-										"you check the computers, but it seems that they're broken. they won't turn on, no matter what you press. considering that the room has a number of puddles, this doesn't come as a huge surprise.",
-										"you check again to see if the computers might have somehow started working, but they're still unresponsive.",
-								}
-								--[[
-								acess to room 6
-								we must switch sides
-								to go to the next room
-								so after leaving room 4
-								this check should always
-								happen
-								]]--
-								if key2 == 1
-								then
-										visitedsub[5][3] = 0
-										story[5].followupchoice[3] = 
-										{
-												"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door.",
-											 "",
-										}
-								else
-										if door6 == 0
-										then
-												visitedsub[5][3] = 0
-										end
-										story[5].followupchoice[3] = 
-										{
-												"the door on the right side seems to be fully intact. a red light is present above the door. furthermore, there seems to be a card scanner to the right. you try using the card that you found upstairs, swiping it through. the scanner flashes red and lets out a negative beep. it seems this won't work, you'll have to find a new card.",
-												"you swipe through the card again, to see if maybe you had done it incorrectly. the scanner rejects this attempt as well. you try once more for good measure, but the scanner flashes red once again. this isn't going to work, in all likelyhood."
-										}
-								end
-
-								story[5].choice[3] = "enter right room"
-								direction = "right"
-								return true
-						elseif direction == "right"
-						then
-								--[[
-								ensuring that checks
-								from one side of the
-								room don't affect the 
-								other side.
-								]]--
-								if journal1 == 0
-								then
-										visitedsub[5][1] = 0
-								else
-										visitedsub[5][1] = 1
-								end
-								--[[
-								the best way to check
-								if we've entered a room
-								before is by using
-								visitedroom. thus,
-								we can use that to
-								set the correct dialogue
-								each time we switch.
-								]]--
-								visitedsub[5][3] = 0
-								if visitedroom[4] == 0
-								then
-										story[5].followupchoice[3] = 
-								  {
-								    "you open the door slowly. it resists slightly, though it comes as little surprise considering the state of the room. it's a miracle that something hadn't fallen over and blocked the door after all. you look inside the room.",
-								    "",
-								  }
-								else	
-								  story[5].followupchoice[3] = 
-								  {
-								    "thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
-								    "",
-								  }									
-								end		
-								story[5].dialogue[6] =	"as you look on the left side. on a desk, there seems to be a book covered in vines, and there's a door on the left wall with a dull light shining from it. it also seems to be cracked open."
-								story[5].choice[1] = "check journal"
-								story[5].followupchoice[1] = 
-								{
-										"it takes a few moments to pry the journal from the vines, as they were hugging it rather tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant. you decide to open the book, and see if anything is even in it.",
-									 "you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are illegible.",
-								}
-								story[5].choice[3] = "enter left room"
-								direction = "left"
-								return true
-						end
-				end
-				--[[
-				while room movement is
-				usually locked for most rooms,
-				i.e: "you can only move
-				this way", room 5 lets the
-				player choose which room they
-				wish to go to, so depending
-				if certain triggers are set,
-				they can go to a number of rooms.
-				
-				initially: they can go to
-				room 4 without any issue, but
-				room 6 requires a key.
-				
-				i have yet to implement the key
-				that is my next goal.
-				]]--
-			 if selectedchoice == 3
+			 if selectedchoice == 4
 		  then
-						if direction == "left"
-						then
-								player.room = 4
-						elseif direction == "right"
-						then
-								if key2 == 1
-								then
-										player.room = 6
-								end
-								door6 = 1
-						end
+						player.room = 4
+				end
+				if selectedchoice == 5 
+				and key2 == 1
+				then
+						player.room = 6
 				end
 		end
+		dialogueselection = 1
 end
 -->8
 -- dialogue splitter
@@ -1028,10 +897,10 @@ end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000033333300333333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00700700030000300300003003333300033333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-0007700003000030030bb03003000030030000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-0007700003000030030bb03003000003030bb0030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00700700030000300300003003000030030000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700030000300300003003333300033333000003300000033000003333000033330000000000000000000000000000000000000000000000000000000000
+0007700003000030030bb030030000300300003000300300003bb30000300300003bb30000000000000000000000000000000000000000000000000000000000
+0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb30000000000000000000000000000000000000000000000000000000000
+00700700030000300300003003000030030000300033330000333300000330000003300000000000000000000000000000000000000000000000000000000000
 00000000033333300333333003333300033333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __sfx__
 0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
