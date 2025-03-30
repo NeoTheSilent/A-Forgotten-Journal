@@ -6,7 +6,7 @@ function _init()
 		//info for the player
 		player = {}
 				--default is 2
-			 player.room  = 5
+			 player.room  = 6
 		bugtest = false	 
 		
 		--[[
@@ -25,10 +25,13 @@ function _init()
 		direction = "left"
 		--located in room2
 		key1=0
+		previewroom4 = 0
 		--located in room 4
 		key2=0
 		--located in room 5
 		journal1=0
+		--located in room 6
+		shears=0
 		
 		--[[
 		it's important to know which 
@@ -37,7 +40,7 @@ function _init()
 		learn which rooms we've already
 		been in.
 		]]--
-		visitedroom={0,1,0,0,0,0,0,0,0}
+		visitedroom={0,0,0,0,0,0,0,0,0,0,0,0}
 		visitedsub ={
 				{},
 				{0,0,0,0,0,0},
@@ -72,12 +75,12 @@ function _init()
 		textscroll=1
 		//array that holds room info
 		story = {
-					//room 1 information
+					// [room 1]
 					{
-							dialogue = {"nothing"},
+							dialogue = {"this room is intentionally blank"},
 							choice = {"nothing"}
 					},
-					//room 2 information
+					// [room 2]
 				 {
 							dialogue = {
 									"you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened.",
@@ -110,12 +113,12 @@ function _init()
 									}
 							}
 					},
-					//room 3 information
+					// [room 3]
 					{
-							dialogue = {"nothing"},
+							dialogue = {"this room is intentionally blank"},
 							choice = {"nothing"}
 					},
-					//room 4 information
+					// [room 4]
 					{
 							dialogue = {
 							"it seemed that this room had quite a few rather odd looking plants inside, they almost seemed to glow with vibrancy. furthermore, there were certainly a few computers in here and storage cabinets. though, with the computers, they seemed to be non operational. the odd looking plants were locked away in glass containers, almost like it was meant for observation.",
@@ -145,7 +148,7 @@ function _init()
 									}
 							}
 					},
-					//room 5 information
+					// [room 5]
 					{
 							dialogue = {
 									"ultimately, you make your way to the base of the stairs without issue. the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you. it'll be impossible to keep your shoes dry, as there's a few puddles on the floor. it's odd, the plant life around you shouldn't have grown so quickly.",
@@ -189,30 +192,55 @@ function _init()
 									}
 							}
 					},
-					//room 6 information
-					//do later
+					// [room 6]
 					{
 							dialogue = {
-									"you step into the room carefully. "
+									"similar to before, a mist comes out the door as it unlocks. it's hard to control this feeling of dread that's growing inside of you. you can't help but shake the feeling that you're being watched. you've seen a few cameras in the previous rooms, but none of them appeared to be working. it's different, something else may be looking... at least, that's what it feels like.",
+									--"perhaps your mind is playing tricks on you. it's unlikely that anyone could still be here after all this time, with the place in this condition. if there were anyone, you should've seen them by now. outside of the plants you've found, there's been no evidence of anything else.",
+									--"at any rate, you can't leave now. you haven't found anything yet that makes this investigation worth it. there should be something valuable that you could take here, whether it's equipment or some information you could sell. with some luck, it'll be enough to keep you and your sister fed for a long time.",
+									--"summoning your own courage, you step inside the now unlocked room. not knowing what to expect, you carefully survey your surroundings. this room appears to be a decontamination room. there's a few hazmat suits along the wall with a compact shower next to it. you can also see a larger scanner. it's rather large, and the only way to get to the door is to walk through it.",
+									--"you can also notice that there are two larger desks in the room, and that the scanner on the other doorway seems to have something on it's display. there also seems to be a few lockers along the opposite wall from your doorway.",
+									"carefully walking around the room, you start to take a closer look at your surroundings."
 							},
 							choice = {
-									"check journal",
-									"check other side",
-									"enter left room.",
+									"check hazmat suits",
+									"check shower",
+									"check smaller desk.",
+									"check larger desk.",
+									"check lockers",
+									"enter the scanner."
 							},
 							followupchoice = {
 									{
-									"it takes a few moments to pry the journal from the vines, as they were hugging it rather tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant. you decide to open the book, and see if anything is even in it.",
-									"you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are illegible.",
+									"there's enough suits here for a few people, which makes it all that more concerning that you haven't found anyone... or anything. you fish through the pockets for a few minutes, but there's nothing worth taking within. it would've been too easy if there was a keycard within.",
+									"concerned that you may have missed something, you check the pockets again. you did manage to find something this time, a spare handkerchief. it looks rather nice, so it might make a fine gift in the future, though it certainly won't help you today."
 									},
 									{
-									"you decide to start looking around on the other side of the room, to see if there's anything special there. it won't hurt to take a proper look.",
-									"you look back to the otherside, to see if you missed anything. it's not like taking a closer look will hurt."
+									"a small shower roughly two feet by two feet, it seems to exist only to wash you down before you enter or after you leave. it doesn't take you long to check around, there's not many places to hide anything after all. unfortunately, your searches come up empty.",
+									"erring on the side of caution, you decide to check if there's anything under the grate, but you come up empty, and the handles don't seem to be hiding anything either.",
+									"it seems the only thing here for you is the ability to shower, if you see fit... though the thought of showering here doesn't exactly inspire confidence."
 									},
 									{
-									"you open the door slowly. it resists slightly, though it comes as little surprise considering the state of the room. it's a miracle that something hadn't fallen over and blocked the door after all. you look inside the room.",
+									"you check the drawers on the smaller desk and see a smaller notepad. jotted on the surprisingly dry pages seems to be some instructions.",
+									"[before entering or exiting, the door won't open unless the scanner detects no problematic elements. this includes evaconvolvulus, so be careful that nothing sticks to you when you leave. if something goes wrong, it'll lock down the door until the issue is resolved.]",
+									"[before entering or exiting, the door won't open unless the scanner detects no problematic elements. this includes evaconvolvulus, so be careful that nothing sticks to you when you leave. if something goes wrong, it'll lock down the door until the issue is resolved.]",
+									},
+									{
+									"these seems to be a page of a journal here. insertjournal",
 									""
 									},
+									{
+									"surprisingly, you seem to find a pair of shears here, with green residue stained onto them. it may be worth keeping them for now, in case you need to cut something later.",
+									"there doesn't seem to be anything else in the locker."
+									},
+									{
+									"seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
+									"you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
+									"you brace yourself, seeing no way to escape from this. the lights hit the top of your head... and continue downwards without any noticable effect until it hits the very bottom of the scanner, where it promptly fades away. you feel no different, it seems the scan is complete.",
+									"you notice a small display screen light up, with a particularly troubling sentenence.",
+									"[error - evaconvolvulus detected. doors have been locked.]",
+									"[error - evaconvolvulus detected. doors have been locked.]"
+									}
 							}
 					},
 					//room 7 information
@@ -300,11 +328,15 @@ function ui()
 				1,1,1,
 				1,1,1
 		}
-		//holder for room ui
-		rect(96,88,123,123,2)
 
-		//room ui
-		rect(5,88,91,123,2)
+		//holder for text ui
+		rect(2,2,125,86,2)
+		
+		//holder for room ui
+		rect(98,89,125,124,2)
+
+		//holder for choice ui
+		rect(2,89,95,124,2)
 		//using this to place a grid from the info in room
 		for i = 0, 3 do
 				for j = 1, 3 do
@@ -321,7 +353,7 @@ if they are, we do an alternative
 sprite to show it.]]--
 						if temp==player.room
 						then
-							spr(blinkmap[swapblinkstate],90+(8*j),114-(8*i))
+							spr(blinkmap[swapblinkstate],92+(8*j),115-(8*i))
 --[[alternatively, if the player
 isn't in the room, we show off
 if the room is discovered by seeing
@@ -332,9 +364,20 @@ nothing, as they don't know it
 exists yet.]]--
 						elseif room[(temp)]==1 and visitedroom[temp]==1
 						then
-								spr(001,90+(8*j),114-(8*i))
+								spr(001,92+(8*j),115-(8*i))
 						end
 				end
+		end
+						--[[
+		used to preview rooms, '
+		i.e: let the player know that
+		a given room exists
+		]]--
+		if previewroom4 == 1
+		then
+				spr(009,108,99)
+				spr(010,100,107)
+				spr(010,116,107,1,1,1)
 		end
 end
 
@@ -358,11 +401,11 @@ function choices(item)
 						selection(blinkchc,
 						dialogueselection!=1,
 						textscroll == #splitdialogue(currentdialogue),
-						78,116)
+						4,117)
 						selection(blinkchc2,
 						dialogueselection!=#item.choice,
 						textscroll == #splitdialogue(currentdialogue),
-						84,116)
+					 9,117)
 				//
 				end
 				
@@ -373,12 +416,15 @@ function choices(item)
 						over3 = 0
 				end
 				
-		 	for i = 1, 3 do	 	
-				  		print(item.choice[i+over3],8,81+(i*10))
+		 	for i = 1, 3 do	
+		 	 			//text
+				  		print(item.choice[i+over3],
+				  		15,82+(i*10))
+				  		//pointer
 				  		selection(blinksel,
 				  		i+over3==dialogueselection,
 				  		textscroll == #splitdialogue(currentdialogue),
-				  		80,79+(i*10))
+				  		5,80+(i*10))
 				end
 				
 				if not disable and textscroll == #splitdialogue(currentdialogue)
@@ -392,11 +438,11 @@ function choices(item)
 						end
 				end
 		else
-				print("continue",8,91)
+				print("continue",15,92)
 				selection(blinksel,
 				true,
 				textscroll == #splitdialogue(currentdialogue),
-				80,89)
+				5,90)
 		end
 end
 
@@ -509,7 +555,7 @@ function displaydialogue(item,binary,branch)
 		update it as we go along.
 		]]--
 	 		currentdialogue = item[initialmainval]
-				print(sub(splitdialogue(currentdialogue),1,textscroll),3,3)
+				print(sub(splitdialogue(currentdialogue),1,textscroll),6,6,3)
 				sound(splitdialogue(currentdialogue))		
 		--[[
 		we have it set so the dialogue can
@@ -613,7 +659,7 @@ function displaydialogue(item,binary,branch)
 		in case.
 		]]--
 				currentdialogue = item[#item]
-				print(sub(splitdialogue(currentdialogue),1,textscroll),3,3)
+				print(sub(splitdialogue(currentdialogue),1,textscroll),6,6,3)
 				sound(splitdialogue(currentdialogue))				
 		end
 end
@@ -716,6 +762,7 @@ function events()
 						and visitedsub[2][3] == 1
 						then
 								player.room = 5
+								previewroom4 = 1
 						else
 								visitedsub[2][3] = 0
 						end					
@@ -786,7 +833,36 @@ function events()
 				then
 						player.room = 6
 				end
+		
+		--[[
+	 room 5
+		]]--
+		elseif player.room == 6
+		then
+				if selectedchoice == 5
+				then
+						shears = 1
+				end
+				if selectedchoice == 6
+				and shears == 1
+				then
+						player.room = 9
+				end
 		end
+		
+		--[[
+		reset the cursor position
+		after a new event that could
+		cause the player to switch rooms
+		and cause the selected option
+		to be [nil] in the new room.
+		i.e: previous selection = 5
+		room has max 4 selections
+		
+		not necessary for repeated events
+		and is helpful for showing that
+		you already did that option
+		]]--
 		dialogueselection = 1
 end
 -->8
@@ -896,11 +972,11 @@ function splitdialogue(input)
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00000000033333300333333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00700700030000300300003003333300033333000003300000033000003333000033330000000000000000000000000000000000000000000000000000000000
-0007700003000030030bb030030000300300003000300300003bb30000300300003bb30000000000000000000000000000000000000000000000000000000000
-0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb30000000000000000000000000000000000000000000000000000000000
-00700700030000300300003003000030030000300033330000333300000330000003300000000000000000000000000000000000000000000000000000000000
-00000000033333300333333003333300033333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000033333300333333000000000000000000000000000000000000000000000000000000000000003300000000000000000000000000000000000000000
+00700700030000300300003003333300033333000003300000033000003333000033330000000000000000300000000000000000000000000000000000000000
+0007700003000030030bb030030000300300003000300300003bb30000300300003bb30000000000000000300000000000000000000000000000000000000000
+0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb30000000000000000300000000000000000000000000000000000000000
+00700700030000300300003003000030030000300033330000333300000330000003300003000030000000300000000000000000000000000000000000000000
+00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300000000000000000000000000000000000000000
 __sfx__
 0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
