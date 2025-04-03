@@ -5,8 +5,18 @@ __lua__
 function _init()
 		//info for the player
 		player = {}
-				--default is 2
-			 player.room  = 6
+		--[[
+		default room is 2,
+		though this may change
+		during testing.
+		]]--
+			 player.room  = 5
+		--[[
+		a way for us
+		to test certain 
+		variables to ensure they're
+		updating correctly.
+		]]--
 		bugtest = false	 
 		
 		--[[
@@ -25,14 +35,14 @@ function _init()
 		direction = "left"
 		--located in room2
 		key1=0
-		previewroom4 = 0
 		--located in room 4
 		key2=0
 		--located in room 5
 		journal1=0
 		--located in room 6
 		shears=0
-		
+		scanned=0
+		journal2=0
 		--[[
 		it's important to know which 
 		rooms we have entered already
@@ -40,6 +50,7 @@ function _init()
 		learn which rooms we've already
 		been in.
 		]]--
+		previewroom={0,0,0}
 		visitedroom={0,0,0,0,0,0,0,0,0,0,0,0}
 		visitedsub ={
 				{},
@@ -91,9 +102,8 @@ function _init()
 							},
 							choice = {
 									"check front desk",
-									"look around room.",
-									"go to next room"
-							},
+									"look around room."
+									},
 							followupchoice = {
 									{
 									"you look around the rugged front desk, seeing if there was anything worth salvaging inside of it. despite not expecting much, as you open it up, you notice that the back of the drawer seems broken, revealing that there's a hidden compartment.",
@@ -105,11 +115,6 @@ function _init()
 									"after spending a few minutes scavenging the place, its clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
 									"if nothing else, you had some fun while you were doing it, so it's not like this was a complete waste.",
 									"you check around again, but there's still not much of note."
-									},
-									{
-									"try as you might, the door to the next room is locked, and it'll need a keycard to get through.",
-									"you spend a few minutes trying to get through without one, but it's not budging. it seems you'll need to find a keycard somewhere...",
-									"",
 									}
 							}
 					},
@@ -151,10 +156,10 @@ function _init()
 					// [room 5]
 					{
 							dialogue = {
-									"ultimately, you make your way to the base of the stairs without issue. the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you. it'll be impossible to keep your shoes dry, as there's a few puddles on the floor. it's odd, the plant life around you shouldn't have grown so quickly.",
-									"if it were a few decades, it'd be expected but it was only a year since that explosion. some growth could have occurred, but with only a few flickering lightbulbs as a source of light, it doesn't make sense for the plants around you to have gotten so lively. looking at them closer won't answer any of your lingering questions.",
-									"the door ahead of you is closed, but it doesn't match the decor of the apartment above. it's a painfully white door, the type that you'd expect in a hospital or laboratory, though there's faint stains of red on the door and floor near it. it's not too late to go back up the stairs and leave... but you won't get the answer to what happened here.",
-									"it's an automatic door, but unsurprisingly it's broken after all this time. it takes a few minutes, but you force it open. it seemed that this place appears to be a laboratory. if the stairs looked overgrown, then this was a proper jungle! the plants had completely taken over, it was impossible to find a single surface that didn't have some sort of flora growing on it.",
+									--"ultimately, you make your way to the base of the stairs without issue. the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you. it'll be impossible to keep your shoes dry, as there's a few puddles on the floor. it's odd, the plant life around you shouldn't have grown so quickly.",
+									--"if it were a few decades, it'd be expected but it was only a year since that explosion. some growth could have occurred, but with only a few flickering lightbulbs as a source of light, it doesn't make sense for the plants around you to have gotten so lively. looking at them closer won't answer any of your lingering questions.",
+									--"the door ahead of you is closed, but it doesn't match the decor of the apartment above. it's a painfully white door, the type that you'd expect in a hospital or laboratory, though there's faint stains of red on the door and floor near it. it's not too late to go back up the stairs and leave... but you won't get the answer to what happened here.",
+									--"it's an automatic door, but unsurprisingly it's broken after all this time. it takes a few minutes, but you force it open. it seemed that this place is a laboratory. if the stairs looked overgrown, then this was a proper jungle! the plants had completely taken over, it's impossible to find a single surface that didn't have some sort of flora growing on it.",
 									"you carefully make your way into the room, trying not to step on any of the plants while carefully looking around. there was a clear glass window in front of you, showing the room on the otherside... or at least it would. it was completely obscured by the plants on the otherside, with a few cracks at certain points.",
 									"from an initial glance, there's a lot to look at on both sides of this room. you decide to start by looking at the left. towards the left side, on a desk, there seems to be a book covered in vines, and there's a door on the left wall with a dull light shining from it. it also seems to be cracked open."
 							},
@@ -168,8 +173,10 @@ function _init()
 							},
 							followupchoice = {
 									{
-									"it takes a few moments to pry the journal from the vines, as they were hugging it rather tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant. you decide to open the book, and see if anything is even in it.",
-									"you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are illegible.",
+									--"it takes some time to pry the journal from the vines, as they had wrapped around it quite tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant.", 
+									--"you decide to look through your new book, to see if there's anything inside that can helpp you find anything of value. a majority of the pages seem to be stained or ripped out, but you do happen to find a page that remained legible.",
+									"january 5th, 20█⬇️this journal exists to document the results of our tests, to ensure that we will look over no detail this time. we can't afford to make another blunder like last time.",
+									"you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are either illegible or have been ripped out.",
 									},
 									{
 										"you check the computers, but it seems that they're broken. they won't turn on, no matter what you press. considering that the room has a number of puddles, this doesn't come as a huge surprise.",
@@ -196,10 +203,10 @@ function _init()
 					{
 							dialogue = {
 									"similar to before, a mist comes out the door as it unlocks. it's hard to control this feeling of dread that's growing inside of you. you can't help but shake the feeling that you're being watched. you've seen a few cameras in the previous rooms, but none of them appeared to be working. it's different, something else may be looking... at least, that's what it feels like.",
-									--"perhaps your mind is playing tricks on you. it's unlikely that anyone could still be here after all this time, with the place in this condition. if there were anyone, you should've seen them by now. outside of the plants you've found, there's been no evidence of anything else.",
-									--"at any rate, you can't leave now. you haven't found anything yet that makes this investigation worth it. there should be something valuable that you could take here, whether it's equipment or some information you could sell. with some luck, it'll be enough to keep you and your sister fed for a long time.",
-									--"summoning your own courage, you step inside the now unlocked room. not knowing what to expect, you carefully survey your surroundings. this room appears to be a decontamination room. there's a few hazmat suits along the wall with a compact shower next to it. you can also see a larger scanner. it's rather large, and the only way to get to the door is to walk through it.",
-									--"you can also notice that there are two larger desks in the room, and that the scanner on the other doorway seems to have something on it's display. there also seems to be a few lockers along the opposite wall from your doorway.",
+									"perhaps your mind is playing tricks on you. it's unlikely that anyone could still be here after all this time, with the place in this condition. if there were anyone, you should've seen them by now. outside of the plants you've found, there's been no evidence of anything else.",
+									"at any rate, you can't leave now. you haven't found anything yet that makes this investigation worth it. there should be something valuable that you could take here, whether it's equipment or some information you could sell. with some luck, it'll be enough to keep you and your sister fed for a long time.",
+								 "summoning your own courage, you step inside the now unlocked room. not knowing what to expect, you carefully survey your surroundings. this room appears to be a decontamination room. there's a few hazmat suits along the wall with a compact shower next to it. you can also see a larger scanner. it's rather large, and the only way to get to the door is to walk through it.",
+									"you can also notice that there are two larger desks in the room, and that the scanner on the other doorway seems to have something on it's display. there also seems to be a few lockers along the opposite wall from your doorway.",
 									"carefully walking around the room, you start to take a closer look at your surroundings."
 							},
 							choice = {
@@ -373,7 +380,11 @@ exists yet.]]--
 		i.e: let the player know that
 		a given room exists
 		]]--
-		if previewroom4 == 1
+		if previewroom[1] == 1
+		then
+				spr(009,108,107)
+		end
+		if previewroom[2] == 1
 		then
 				spr(009,108,99)
 				spr(010,100,107)
@@ -409,6 +420,26 @@ function choices(item)
 				//
 				end
 				
+				--[[
+				if we want to scroll our
+				dialogue boxes, we must let
+				our program know exactly 
+				where we are in our choice
+				menu.
+				
+				in this case, we first check
+				to see if the current choice
+				the player is selecting is
+				three or higher.
+				
+				if it is, then we can tell
+				exactly how far over we are
+				by subtracting it from 3.
+				
+				it's basic math, but is
+				important for creating the
+				menu options.
+				]]--
 				if dialogueselection >= 3
 				then
 						over3 = dialogueselection-3
@@ -416,28 +447,150 @@ function choices(item)
 						over3 = 0
 				end
 				
-		 	for i = 1, 3 do	
-		 	 			//text
+				--[[
+				conversely, the other
+				potential option is that
+				we're underneath 3 when
+				we look at our menu,
+				whether it's 1 or 2.
+				
+				in this case, we want to
+				limit how many choices appear
+				instead. with this, we can
+				simply set the limit here.
+				]]--
+				under3 = 3
+				if #item.choice < 3
+				then
+						under3 = #item.choice
+				end
+				
+				--[[
+				this is where we actually
+				display our menu for the
+				choices the player has.
+				
+				in this case, we first need
+				to know how many options
+				we want to display. first,
+				if we have less than three
+				choices, under3 make it so
+				the menu displays the
+				choices the player has
+				without forcing it to output
+				a [nil] option in the event
+				that a second or third
+				choice doesn't exist.
+				
+				otherwise, it'll display
+				exactly three choices.
+				]]--
+		 	for i = 1, under3 do	
+		 	--[[
+		 	next: it'll display the 
+		 	choices we deem 'visible'
+		 	based on how the player
+		 	scrolls the menu.
+		 	
+		 	in the event of three or
+		 	less choices, it'll always
+		 	display all choices.
+		 	
+		 	however: if there's more
+		 	than three choices, it'll
+		 	update the choices as the
+		 	player scrolls due to the
+		 	selected choice dynamically
+		 	updating as per the player
+		 	scrolling.
+		 	
+		 	for example: if there are 4
+		 	choices, and the player
+		 	scrolls from the third option
+		 	to the fourth, then our
+		 	"over3" variable will update
+		 	accordingly by +1, so all
+		 	three of the choices will
+		 	shift accordingly, giving
+		 	the appearance that the
+		 	player is scrolling down
+		 	the menu. similarly: when
+		 	the player goes up from
+		 	fourth to the third position,
+		 	then over3 will subtract one
+		 	accordingly, giving us
+		 	the illusion of a menu that
+		 	actually scrolls, when
+		 	in reality it's simply 
+		 	changing the selection.		 	
+		 	]]--
 				  		print(item.choice[i+over3],
 				  		15,82+(i*10))
-				  		//pointer
+				--[[
+				we also want to show the
+				player where they are on
+				the menu, and a blinking
+				cursor is the best way to
+				display this information
+				accurately.
+				
+				similarly: we want to
+				ensure that it displays
+				correctly when we're
+				"scrolling" through the 
+				menu, so we use the same
+				principle from before and
+				use over3 to display our
+				selection correctly.
+				]]--
 				  		selection(blinksel,
 				  		i+over3==dialogueselection,
 				  		textscroll == #splitdialogue(currentdialogue),
 				  		5,80+(i*10))
 				end
 				
+				--[[
+				we want to ensure that
+				the player doesn't update
+				the position of their choice
+				during a choice selection
+				or during the main dialogue,
+				as that can cause issues.
+				
+				as such, we only allow
+				the player to start making
+				choices after the text has
+				been fully displayed, and
+				that we're not disabling
+				their input any further.
+				]]--
 				if not disable and textscroll == #splitdialogue(currentdialogue)
 						then
 						if btnp(3) and dialogueselection < #item.choice
 						then
 								dialogueselection += 1
+								sfx(01)
 						elseif btnp(2) and dialogueselection > 1
 						then
 								dialogueselection -= 1
+								sfx(01)
 						end
 				end
 		else
+		--[[
+		in the event that we don't
+		wish to give the player a 
+		choice, or rather a choice
+		doesn't matter (such as
+		simply advancing through
+		dialogue), then
+		all we must do is print
+		a "continue" option that does
+		nothing but let the player
+		continue moving, and only
+		do so when the dialogue
+		completes.
+		]]--
 				print("continue",15,92)
 				selection(blinksel,
 				true,
@@ -446,7 +599,10 @@ function choices(item)
 		end
 end
 
-//function to make sound happen as dialogue plays
+--[[
+a function to make sound 
+happen as dialogue plays.
+]]--
 function sound(string)
 		--[[
 		we use ord to check the value of the current character being written.
@@ -750,6 +906,38 @@ function events()
 				being able to reset room
 				states will be important later.
 				]]--
+				elseif selectedchoice == 2
+				then
+				--[[
+				the player has discovered
+				a door, so we should create
+				the choice to use the door.
+				]]--
+						story[2].choice[3] = "go to next room"
+				--[[
+				we should show
+				the player that there
+				is a door they can enter
+				now that they have discovered
+				it.
+				]]--
+						previewroom[1] = 1
+				--[[
+				finally: if the player has
+				discovered this door before
+				they took the key, we need
+				"rejection" dialogue that
+				shows the player cannot enter
+				it until they find a key.
+				]]--
+						if key1 == 0
+						then
+								story[2].followupchoice[3] = {
+									"try as you might, the door to the next room is locked, and it'll need a keycard to get through.",
+									"you spend a few minutes trying to get through without one, but it's not budging. it seems you'll need to find a keycard somewhere...",
+									"",
+								}
+						end
 				elseif selectedchoice == 3
 				then
 				--[[
@@ -762,7 +950,7 @@ function events()
 						and visitedsub[2][3] == 1
 						then
 								player.room = 5
-								previewroom4 = 1
+								previewroom[2] = 1
 						else
 								visitedsub[2][3] = 0
 						end					
@@ -835,18 +1023,52 @@ function events()
 				end
 		
 		--[[
-	 room 5
+	 room 6
 		]]--
 		elseif player.room == 6
 		then
-				if selectedchoice == 5
+				if selectedchoice == 4
 				then
-						shears = 1
+						journal2 = 1
 				end
+				if selectedchoice == 5
+				then				
+						shears = 1
+						visitedsub[6][6] = 0						
+						if scanned == 1 and journal2 == 1
+						then								
+								story[6].followupchoice[6] = {
+								"you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
+								"with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
+								"you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
+								"carefully, you step through into the next room.",
+								""
+								}
+						elseif scanned == 0 and journal2 == 1
+						then										
+								story[6].followupchoice[6] = {
+									"seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
+									"you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
+									"you brace yourself, seeing no way to escape from this. the lights hit the top of your head... and continue downwards without any noticable effect until it hits the very bottom of the scanner, where it promptly fades away. you feel no different, it seems the scan is complete.",
+									"you notice a small display screen light up, with a particularly troubling sentenence.",
+									"[error - evaconvolvulus detected. doors have been locked.]",
+									"you brought your shears into here, as you held no reason not to. remembering the journal that you had read, you look down at the vines growing on the ground and begin to trim them with your glorified scissors.",
+									"after a few minutes of careful trimming, the scanner is as vinefree as it'll get. there's still some growing in the cracks, but you can't exactly reach them from here. with a job well done, you toss out the trimmed vines and press the scan button once more.",
+									"the glass door closes once more, and the scan repeats just the same. you close your eyes as it hits your head, to avoid accidentally blinding yourself. after a few moments, you reopen them and are greeted with the sight of new text on the led.",
+									"[no evaconvolvulus detected. you may enter.]",
+									"the opposing glass door on the scanner opens up, and you can see the electronic lock on the opposing door unlock. carefully, you step into the next room...",
+									""
+								}
+						end
+				end
+				
 				if selectedchoice == 6
-				and shears == 1
 				then
-						player.room = 9
+						scanned = 1
+						if shears == 1
+						then
+								player.room = 9
+						end
 				end
 		end
 		
@@ -871,29 +1093,40 @@ end
 function splitdialogue(input)
 		--[[
 		this function exists to 
-		automatically add the breakline
-		to a given string, so we won't
-		need to do it manually, as it's
-		tedious. we take a given string
-		and we can make it add a new
-		line with any posotive number
-		for the sentence length
+		automatically add the 
+		breakline	to a given string, 
+		so we won't	need to do it 
+		manually, as it's	tedious. we
+		take a given string	and we 
+		can make it add a new	line 
+		with any posotive number	for 
+		the sentence length.
 
-		our length must be 1 higher than
-		what we want. this is because
-		we're adding the newline
-		character "\n" at the end of
-		every sentence, and thus
-		must accomodate for it.
+		our length must be 1 higher 
+		than	what we want. this is 
+		because	we're adding the 
+		newline	character "\n" at 
+		the end of	every sentence, 
+		and thus must accomodate for
+		it.
 		
 		the second value will update
-		dynamically once the loop starts
-		but we wish to keep the first
-		number the same incase we wish
-		to change how long it is.
+		dynamically once the loop 
+		starts	but we wish to keep 
+		the first	number the same 
+		incase we wish	to change 
+		how long it is.
 		]]--
 		setlength=31
 		length=setlength
+		--[[
+		the following string should 
+		contain exactly 31	spaces, 
+		so we can use it to create 
+		artificial empty spaces when 
+		we want to	break	line.
+		]]--
+		emptystr="                               "
 		--[[
 		we dynamically calculate the 
 		length of the string and divide
@@ -903,6 +1136,58 @@ function splitdialogue(input)
 		]]--
 		
 		for i=0,ceil(#input/setlength) do
+		--[[
+		we first want to ensure that
+		we manually break line when
+		we mark it appropriately.
+		for the purpose of this
+		program, ⬇️ in text represents
+		a manual linebreak that i
+		want to make, for formatting
+		purposes.
+		
+		the best way to do this is to
+		go through the text first and
+		scan if any such character
+		exists. if it doesn't, we
+		do nothing.
+		]]--
+				for j=1,setlength do
+				  if sub(input,j+(length*i),j+(length*i)) == "⬇️"
+				  then
+		--[[
+		if it exists: we will "delete"
+		the character by creating a 
+		new string that has every
+		character before it and every
+		character after it, with a
+		certain amount of empty 
+		characters in between so it
+		will display correctly. the
+		amount of characters is
+		found the same way we found
+		the ⬇️ character, so we can
+		easily fix our display.
+		]]--
+				  		temporary = sub(input,1,j+(length*i)-1)..
+				  		"\n"..
+				  		sub(emptystr,j+2,setlength)..
+				  		sub(input,j+(length*i)+1)
+ 		--[[
+		we then	replace the input 
+	 with our	newly sanitized 
+	 string to continue with the 
+	 program. with how we added
+	 the characters, the next line
+	 won't need to do anything, as
+	 we've already ensured it
+	 won't see anything that
+	 causes an error.
+		]]--	    
+ 			    input = temporary
+ 			    break
+				  end
+				end					
 		--[[
 		we must also check before we
 		insert the newline if we'll
@@ -931,8 +1216,7 @@ function splitdialogue(input)
 		assuming that it can all be
 		displayed on one line, of
 		course.
-		]]--
-		
+		]]--	
 				if sub(input,length-1,length-1)!=" "
 				then
 						for j=1,ceil(setlength/3) do
@@ -980,3 +1264,4 @@ __gfx__
 00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300000000000000000000000000000000000000000
 __sfx__
 0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
+000100003a05000000000002d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
