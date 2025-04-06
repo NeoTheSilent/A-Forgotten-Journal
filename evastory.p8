@@ -10,7 +10,7 @@ function _init()
 		though this may change
 		during testing.
 		]]--
-			 player.room  = 5
+			 player.room  = 2
 		--[[
 		a way for us
 		to test certain 
@@ -106,9 +106,10 @@ function _init()
 									},
 							followupchoice = {
 									{
-									"you look around the rugged front desk, seeing if there was anything worth salvaging inside of it. despite not expecting much, as you open it up, you notice that the back of the drawer seems broken, revealing that there's a hidden compartment.",
-									"it's difficult feeling around for whats inside of it, and ultimately your efforts break the already decaying entrance of the compartment open. within is a keycard stained green. seeing nothing else within, you take the keycard in case it may be helpful later.",
-									"there is nothing left inside of the front desk."
+									"walking up to the desk, you decide to check it out to see if there's anything worth taking. you don't expect much, considering that this place has been abnadoned for months. if there were anything worth taking, it would already be gone.",
+									"to your surprise, in one of the half-open drawers, you find a keycard lying there.⬇️a few leaves seem to be next to it, and the card seems to have some green stains. pocketing the card, you check the rest of the desk to see if there's anything else.",
+									"unfortunately, your search ends in vain as there's nothing else left in the desk. you managed to get a keycard out of this, and if nothing else it might sell for something to the right people if you don't find anything else. finished with the desk, you continue searching around.",
+									"you check the desk again, to see if there was anything you might've missed on your initial sweep. after a few minutes, you find that you were quite thorough the first time, there's nothing left to take. at the very least, you found the peace of mind knowing there's nothing you missed."
 									},
 									{
 									"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
@@ -156,10 +157,10 @@ function _init()
 					// [room 5]
 					{
 							dialogue = {
-									--"ultimately, you make your way to the base of the stairs without issue. the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you. it'll be impossible to keep your shoes dry, as there's a few puddles on the floor. it's odd, the plant life around you shouldn't have grown so quickly.",
-									--"if it were a few decades, it'd be expected but it was only a year since that explosion. some growth could have occurred, but with only a few flickering lightbulbs as a source of light, it doesn't make sense for the plants around you to have gotten so lively. looking at them closer won't answer any of your lingering questions.",
-									--"the door ahead of you is closed, but it doesn't match the decor of the apartment above. it's a painfully white door, the type that you'd expect in a hospital or laboratory, though there's faint stains of red on the door and floor near it. it's not too late to go back up the stairs and leave... but you won't get the answer to what happened here.",
-									--"it's an automatic door, but unsurprisingly it's broken after all this time. it takes a few minutes, but you force it open. it seemed that this place is a laboratory. if the stairs looked overgrown, then this was a proper jungle! the plants had completely taken over, it's impossible to find a single surface that didn't have some sort of flora growing on it.",
+									"ultimately, you make your way to the base of the stairs without issue. the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you. it'll be impossible to keep your shoes dry, as there's a few puddles on the floor. it's odd, the plant life around you shouldn't have grown so quickly.",
+									"if it were a few decades, it'd be expected but it was only a year since that explosion. some growth could have occurred, but with only a few flickering lightbulbs as a source of light, it doesn't make sense for the plants around you to have gotten so lively. looking at them closer won't answer any of your lingering questions.",
+									"the door ahead of you is closed, but it doesn't match the decor of the apartment above. it's a painfully white door, the type that you'd expect in a hospital or laboratory, though there's faint stains of red on the door and floor near it. it's not too late to go back up the stairs and leave... but you won't get the answer to what happened here.",
+									"it's an automatic door, but unsurprisingly it's broken after all this time. it takes a few minutes, but you force it open. it seemed that this place is a laboratory. if the stairs looked overgrown, then this was a proper jungle! the plants had completely taken over, it's impossible to find a single surface that didn't have some sort of flora growing on it.",
 									"you carefully make your way into the room, trying not to step on any of the plants while carefully looking around. there was a clear glass window in front of you, showing the room on the otherside... or at least it would. it was completely obscured by the plants on the otherside, with a few cracks at certain points.",
 									"from an initial glance, there's a lot to look at on both sides of this room. you decide to start by looking at the left. towards the left side, on a desk, there seems to be a book covered in vines, and there's a door on the left wall with a dull light shining from it. it also seems to be cracked open."
 							},
@@ -173,8 +174,8 @@ function _init()
 							},
 							followupchoice = {
 									{
-									--"it takes some time to pry the journal from the vines, as they had wrapped around it quite tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant.", 
-									--"you decide to look through your new book, to see if there's anything inside that can helpp you find anything of value. a majority of the pages seem to be stained or ripped out, but you do happen to find a page that remained legible.",
+									"it takes some time to pry the journal from the vines, as they had wrapped around it quite tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant.", 
+									"you decide to look through your new book, to see if there's anything inside that can helpp you find anything of value. a majority of the pages seem to be stained or ripped out, but you do happen to find a page that remained legible.",
 									"january 5th, 20█⬇️this journal exists to document the results of our tests, to ensure that we will look over no detail this time. we can't afford to make another blunder like last time.",
 									"you flip through the pages to see if there's anything you may have missed in the book, but the rest of the pages are either illegible or have been ripped out.",
 									},
@@ -1124,9 +1125,14 @@ function splitdialogue(input)
 		contain exactly 31	spaces, 
 		so we can use it to create 
 		artificial empty spaces when 
-		we want to	break	line.
+		we want to	break	line. we
+		include an alt with periods
+		for bug testing		
 		]]--
-		emptystr="                               "
+		
+  emptystr="                               "
+--emptystr="..............................."	
+		
 		--[[
 		we dynamically calculate the 
 		length of the string and divide
@@ -1135,7 +1141,7 @@ function splitdialogue(input)
 		how many newlines we'll add
 		]]--
 		
-		for i=0,ceil(#input/setlength) do
+		for i=0,ceil(#input/setlength+1) do
 		--[[
 		we first want to ensure that
 		we manually break line when
@@ -1151,11 +1157,19 @@ function splitdialogue(input)
 		scan if any such character
 		exists. if it doesn't, we
 		do nothing.
+
+		bugtesting - to check what the
+		program believes the "first"
+		letter is, and if it's correct
+		
+		print(input[1+(i*setlength)],6+i*4,116)
+		
 		]]--
+
 				for j=1,setlength do
-				  if sub(input,j+(length*i),j+(length*i)) == "⬇️"
+				  if sub(input,j+(setlength*i),j+(setlength*i)) == "⬇️"
 				  then
-		--[[
+		--[[		
 		if it exists: we will "delete"
 		the character by creating a 
 		new string that has every
@@ -1169,10 +1183,18 @@ function splitdialogue(input)
 		the ⬇️ character, so we can
 		easily fix our display.
 		]]--
-				  		temporary = sub(input,1,j+(length*i)-1)..
-				  		"\n"..
-				  		sub(emptystr,j+2,setlength)..
-				  		sub(input,j+(length*i)+1)
+				  		temporary = 
+				  		sub(input,1,j+(setlength*i)-1)
+	 --[[
+	 we know how many characters
+	 we want to add via the j from
+	 the check earlier. we also
+	 wish to adjust it by 2,
+	 to keep \n in our calcs
+	 ]]--
+				  		..sub(emptystr,j+2)
+				  		.."\n"
+				  		..sub(input,j+(setlength*i)+1)
  		--[[
 		we then	replace the input 
 	 with our	newly sanitized 
@@ -1183,19 +1205,21 @@ function splitdialogue(input)
 	 we've already ensured it
 	 won't see anything that
 	 causes an error.
-		]]--	    
+		]]--	 
  			    input = temporary
- 			    break
 				  end
-				end					
+				end			
 		--[[
 		we must also check before we
 		insert the newline if we'll
 		cut off a word by doing this.
 		if the given character isn't
 		an empty space, we'll run a
-		check and simply adjust where
-		we put the new line. i.e:
+		check and simply adjust  empty
+		space onto the end of the
+		line. 
+		
+		i.e:
 		if it's cutting off the word
 		like so
 		
@@ -1216,13 +1240,16 @@ function splitdialogue(input)
 		assuming that it can all be
 		displayed on one line, of
 		course.
-		]]--	
+		]]--
 				if sub(input,length-1,length-1)!=" "
 				then
 						for j=1,ceil(setlength/3) do
 								if sub(input,length-j,length-j)==" "
 								then
-										length-=j-1
+										temporary = sub(input,1,length-j-1)
+										..sub(emptystr,#emptystr-j+2)
+										..sub(input,length-j)
+										input=temporary
 										break
 								end
 						end
@@ -1245,7 +1272,9 @@ function splitdialogue(input)
 		we also increase our length
 		appropriately each line.
 		]]--
-				temporary = sub(input,1,length-1).."\n"..sub(input,length)
+				temporary = sub(input,1,length-1)
+				.."\n"
+				..sub(input,length)
  			input = temporary		
  			length+=setlength
 		end
