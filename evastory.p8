@@ -94,19 +94,22 @@ function _init()
 					// [room 2]
 				 {
 							dialogue = {
-									"you've heard plenty of rumors about the abandoned apartment complex on the edge of town. there was an explosion a year ago that killed a number of people, and ever since then the complex was abandoned. there were countless rumors about what had happened.",
-									"one rumor had it that it was a drug operation that went south.another rumor had it that it was a terrorist group that was trying to make a bomb but ended up blowing themselves up on accident. there was even a rumor that it was a spy base that was discovered, and it blew up as a safety precaution.",
-							  "whatever the case, the owners abandoned it. it was put under investigation for a time by the police, but nothing turned up. still, it always felt odd to you and before you realized it, you had found yourself outside of the broken doors of the infamous facility. you walk inside carefully, feeling your curiousity grow.",
-							  "you venture inside the facility. it's difficult getting past the door, as something inside had blocked the door, and it wouldn't budge. thankfully, upon looking around, you spotted an open window and managed to climb in.",
-							  "as you look around the entrance room, it's clear that the decrepit building isn't exactly safe. water drips from the ceiling, and there's rubble along the floor.",
+									--"life hasn't been particularly kind to you. money's been hard to come by, and it's been difficult getting the money needed for your little sister's medicine.⬇️the odd jobs haven't been doing enough to even keep both of your stomachs filled, you need something that'll get quite a tidy sum for you quickly.",
+									--"thankfully, an opportunity has provided itself for you. in front of you is an infamous office building, one that held notoriety for it's questionable practices.⬇️even for the buildings in this part of town that were questionable at best, this one was always bad news to be around, even if nothing could be proven.",
+									--"last month, an explosion was reported from the inside of the building. not a single inhabitant had been seen since, with most guessing that they had likely perished or fled the city. to be honest, it didn't matter what the truth was. it's not as if it'd be investigated, the police couldn't care less and few had been foolish enough to look around themselves.",
+								 --"this left you in a unique position. most of the valuables likely had already been taken or destroyed, but there was a chance that there might be something hidden away.⬇️something that nobody else had found just yet.⬇️something that could be your lucky break.",
+									--"with that thought in mind, you carefully make your way into the building, moving past the barricades that the police had initially put around the building, before they gave up.⬇️a window presents itself to you, and after carefully moving around the broken glass, you're able to hop inside without issue.",
+									--"the room you found yourself in was a small broom closet, with nothing of value. after a quick check, you carefully step out. as you walk around the place, moving as quiet as a mouse, it's clear that the your initial thoughts were correct.",
+									"most of the rooms were either too damaged by the explosion for anything of value to have survived, or they've already been stripped bare by looters.⬇️it's nothing you hadn't already expected, but a tinge of concern taints your heart. only one room remained, and it seemed to be another office.",
+									"the room was hit hard by the explosion with burn marks visible all around. it's a miracle that the building didn't collapse, but there seems to be parts that are relatively unaffected. a large desk seem to hold the most promise, and a few other areas hold potential for investigation.",
 							},
 							choice = {
-									"check front desk",
+									"check large desk",
 									"look around room."
 									},
 							followupchoice = {
 									{
-									"walking up to the desk, you decide to check it out to see if there's anything worth taking. you don't expect much, considering that this place has been abnadoned for months. if there were anything worth taking, it would already be gone.",
+									"walking up to the desk, you decide to check it out to see if there's anything worth taking. you don't expect much, considering that this place had likely been searched a number of times. if there were anything worth taking, it would already be gone.",
 									"to your surprise, in one of the half-open drawers, you find a keycard lying there.⬇️a few leaves seem to be next to it, and the card seems to have some green stains. pocketing the card, you check the rest of the desk to see if there's anything else.",
 									"unfortunately, your search ends in vain as there's nothing else left in the desk. you managed to get a keycard out of this, and if nothing else it might sell for something to the right people if you don't find anything else. finished with the desk, you continue searching around.",
 									"you check the desk again, to see if there was anything you might've missed on your initial sweep. after a few minutes, you find that you were quite thorough the first time, there's nothing left to take. at the very least, you found the peace of mind knowing there's nothing you missed."
@@ -114,7 +117,8 @@ function _init()
 									{
 									"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
 									"after spending a few minutes scavenging the place, its clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
-									"if nothing else, you had some fun while you were doing it, so it's not like this was a complete waste.",
+									"yet, as you check out the last remaining item, the bookshelf, your finger brushes against a hidden button on its side.⬇️with little warning, it sinks into the ground until only the very top is visible.",
+									"in front of you seems to be a larger door, something that wouldn't look out of place in the sci-fi movies that your sister likes watching on her small tv.⬇️looking at it closer, it doesn't have a handle to open it. on it's frame, on the left side is a card reader.",
 									"you check around again, but there's still not much of note."
 									}
 							}
@@ -914,7 +918,7 @@ function events()
 				a door, so we should create
 				the choice to use the door.
 				]]--
-						story[2].choice[3] = "go to next room"
+						story[2].choice[3] = "open the door"
 				--[[
 				we should show
 				the player that there
@@ -1132,16 +1136,21 @@ function splitdialogue(input)
 		
   emptystr="                               "
 --emptystr="..............................."	
-		
 		--[[
-		we dynamically calculate the 
-		length of the string and divide
-		it by our length to know how
-		many rows we want, and thus
-		how many newlines we'll add
+		while we can dynamically
+		calculate the size of our
+		string to know how long it
+		is, and how long we should do
+		this for, we know that if it
+		activates more than 13 times
+		we have an issue as it'll run
+		off the text. similarly:
+		it won't display anything if
+		we do it too much, so for now
+		we have it set to run 13 times.
 		]]--
 		
-		for i=0,ceil(#input/setlength+1) do
+		for i=0,13 do
 		--[[
 		we first want to ensure that
 		we manually break line when
@@ -1168,7 +1177,37 @@ function splitdialogue(input)
 
 				for j=1,setlength do
 				  if sub(input,j+(setlength*i),j+(setlength*i)) == "⬇️"
-				  then
+				  then		
+			--[[
+			we should make
+			an exception manager, in the
+			event that an word is close
+			to the right edge, and the
+			addition of ⬇️ would make
+			it go to the next line, then
+			we need to put this exception
+			into here, or it'll get weird.
+			
+			i plan to look at the linewrap
+			formula next to see if i can
+			fix this without needing an
+			exception like this, bandaids
+			aren't ideal after all.
+			]]--
+								--print(j,4,110)
+								if j>setlength-1
+								then
+										for k=1,length-j do
+												if sub(input,length-k,length-k)==" "
+												then
+														--print(k,28,110)
+														emptystrsize=k
+														break
+												end
+										end
+								else
+										emptystrsize=j
+								end
 		--[[		
 		if it exists: we will "delete"
 		the character by creating a 
@@ -1181,7 +1220,7 @@ function splitdialogue(input)
 		amount of characters is
 		found the same way we found
 		the ⬇️ character, so we can
-		easily fix our display.
+		easily fix our display.		
 		]]--
 				  		temporary = 
 				  		sub(input,1,j+(setlength*i)-1)
@@ -1192,7 +1231,7 @@ function splitdialogue(input)
 	 wish to adjust it by 2,
 	 to keep \n in our calcs
 	 ]]--
-				  		..sub(emptystr,j+2)
+				  		..sub(emptystr,emptystrsize)
 				  		.."\n"
 				  		..sub(input,j+(setlength*i)+1)
  		--[[
