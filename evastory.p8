@@ -1,46 +1,105 @@
 pico-8 cartridge // http://www.pico-8.com
 version 42
 __lua__
---default functions
+-- default functions
 function _init()
+
 		--[[
-		info for the player
-		may be worth simplifying
-		into just room, as there
-		is only ever one player
-		character.
+		important variables to 
+		initialize. may be changed
+		during testing and as the
+		program runs.
 		]]--
-		player = {}
+
 		--[[
-		default room is 2,
-		though this may change
-		during testing.
+		player_room:
+		default = 2
+		determines where player is
 		]]--
-			 player.room  = 5	
+		player_room  = 5
 			 
 		--[[
-		a list of event triggers
-		for important variables.
+		titlecheck:
+		are we in the title screen?
 		]]--
-		--located in room2
+		titlecheck=false
+		
+		--[[
+		uicolor:
+		allows the player to change
+		the color of the boxes.
+		]]--
+		uicolor=2
+		textcolor=3
+		
+		--[[
+		the following is a list of 
+		room specific variables, to
+		check if a player has done
+		something. the location of
+		where they "are" will be
+		commented with this.
+		]]--
+		
+		--[[
+		room 2 variables
+		
+		key1: allows player to move
+		to room 5
+		]]--
 		key1=0
-		--located in room 4
+		
+		--[[
+		room 4 variables
+		
+		key2: allows player to move
+		to room 6
+		]]--
 		key2=0
-		--located in room 5
-		journal1=0
-		medicine1=0
-		--located in room 6
+		
+		--[[
+		room 5 variables
+		
+		journal: marks that the
+		player has read the first
+		journal entry. best ending is
+		only possible if all journal
+		entries are read.
+		
+		entry 1 is in room 5
+		
+		medicine: medicine that the
+		player can pick up. important
+		for two possible endings.
+		]]--
+		journal={0,0}
+		medicine=0
+		
+		--[[
+		room 6 variables
+		
+		shears: allows the player
+		to cut plants, and move to
+		room 9 and 11.
+		
+		scanned: checks if the player
+		has used the scanner. sucess
+		does not matter.
+		
+		journal entry 2 is here.
+		]]--
 		shears=0
 		scanned=0
-		journal2=0
+		
 		--[[
-		it's important to know which 
-		rooms we have entered already
-		so we use these tables to
-		learn which rooms we've already
-		been in.
+		room history:
+		
+		allows us to see if we have
+		been in a room, what we did
+		in the room, and what rooms
+		we can see.
 		]]--
-		previewroom={0,1,0}
+		previewroom={0,0,0}
 		visitedroom={0,0,0,0,0,0,0,0,0,0,0,0}
 		visitedsub ={
 				{},
@@ -53,12 +112,14 @@ function _init()
 				{0,0,0,0,0,0,0},
 				{0,0,0,0,0,0,0},
 		}
-		--[[
-		variables for making various
-		objects "blink", i.e flicker
-		between two sprites
-		]]--
 		
+		--[[
+		animation variables:
+		
+		allows various sprites to
+		appear "animated" during
+		gameplay.
+		]]--		
 		swapblinkstate = 1
 		blinktimer = 15
 		blinkmap={001,002}
@@ -66,22 +127,38 @@ function _init()
 		blinkchc={005,006}		
 		blinkchc2={007,008}
 		
-		//variables for dialogue
+		
+		--[[
+		dialogue variables:
+		
+		enables more complex dialogue
+		options to better enhance
+		the gameplay for the player.
+		]]--
 		dialogueselection = 1
 		selectedchoice = 0
 		lockchoice = false
 		disable = false
 		initialmainval = 1
-		//variable to scroll text
 		textscroll=1
-		//array that holds room info
+		
+		--[[
+		story:
+		
+		holds the array that contains
+		the majority of the written
+		text in the story, whether it
+		be main story dialogue, 
+		choices, or the dialogue from
+		making a choice.
+		]]--
 		story = {
-					// [room 1]
+		-- [room 1] --
 					{
 							dialogue = {"this room is intentionally blank"},
 							choice = {"nothing"}
 					},
-					// [room 2]
+  -- [room 2] --
 				 {
 							dialogue = {
 									"life hasn't been particularly kind to you. money's been hard to come by, and it's been difficult getting the money needed for your little sister's medicine.⬇️the odd jobs haven't been doing enough to even keep both of your stomachs filled, you need something that'll get quite a tidy sum for you quickly.",
@@ -112,12 +189,12 @@ function _init()
 									}
 							}
 					},
-					// [room 3]
+		-- [room 3] --
 					{
 							dialogue = {"this room is intentionally blank"},
 							choice = {"nothing"}
 					},
-					// [room 4]
+		-- [room 4] --
 					{
 							dialogue = {
 							  "it seemed that this room had quite a few rather odd looking plants inside, they almost seemed to glow with vibrancy. furthermore, there were certainly a few computers in here and storage cabinets. though, with the computers, they seemed to be non operational. the odd looking plants were locked away in glass containers, almost like it was meant for observation.",
@@ -147,7 +224,7 @@ function _init()
 									}
 							}
 					},
-					// [room 5]
+		-- [room 5] --
 					{
 							dialogue = {
 									"ultimately, you make your way to the base of the stairs without issue.⬇️the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you.⬇️it'll be impossible to keep your shoes dry, as there's more than a few puddles on the floor.",
@@ -202,12 +279,12 @@ function _init()
 									},
 									{
 									  	"you just came down here. leaving now would be a waste, as you haven't found enough valuables. it may be safer to leave, but your sister needs money for her medicine. you have to keep looking... you can't stop now.",
-					// [gameover 1]
+		-- [gameover 1] --
 									  	"it's a painful choice to make, but ultimately you return to the door. whatever's happened down here is out of your league, and the longer you stay, the longer you risk something happening to you. if you got hurt or worse, then your sister would be in just as much trouble. there's safer ways to make money anyhow."
 									}
 							}
 					},
-					// [room 6]
+		-- [room 6] --
 					{
 							dialogue = {
 									"similar to before, a mist comes out the door as it unlocks. it's hard to control this feeling of dread that's growing inside of you. you can't help but shake the feeling that you're being watched. you've seen a few cameras in the previous rooms, but none of them appeared to be working. it's different, something else may be looking... at least, that's what it feels like.",
@@ -258,27 +335,40 @@ function _init()
 									}
 							}
 					},
-					//room 7 information
+	 -- [room 7] --
 					{
 							dialogue = {"nothing"},
 							choice = {"nothing"}
 					},
-					//room 8 information
+		-- [room 8] --
 					{
 							dialogue = {"nothing"},
 							choice = {"nothing"}
 					},
-					//room 9 information
+		-- [room 9] --
 					{
 							dialogue = {"nothing"},
 							choice = {"nothing"}
 					},
 		}
+		
 	 --[[
-	 the initial dialogue that should be displayed
-	 we're putting it here due to necessity
+	 currentdialogue:
+	 
+	 a variable we use in the
+	 program to know what the
+	 player is reading, and used
+	 to avoid overwriting our
+	 story dialogue needlessly.
+	 
+	 it will initially point to
+	 the first dialogue box in
+	 the room the player starts 
+	 in, and will update as the
+	 player makes choices.
 		]]--
-		currentdialogue = story[player.room].dialogue[1]
+		currentdialogue = 
+		story[player_room].dialogue[1]
 end
 
 function _update()
@@ -315,75 +405,68 @@ function _draw()
 		cls()
 		//to help see screen, deleteme
 		rectfill(0,0,128,128,1)
+
+		if titlecheck
+		then
+				titlescreen()
+		else
+				dialogue(story[player_room])
+				grid()
+		end
 		ui()
 		bugs()
-		//handle the dialogue
-		dialogue(story[player.room])
 end
 -->8
---ui page
+-- ui page
 
-function ui() 
-		--[[our room layout: we're
-		using a table to handle room
-		data. 
-		
-		0 represents a room that
-		the player has not entered yet.
-		
-		1 represents a room that
-		the player has entered
-		
-		9 represents an empty room:
-		one that shouldn't be reached.
+function ui() 		
+		--[[
+		visual indicators for our
+		program. only here for looks
 		]]--
-		room = {
-				9,1,9,
-				1,1,1,
-				1,1,1,
-				1,1,1
-		}
-
-		//holder for text ui
-		rect(2,2,125,86,2)
 		
-		//holder for room ui
-		rect(98,89,125,124,2)
+		--[[
+		dialogue box	appearance.
+		]]--
+		rect(2,2,125,86,uicolor)
+		
+		--[[
+		grid box appearance
+		]]--
+		rect(98,89,125,124,uicolor)
 
-		//holder for choice ui
-		rect(2,89,95,124,2)
-		//using this to place a grid from the info in room
-		for i = 0, 3 do
-				for j = 1, 3 do
-						temp = (i*3)+j
---[[first, we check to see if 
-we're in the room that the 
-player is in. the player has an inbuilt room variable for this reason
-room variable that changes with
-each room they go to. thus:
-we can compare that with the
-i+j calculation to see if the
-player is in "that" room, and
-if they are, we do an alternative
-sprite to show it.]]--
-						if temp==player.room
+		--[[
+		choice box appearance.
+		]]--
+		rect(2,89,95,124,uicolor)
+end
+
+function grid()
+		--[[
+		it's important to show
+		where the player is on the
+		map.
+		
+		with how our program works,
+		we can check each room and
+		see if we've been in them yet.
+		]]--	
+		for row = 0, 4 do
+				for column = 1, 3 do
+						placement = (row*3)+column
+						if placement==player_room
 						then
-							spr(blinkmap[swapblinkstate],92+(8*j),115-(8*i))
---[[alternatively, if the player
-isn't in the room, we show off
-if the room is discovered by seeing
-if it equals 1 or not. if it's 1
-then the player has stepped into
-it before. otherwise, we display
-nothing, as they don't know it 
-exists yet.]]--
-						elseif room[(temp)]==1 and visitedroom[temp]==1
+							spr(blinkmap[swapblinkstate],
+							92+(8*column),115-(8*row))
+						elseif visitedroom[placement]==1
 						then
-								spr(001,92+(8*j),115-(8*i))
+								spr(001,92+(8*column),
+								115-(8*row))
 						end
 				end
 		end
-						--[[
+
+		--[[
 		used to preview rooms, '
 		i.e: let the player know that
 		a given room exists
@@ -399,7 +482,6 @@ exists yet.]]--
 				spr(010,116,107,1,1,1)
 		end
 end
-
 
 function selection(blinker,cond1,cond2,x,y)
 		if cond1 and cond2
@@ -536,7 +618,7 @@ function choices(item)
 		 	changing the selection.		 	
 		 	]]--
 				  		print(item.choice[i+over3],
-				  		15,82+(i*10))
+				  		15,82+(i*10),textcolor)
 				--[[
 				we also want to show the
 				player where they are on
@@ -559,34 +641,11 @@ function choices(item)
 				  		textscroll == #splitdialogue(currentdialogue),
 				  		5,80+(i*10))
 				end
-				
-				--[[
-				we want to ensure that
-				the player doesn't update
-				the position of their choice
-				during a choice selection
-				or during the main dialogue,
-				as that can cause issues.
-				
-				as such, we only allow
-				the player to start making
-				choices after the text has
-				been fully displayed, and
-				that we're not disabling
-				their input any further.
-				]]--
+															
 				if not disable and textscroll == #splitdialogue(currentdialogue)
-						then
-						if btnp(3) and dialogueselection < #item.choice
-						then
-								dialogueselection += 1
-								sfx(01)
-						elseif btnp(2) and dialogueselection > 1
-						then
-								dialogueselection -= 1
-								sfx(01)
-						end
-				end
+				then
+			   movecursor(item)
+			 end
 		else
 		--[[
 		in the event that we don't
@@ -609,6 +668,34 @@ function choices(item)
 				5,90)
 		end
 end
+
+function movecursor(item)
+		--[[
+		we want to ensure that
+		the player doesn't update
+		the position of their choice
+		during a choice selection
+		or during the main dialogue,
+		as that can cause issues.
+		
+		as such, we only allow
+		the player to start making
+		choices after the text has
+		been fully displayed, and
+		that we're not disabling
+		their input any further.
+	 ]]--
+		if btnp(3) and dialogueselection < #item.choice
+		then
+					dialogueselection += 1
+					sfx(01)
+		elseif btnp(2) and dialogueselection > 1
+		then
+				dialogueselection -= 1
+				sfx(01)
+		end
+end
+
 
 --[[
 a function to make sound 
@@ -641,16 +728,17 @@ i need to test a variable
 ]]--
 		if false
 		then
-				print("medicine1: "..medicine1,8,116,3)
+				print("text scroll: "..textscroll,20,116,textcolor)
+    print("limit: "..#splitdialogue(currentdialogue),20,108,textcolor)
 		end
 end
 -->8
---dialogue page
+-- dialogue page
 
 --[[
-show the main dialogue for the room.
-if we make a selection on side dialogue, then we show the side dialogue
-otherwise, we show the dialogue for the room.
+show the current dialogue for 
+the room, whether it is the
+current dialogue or main.
 ]]--
 
 function dialogue(item) 
@@ -663,7 +751,10 @@ function dialogue(item)
 		]]--
 		if selectedchoice != 0 
 		then
-				displaydialogue(item.followupchoice[selectedchoice],visitedsub[player.room][dialogueselection]==0,1)
+				displaydialogue(
+				item.followupchoice[selectedchoice],
+				visitedsub[player_room]
+				[dialogueselection]==0,1)
 		--[[
 		this area is for the main
 		dialogue, i.e the dialogue
@@ -672,19 +763,23 @@ function dialogue(item)
 		re-enter it.
 		]]--
 		else
-				if visitedroom[player.room] == 0
+				if visitedroom[player_room] == 0
 				then
 						lockchoice = true
 						disable = true
 				end
-				displaydialogue(item.dialogue,lockchoice)
+				displaydialogue(
+				item.dialogue,lockchoice)
 		end
 
 		--in ui page
 		choices(item)
 
 		--give better notes
-		if btnp(4) and textscroll == #splitdialogue(currentdialogue) and not disable
+		if btnp(4) 
+		and textscroll == 
+		#splitdialogue(currentdialogue) 
+		and not disable
 		then
 				textscroll = 0			 
 				if selectedchoice == 0
@@ -722,7 +817,10 @@ function displaydialogue(item,binary,branch)
 		update it as we go along.
 		]]--
 	 		currentdialogue = item[initialmainval]
-				print(sub(splitdialogue(currentdialogue),1,textscroll),6,6,3)
+				print(sub(splitdialogue
+				(currentdialogue),1,
+				textscroll),6,6,3)
+				
 				sound(splitdialogue(currentdialogue))		
 		--[[
 		we have it set so the dialogue can
@@ -730,7 +828,9 @@ function displaydialogue(item,binary,branch)
 		the end of the paragraph, and that
 		the button is pressed.
 		]]--
-				if btnp(4)	and textscroll==#splitdialogue(item[initialmainval])
+				if btnp(4)	
+				and textscroll==
+				#splitdialogue(item[initialmainval])
 				then 
 		--[[
 		once we move to the next 
@@ -804,7 +904,7 @@ function displaydialogue(item,binary,branch)
 				 					events()
 				 					selectedchoice = 0
 				 			else
-				 					visitedroom[player.room] = 1
+				 					visitedroom[player_room] = 1
 								end
 								initialmainval = 1
 								disable = false
@@ -826,12 +926,13 @@ function displaydialogue(item,binary,branch)
 		in case.
 		]]--
 				currentdialogue = item[#item]
-				print(sub(splitdialogue(currentdialogue),1,textscroll),6,6,3)
-				sound(splitdialogue(currentdialogue))				
+				print(sub(splitdialogue(currentdialogue),
+				1,textscroll),6,6,3)
+				sound(splitdialogue(currentdialogue))
 		end
 end
 -->8
---event tracker
+-- event tracker
 
 --[[
 we're using this program to
@@ -849,9 +950,9 @@ with minimal input.
 ]]--
 function events()
 		
-		visitedsub[player.room][selectedchoice] = 1
+		visitedsub[player_room][selectedchoice] = 1
 		
-		if player.room == 2
+		if player_room == 2
 		then
 				if selectedchoice == 1
 				then
@@ -960,7 +1061,7 @@ function events()
 						if key1 == 1 
 						and visitedsub[2][3] == 1
 						then
-								player.room = 5
+								player_room = 5
 								previewroom[2] = 1
 						else
 								story[2].followupchoice[3] = {
@@ -970,29 +1071,20 @@ function events()
 								visitedsub[2][3] = 0
 						end					
 				end
+				
 		--[[
 		room 3
+		
 		intentionally omitted, due
 		to the facility's layout
 		not showing one.
 
- 	elseif player.room == 3
-		then
-				if selectedchoice == 1
-				then
-				
-				if selectedchoice == 2
-				then
-				
-				if selectedchoice == 3
-				then
-				
-				
-		]]--		
+		]]--	
+			
 		--[[
 		room 4
 		]]--
-		elseif player.room == 4
+		elseif player_room == 4
 		then
 				//
 				if selectedchoice == 1
@@ -1015,57 +1107,58 @@ function events()
 					    "thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
 					    "",
 					  }	
-						player.room = 5
+						player_room = 5
 				end
 	
 		--[[
 	 room 5
 		]]--
-		elseif player.room == 5
+		elseif player_room == 5
 		then
 				if selectedchoice == 1
 				then
-						journal1 = 1
+						journal[1] = 1
 				end
 				if selectedchoice == 2
 				then
-						if medicine1 == 0
+						if medicine == 0
 						then	
-								medicine1 = 1
+								medicine = 1
 								story[5].followupchoice[2] = {
 									"thinking about it more, you decide to pocket them for now, as you might forget about it when you're getting ready to leave. you pocket the medicine with that, putting them in your satchel.",
 									"you check the various desks some more, but there doesn't seem to be anything else worth taking right now."
 								}
 							 visitedsub[5][2] = 0	
-						elseif medicine1 == 1
+						elseif medicine == 1
 						then
-								medicine1 = 2
+								medicine = 2
 						end
 				end
 			 if selectedchoice == 5
 		  then
-						player.room = 4
+						player_room = 4
 				end
 				if selectedchoice == 6 
 				and key2 == 1
 				then
-						player.room = 6
+						player_room = 6
 				end
 		
 		--[[
 	 room 6
 		]]--
-		elseif player.room == 6
+		elseif player_room == 6
 		then
 				if selectedchoice == 4
 				then
-						journal2 = 1
+						journal[2] = 1
 				end
 				if selectedchoice == 5
 				then				
 						shears = 1
 						visitedsub[6][6] = 0						
-						if scanned == 1 and journal2 == 1
+						if scanned == 1 
+						and journal[2] == 1
 						then								
 								story[6].followupchoice[6] = {
 								"you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
@@ -1074,7 +1167,8 @@ function events()
 								"carefully, you step through into the next room.",
 								""
 								}
-						elseif scanned == 0 and journal2 == 1
+						elseif scanned == 0 
+						and journal[2] == 1
 						then										
 								story[6].followupchoice[6] = {
 									"seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
@@ -1097,7 +1191,7 @@ function events()
 						scanned = 1
 						if shears == 1
 						then
-								player.room = 9
+								player_room = 9
 						end
 				end
 		end
@@ -1346,6 +1440,47 @@ function splitdialogue(input)
 		once we're finished
 		]]--
 		return input
+end
+-->8
+-- title screen
+
+function titlescreen()
+				
+		title = {
+				dialogue = {
+						"press z to continue or select. press x to fast forward text.",
+						"what would you like to do? "
+				},
+				choice = {
+						"start new game",
+						"load game",
+						"options"
+				},
+				followupchoice = {
+						{""},
+						{""},
+						{"please select what you would like to change.⬇️text color: change the color of the text.⬇️border color: change the color of the border.⬇️sound: adjust volume."}
+				}
+		}
+		
+		currentdialogue = 
+		title.dialogue[1]
+
+		
+		dialogue(title)
+		choices(title)
+		
+		--[[
+		temp check to bring player
+		out of title screen
+  ]]--
+		if btnp(4)
+		then
+				titlecheck = false		
+				currentdialogue = 
+		  story[player_room].dialogue[1]
+				textscroll=0
+		end		
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
