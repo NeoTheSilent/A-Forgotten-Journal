@@ -19,18 +19,43 @@ function _init()
 		player_room  = 5
 			 
 		--[[
+		poke( 0x5f2e, 1 )
+		pal( {1,2,3,128,
+								5,129,130,131,
+								133,11,12,138,
+								139,140,141,0} ,1)
+		]]--
+		
+		--[[
 		titlecheck:
 		are we in the title screen?
 		]]--
-		titlecheck=false
+		titlecheck=true
 		
 		--[[
+		variables for our options
+		
 		uicolor:
 		allows the player to change
 		the color of the boxes.
+		
+		textcolor: 
+		allows the player to change
+		the color of the text
+		
+		background:
+		changes background of
+		boxed areas
+		
+		border: 
+		changes background of
+		non boxed areas
 		]]--
-		uicolor=2
-		textcolor=3
+		uicolor = 3
+		textcolor = 3
+		background = 1
+		border = 1
+		selectoption = 0
 		
 		--[[
 		the following is a list of 
@@ -352,6 +377,25 @@ function _init()
 					},
 		}
 		
+		--[[
+		an array containing info
+		that is only relevant for
+		the title screen.
+		]]--		
+		title = {
+				dialogue = {
+						".",
+				},
+				choice = {
+						"start new game",
+						"load game",
+						"options"
+				},
+				options = {
+				  "use the arrow keys to change your settings, and press z when you are done."
+				}
+		}
+		
 	 --[[
 	 currentdialogue:
 	 
@@ -400,11 +444,11 @@ function _update()
 		end
 end
 
-function _draw() 
+function _draw()
 		//important to clear screen after we do something to show changes
 		cls()
 		//to help see screen, deleteme
-		rectfill(0,0,128,128,1)
+		rectfill(0,0,128,128,background)
 
 		if titlecheck
 		then
@@ -425,6 +469,14 @@ function ui()
 		program. only here for looks
 		]]--
 		
+		rectfill(0,0,128,2,border)
+		rectfill(0,0,2,128,border)
+		rectfill(0,86,128,89,border)
+		rectfill(95,86,97,128,border)
+		rectfill(0,124,128,128,border)
+		rectfill(125,0,128,128,border)
+
+
 		--[[
 		dialogue box	appearance.
 		]]--
@@ -728,8 +780,8 @@ i need to test a variable
 ]]--
 		if false
 		then
-				print("text scroll: "..textscroll,20,116,textcolor)
-    print("limit: "..#splitdialogue(currentdialogue),20,108,textcolor)
+				print("textcolor: "..textcolor,5,100,textcolor)
+    print("uicolor: "..uicolor,5,108,textcolor)
 		end
 end
 -->8
@@ -819,7 +871,7 @@ function displaydialogue(item,binary,branch)
 	 		currentdialogue = item[initialmainval]
 				print(sub(splitdialogue
 				(currentdialogue),1,
-				textscroll),6,6,3)
+				textscroll),6,6,textcolor)
 				
 				sound(splitdialogue(currentdialogue))		
 		--[[
@@ -927,7 +979,7 @@ function displaydialogue(item,binary,branch)
 		]]--
 				currentdialogue = item[#item]
 				print(sub(splitdialogue(currentdialogue),
-				1,textscroll),6,6,3)
+				1,textscroll),6,6,textcolor)
 				sound(splitdialogue(currentdialogue))
 		end
 end
@@ -1445,42 +1497,93 @@ end
 -- title screen
 
 function titlescreen()
-				
-		title = {
-				dialogue = {
-						"press z to continue or select. press x to fast forward text.",
-						"what would you like to do? "
-				},
-				choice = {
-						"start new game",
-						"load game",
-						"options"
-				},
-				followupchoice = {
-						{""},
-						{""},
-						{"please select what you would like to change.⬇️text color: change the color of the text.⬇️border color: change the color of the border.⬇️sound: adjust volume."}
-				}
-		}
+		--[[
+		fixme so there's no delay
+		in making a choice
 		
+		possible solution: add a
+		"are we in title" check to
+		the choices option.
+		]]--
 		currentdialogue = 
 		title.dialogue[1]
 
-		
-		dialogue(title)
-		choices(title)
-		
 		--[[
-		temp check to bring player
-		out of title screen
-  ]]--
-		if btnp(4)
+		if we're not changing the
+		options, we want to show the
+		default title screen.
+		]]--
+		if selectoption == 0
+		then		
+				print("\^w\^ta forgotten\n  journal",20,20,textcolor)	
+		  choices(title)
+				if btnp(4) and 
+				dialogueselection == 1
+				then
+						titlecheck = false		
+						currentdialogue = 
+				  story[player_room].dialogue[1]
+						textscroll=0
+				elseif btnp(4) and
+				dialogueselection == 3
+				then
+						selectoption = 1
+				end
+		else
+				print(splitdialogue(title.options[1]),5,5,textcolor)
+				print("text color: ",5,28,textcolor)
+				print("border color: ",5,48,textcolor)
+				print("border color: ",5,68,textcolor)
+				//selector sprite
+						
+				for i = 0, 15 do
+						rectfill(10+i*7,36,13+i*7,39,i)				
+						rectfill(10+i*7,56,13+i*7,59,i)
+						rectfill(10+i*7,76,13+i*7,79,i)
+				end
+				
+				if btnp(4)
+				then
+						selectoption += 1
+				elseif btnp(5)
+				then
+						selectoption -= 1
+				end
+				
+				if selectoption == 1
+				then
+						textcolor = options(textcolor)
+				elseif selectoption == 2
+				then
+						uicolor = options(uicolor)
+				elseif selectoption == 3
+				then
+						border = options(border)
+				elseif selectoption > 3
+				then
+						selectoption = 0
+				end				
+		end
+end
+
+function options(change)
+	 
+		selection(blinkchc,
+		true,
+		true,
+		8+7*change,20+selectoption*20)
+		
+		if btnp(0) 
+		and change > 0
 		then
-				titlecheck = false		
-				currentdialogue = 
-		  story[player_room].dialogue[1]
-				textscroll=0
-		end		
+				change -= 1
+		elseif btnp(1) 
+		and change < 15
+		then
+				change += 1
+		end
+		
+		return change
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
