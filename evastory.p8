@@ -4,129 +4,24 @@ __lua__
 -- default functions
 function _init()
 
-		--[[
-		important variables to 
-		initialize. may be changed
-		during testing and as the
-		program runs.
-		]]--
-
-		--[[
-		player_room:
-		default = 2
-		determines where player is
-		]]--
-		player_room  = 5
-			 
-		--[[
-		poke( 0x5f2e, 1 )
-		pal( {1,2,3,128,
-								5,129,130,131,
-								133,11,12,138,
-								139,140,141,0} ,1)
-		]]--
-		
-		--[[
-		titlecheck:
-		are we in the title screen?
-		]]--
-		titlecheck=true
-		
-		--[[
-		variables for our options
-		
-		uicolor:
-		allows the player to change
-		the color of the boxes.
-		
-		textcolor: 
-		allows the player to change
-		the color of the text
-		
-		background:
-		changes background of
-		boxed areas
-		
-		border: 
-		changes background of
-		non boxed areas
-		]]--
-		uicolor = 3
-		textcolor = 3
-		background = 1
-		border = 1
-		selectoption = 0
-		
-		--[[
-		the following is a list of 
-		room specific variables, to
-		check if a player has done
-		something. the location of
-		where they "are" will be
-		commented with this.
-		]]--
-		
-		--[[
-		room 2 variables
-		
-		key1: allows player to move
-		to room 5
-		]]--
-		key1=0
-		
-		--[[
-		room 4 variables
-		
-		key2: allows player to move
-		to room 6
-		]]--
-		key2=0
-		
-		--[[
-		room 5 variables
-		
-		journal: marks that the
-		player has read the first
-		journal entry. best ending is
-		only possible if all journal
-		entries are read.
-		
-		entry 1 is in room 5
-		
-		medicine: medicine that the
-		player can pick up. important
-		for two possible endings.
-		]]--
-		journal={0,0}
-		medicine=0
-		
-		--[[
-		room 6 variables
-		
-		shears: allows the player
-		to cut plants, and move to
-		room 9 and 11.
-		
-		scanned: checks if the player
-		has used the scanner. sucess
-		does not matter.
-		
-		journal entry 2 is here.
-		]]--
-		shears=0
-		scanned=0
-		
-		--[[
-		room history:
-		
-		allows us to see if we have
-		been in a room, what we did
-		in the room, and what rooms
-		we can see.
-		]]--
-		previewroom={0,0,0}
-		visitedroom={0,0,0,0,0,0,0,0,0,0,0,0}
-		visitedsub ={
+proom=4
+tcheck=true
+tpick=0
+uiclr=2
+txtclr=3
+bckclr=1
+brdr=1
+--
+key1=0
+key2=0
+jrnl={0,0}
+meds=0		
+shears=0
+scan=0
+--
+previewroom={0,0,0}
+visitedroom={0,0,0,0,0,0,0,0,0,0,0,0}
+visitedsub={
 				{},
 				{0,0,0,0,0,0,0},
 				{},
@@ -177,61 +72,59 @@ function _init()
 		choices, or the dialogue from
 		making a choice.
 		]]--
-		story = {
-		-- [room 1] --
-					{
-							dialogue = {"this room is intentionally blank"},
-							choice = {"nothing"}
-					},
-  -- [room 2] --
-				 {
-							dialogue = {
-									"life hasn't been particularly kind to you. money's been hard to come by, and it's been difficult getting the money needed for your little sister's medicine.⬇️the odd jobs haven't been doing enough to even keep both of your stomachs filled, you need something that'll get quite a tidy sum for you quickly.",
-									"thankfully, an opportunity has provided itself for you. in front of you is an infamous office building, one that held notoriety for it's questionable practices.⬇️even for the buildings in this part of town that were questionable at best, this one was always bad news to be around, even if nothing could be proven.",
-								 "last month, an explosion was reported from the inside of the building. not a single inhabitant had been seen since, with most guessing that they had likely perished or fled the city. to be honest, it didn't matter what the truth was. it's not as if it'd be investigated, the police couldn't care less and few had been foolish enough to look around themselves.",
-								 "this left you in a unique position. most of the valuables likely had already been taken or destroyed, but there was a chance that there might be something hidden away.⬇️something that nobody else had found just yet.⬇️something that could be your lucky break.",
-									"with that thought in mind, you carefully make your way into the building, moving past the barricades that the police had initially put around the building, before they gave up.⬇️a window presents itself to you, and after carefully moving around the broken glass, you're able to hop inside without issue.",
-									"the room you found yourself in was a small broom closet, with nothing of value. after a quick check, you carefully step out. as you walk around the place, moving as quiet as a mouse, it's clear that the your initial thoughts were correct.",
-									"most of the rooms were either too damaged by the explosion for anything of value to have survived, or they've already been stripped bare by looters.⬇️it's nothing you hadn't already expected, but a tinge of concern taints your heart. only one room remained, and it seemed to be another office.",
-									"the room was hit hard by the explosion with burn marks visible all around. it's a miracle that the building didn't collapse, but there seems to be parts that are relatively unaffected. a large desk seem to hold the most promise, and a few other areas hold potential for investigation.",
-							},
-							choice = {
-									"check large desk",
-									"look around room."
-							},
-							followupchoice = {
-									{
-									  "walking up to the desk, you decide to check it out to see if there's anything worth taking. you don't expect much, considering that this place had likely been searched a number of times. if there were anything worth taking, it would already be gone.",
-									  "to your surprise, in one of the half-open drawers, you find a keycard lying there.⬇️a few leaves seem to be next to it, and the card seems to have some green stains.⬇️pocketing the card, you check the rest of the desk to see if there's anything else.",
-									  "unfortunately, your search ends in vain as there's nothing else left in the desk.⬇️you managed to get a keycard out of this, and if nothing else it might sell for something to the right people.⬇️finished with the desk, you continue searching around.",
-									  "you check the desk again, to see if there was anything you might've missed on your initial sweep. after a few minutes, you find that you were quite thorough the first time, there's nothing left to take. at the very least, you found the peace of mind knowing there's nothing you missed."
-									},
-									{
-									  "you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.⬇️a few minutes pass, and it becomes clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
-									  "yet, as you check out the last remaining place, the bookshelf, your finger brushes against a hidden button on its side.⬇️with a mechanical whirr, it sinks into the ground until only the very top is visible.",
-									  "in front of you seems to be a larger door, something that wouldn't look out of place in the sci-fi movies that your sister likes watching on her small tv.⬇️looking at it closer, it doesn't have a handle to open it. instead, there's a card reader on the frame of the door.",
-									  "you check around the room again. considering that the room isn't small, you might've missed something. you spend a few minutes combing through the room, but what's left is either broken or worthless..."
-									}
-							}
-					},
-		-- [room 3] --
-					{
-							dialogue = {"this room is intentionally blank"},
-							choice = {"nothing"}
-					},
-		-- [room 4] --
-					{
-							dialogue = {
-							  "it seemed that this room had quite a few rather odd looking plants inside, they almost seemed to glow with vibrancy. furthermore, there were certainly a few computers in here and storage cabinets. though, with the computers, they seemed to be non operational. the odd looking plants were locked away in glass containers, almost like it was meant for observation.",
-							  "as you walk in, a small alarm goes off. it was barely audible, and after a few moments the sprinklers in the room go off, letting a very gentle mist of water into the room. it certainly wouldn't put out any fires, but it'd at least water the plants that had taken root in here.",
-							  "if nothing else, it wouldn't hurt to take a look around this room. with some luck, perhaps something valuable could be found, or at least some sort of clue to help you understand what happened. you can't exactly go back empty handed now... you're doing this for your sister after all. if you can't find anything here...",
-							  "these thoughts won't help you now. gently slapping your own cheeks, you regain the confidence to continue searching."
-							},
-							choice = {
-									"check cabinets",
-									"check doors",
-									"leave the room."
-							},
+		
+story = {
+-- [room 1] --
+		{
+--inaccessible--
+		},
+-- [room 2] --
+  {
+dialogue = {
+"life hasn't been particularly kind to you. money's been hard to come by, and it's been difficult getting the money needed for your little sister's medicine.⬇️the odd jobs haven't been doing enough to even keep both of your stomachs filled, you need something that'll get quite a tidy sum for you quickly.",
+"thankfully, an opportunity has provided itself for you. in front of you is an infamous office building, one that held notoriety for it's questionable practices.⬇️even for the buildings in this part of town that were questionable at best, this one was always bad news to be around, even if nothing could be proven.",
+"last month, an explosion was reported from the inside of the building. not a single inhabitant had been seen since, with most guessing that they had likely perished or fled the city. to be honest, it didn't matter what the truth was. it's not as if it'd be investigated, the police couldn't care less and few had been foolish enough to look around themselves.",
+"this left you in a unique position. most of the valuables likely had already been taken or destroyed, but there was a chance that there might be something hidden away.⬇️something that nobody else had found just yet.⬇️something that could be your lucky break.",
+"with that thought in mind, you carefully make your way into the building, moving past the barricades that the police had initially put around the building, before they gave up.⬇️a window presents itself to you, and after carefully moving around the broken glass, you're able to hop inside without issue.",
+"the room you found yourself in was a small broom closet, with nothing of value. after a quick check, you carefully step out. as you walk around the place, moving as quiet as a mouse, it's clear that the your initial thoughts were correct.",
+"most of the rooms were either too damaged by the explosion for anything of value to have survived, or they've already been stripped bare by looters.⬇️it's nothing you hadn't already expected, but a tinge of concern taints your heart. only one room remained, and it seemed to be another office.",
+"the room was hit hard by the explosion with burn marks visible all around. it's a miracle that the building didn't collapse, but there seems to be parts that are relatively unaffected. a large desk seem to hold the most promise, and a few other areas hold potential for investigation.",
+},
+choice = {
+"check large desk",
+"look around room."
+},
+followupchoice = {
+	{
+"walking up to the desk, you decide to check it out to see if there's anything worth taking. you don't expect much, considering that this place had likely been searched a number of times. if there were anything worth taking, it would already be gone.",
+"to your surprise, in one of the half-open drawers, you find a keycard lying there.⬇️a few leaves seem to be next to it, and the card seems to have some green stains.⬇️pocketing the card, you check the rest of the desk to see if there's anything else.",
+"unfortunately, your search ends in vain as there's nothing else left in the desk.⬇️you managed to get a keycard out of this, and if nothing else it might sell for something to the right people.⬇️finished with the desk, you continue searching around.",
+"you check the desk again, to see if there was anything you might've missed on your initial sweep. after a few minutes, you find that you were quite thorough the first time, there's nothing left to take. at the very least, you found the peace of mind knowing there's nothing you missed."
+	},
+	{
+"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.⬇️a few minutes pass, and it becomes clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
+"yet, as you check out the last remaining place, the bookshelf, your finger brushes against a hidden button on its side.⬇️with a mechanical whirr, it sinks into the ground until only the very top is visible.",
+"in front of you seems to be a larger door, something that wouldn't look out of place in the sci-fi movies that your sister likes watching on her small tv.⬇️looking at it closer, it doesn't have a handle to open it. instead, there's a card reader on the frame of the door.",
+"you check around the room again. considering that the room isn't small, you might've missed something. you spend a few minutes combing through the room, but what's left is either broken or worthless..."
+	}
+}
+		},
+-- [room 3] --
+		{
+--inaccessible--
+		},
+--room4--
+		{
+		dialogue = {
+"similar to the last room, there were plenty of plants within here, though these were in glass containers instead. to your surprise, the flora seemed to glow ever so slightly.⬇️as you walk in, a quiet alarm goes off. after a few moment, a gentle mist of water sprays onto the plants. ",
+"a few dull monitors adorned the room, as well as a few cabinets... though no exit door could be seen. if you wanted to go deeper in, you likely needed to enter the right door.",
+"your sister is counting on you, you needed to find something to salvage from this place.⬇️if nothing could be salvaged, then you won't be able to afford her medicine and she'd...⬇️at any rate, there's a few things worth checking here. ",
+},
+		choice = {
+"check cabinets",
+"check doors",
+"leave the room."
+		},
 							followupchoice = {
 									{
 									  "the cabinets are in a rather sorry state, banged up from having fallen over. thankfully, they seem to be unlocked, so opening it isn't an issue. there's plenty in here, though you're not exactly sure what much of it is. ultimately, the only thing you take from the cabinet is a keycard marked with the number marked 6 on it.",
@@ -412,7 +305,7 @@ function _init()
 	 player makes choices.
 		]]--
 		currentdialogue = 
-		story[player_room].dialogue[1]
+		story[proom].dialogue[1]
 end
 
 function _update()
@@ -445,52 +338,47 @@ function _update()
 end
 
 function _draw()
-		//important to clear screen after we do something to show changes
-		cls()
-		//to help see screen, deleteme
-		rectfill(0,0,128,128,background)
 
-		if titlecheck
-		then
-				titlescreen()
-		else
-				dialogue(story[player_room])
-				grid()
-		end
-		ui()
-		bugs()
+cls()
+rectfill(0,0,128,128,bckclr)
+
+if tcheck
+then
+	titlescreen()
+else
+ dialogue(story[proom])
+	grid()
+end
+
+ui()
+bugs()
 end
 -->8
--- ui page
+--ui page
 
-function ui() 		
-		--[[
-		visual indicators for our
-		program. only here for looks
-		]]--
-		
-		rectfill(0,0,128,2,border)
-		rectfill(0,0,2,128,border)
-		rectfill(0,86,128,89,border)
-		rectfill(95,86,97,128,border)
-		rectfill(0,124,128,128,border)
-		rectfill(125,0,128,128,border)
+function ui()
 
+rectfill(0,0,128,2,brdr)
+rectfill(0,0,2,128,brdr)
+rectfill(0,86,128,89,brdr)
+rectfill(95,86,97,128,brdr)
+rectfill(0,124,128,128,brdr)
+rectfill(125,0,128,128,brdr)
 
-		--[[
-		dialogue box	appearance.
-		]]--
-		rect(2,2,125,86,uicolor)
+--[[
+dialogue box	appearance.
+]]--
+rect(2,2,125,86,uiclr)
 		
 		--[[
 		grid box appearance
 		]]--
-		rect(98,89,125,124,uicolor)
+		rect(98,89,125,124,uiclr)
 
 		--[[
 		choice box appearance.
 		]]--
-		rect(2,89,95,124,uicolor)
+		rect(2,89,95,124,uiclr)
 end
 
 function grid()
@@ -503,17 +391,17 @@ function grid()
 		we can check each room and
 		see if we've been in them yet.
 		]]--	
-		for row = 0, 4 do
-				for column = 1, 3 do
-						placement = (row*3)+column
-						if placement==player_room
+		for r = 0, 4 do
+				for c = 1, 3 do
+						placement = (r*3)+c
+						if placement==proom
 						then
 							spr(blinkmap[swapblinkstate],
-							92+(8*column),115-(8*row))
+							92+(8*c),115-(8*r))
 						elseif visitedroom[placement]==1
 						then
-								spr(001,92+(8*column),
-								115-(8*row))
+								spr(001,92+(8*c),
+								115-(8*r))
 						end
 				end
 		end
@@ -535,8 +423,8 @@ function grid()
 		end
 end
 
-function selection(blinker,cond1,cond2,x,y)
-		if cond1 and cond2
+function selection(blinker,c1,c2,x,y)
+		if c1 and c2
 		then
 				spr(blinker[swapblinkstate],x,y)
 		else
@@ -670,7 +558,7 @@ function choices(item)
 		 	changing the selection.		 	
 		 	]]--
 				  		print(item.choice[i+over3],
-				  		15,82+(i*10),textcolor)
+				  		15,82+(i*10),txtclr)
 				--[[
 				we also want to show the
 				player where they are on
@@ -780,8 +668,8 @@ i need to test a variable
 ]]--
 		if false
 		then
-				print("textcolor: "..textcolor,5,100,textcolor)
-    print("uicolor: "..uicolor,5,108,textcolor)
+				print("textcolor: "..txtclr,5,100,txtclr)
+    print("uicolor: "..uiclr,5,108,txtclr)
 		end
 end
 -->8
@@ -805,7 +693,7 @@ function dialogue(item)
 		then
 				displaydialogue(
 				item.followupchoice[selectedchoice],
-				visitedsub[player_room]
+				visitedsub[proom]
 				[dialogueselection]==0,1)
 		--[[
 		this area is for the main
@@ -815,7 +703,7 @@ function dialogue(item)
 		re-enter it.
 		]]--
 		else
-				if visitedroom[player_room] == 0
+				if visitedroom[proom] == 0
 				then
 						lockchoice = true
 						disable = true
@@ -871,7 +759,7 @@ function displaydialogue(item,binary,branch)
 	 		currentdialogue = item[initialmainval]
 				print(sub(splitdialogue
 				(currentdialogue),1,
-				textscroll),6,6,textcolor)
+				textscroll),6,6,txtclr)
 				
 				sound(splitdialogue(currentdialogue))		
 		--[[
@@ -956,7 +844,7 @@ function displaydialogue(item,binary,branch)
 				 					events()
 				 					selectedchoice = 0
 				 			else
-				 					visitedroom[player_room] = 1
+				 					visitedroom[proom] = 1
 								end
 								initialmainval = 1
 								disable = false
@@ -979,289 +867,118 @@ function displaydialogue(item,binary,branch)
 		]]--
 				currentdialogue = item[#item]
 				print(sub(splitdialogue(currentdialogue),
-				1,textscroll),6,6,textcolor)
+				1,textscroll),6,6,txtclr)
 				sound(splitdialogue(currentdialogue))
 		end
 end
 -->8
 -- event tracker
 
---[[
-we're using this program to
-update our events as certain
-things happen due to the player's
-choices.
-
-with my current design philosophy,
-i want to ensure that the various
-checks can only update should
-the player achieve the necessary
-condition. i don't wish to create
-a game that plays itself after all
-with minimal input.
-]]--
 function events()
-		
-		visitedsub[player_room][selectedchoice] = 1
-		
-		if player_room == 2
-		then
-				if selectedchoice == 1
-				then
-				--[[
-				checking this area gives the
-				player a key. as the player
-				never revisits this area
-				after "using" the key, there
-				is no need to reset the key,
-				especially as logically they
-				wouldn't just go and throw
-				it away after using it.
-				
-				we also want to ensure that
-				the player sees the correct
-				message. if the player has
-				picked up the key, then
-				the door dialogue will update
-				accordingly.
-				
-				while it is not 100% necessary
-				at this time to create new
-				dialogue, at a later stage
-				in the program, i will want
-				to completely overwrite a
-				room's information when the
-				player backtracks through it,
-				to more accurately display
-				the information.
-				
-				as such, this is being used
-				as a proof of concept to ensure
-				we can update the information
-				as necessary.
-				]]--
-						key1 = 1
-						story[2].followupchoice[3] = {
-						"after using the keycard, the door opens and a small cloud of mist disperses into the room. you can smell fresh plant life around you as you step inside. a faint light illuminates the room, showing a spiral staircase that goes deep into the ground. if there was anything of value, it'd be down there. seeing no other option, you descend the stairs",
-						"you slowly make your way down the stairs, being as careful as you can. each step causes the stairs to let out an awful creak, and whether it'll be from the stair underneath you breaking or tripping on an errant vine, a fall from here wouldn't be pretty.",
-						""
-						}
-				--[[
-				due to the second option
-				not accomplishing anything,
-				only used for story telling,
-				there is no need to give it
-				any special events.
-				
-				for the third option,
-				if we have the key, then 
-				it'll transport us to the
-				next room. otherwise,
-				nothing happens.
-				
-				in the event of the latter,
-				we have it reset the choice
-				so the player can reread it
-				if they get confused on what
-				they need.
-				
-				granted, this isn't that 
-				complex of a puzzle, but
-				being able to reset room
-				states will be important later.
-				]]--
-				elseif selectedchoice == 2
-				then
-				--[[
-				the player has discovered
-				a door, so we should create
-				the choice to use the door.
-				]]--
-						story[2].choice[3] = "open the door"
-				--[[
-				we should show
-				the player that there
-				is a door they can enter
-				now that they have discovered
-				it.
-				]]--
-						previewroom[1] = 1
-				--[[
-				finally: if the player has
-				discovered this door before
-				they took the key, we need
-				"rejection" dialogue that
-				shows the player cannot enter
-				it until they find a key.
-				]]--
-						if key1 == 0
-						then
-								story[2].followupchoice[3] = {
-									"try as you might, the door to the next room is closed quite tightly. you can't try the keycard reader currently, as you don't have a card.⬇️you're not one to give up easily however, and you try to pry open the door with a spare piece of metal that had been lying around.",
-									"you spend a few minutes trying to use the metal bar to open the door, but it's not budging.⬇️the only result you gain is the gift of pain, as you accidentally hit your leg with the metal during your attempts. letting out a grunt of pain, you come to the realization that you'll need to find a keycard somewhere...",
-									"",
-								}
-						end
-				elseif selectedchoice == 3
-				then
-				--[[
-				we see if we have the key
-				if we do, we go through
-				to room "5", otherwise
-				we do nothing.
-				]]--
-						if key1 == 1 
-						and visitedsub[2][3] == 1
-						then
-								player_room = 5
-								previewroom[2] = 1
-						else
-								story[2].followupchoice[3] = {
-										"you were never quick to give up. you pick up that same piece of metal and try again, working a different angle to open the door.⬇️a few minutes pass, but you're no closer to opening that door while your arms are ready to throw in the towel. it's becoming clearer that you're going to need a keycard.",
-										""
-								}
-								visitedsub[2][3] = 0
-						end					
-				end
-				
-		--[[
-		room 3
-		
-		intentionally omitted, due
-		to the facility's layout
-		not showing one.
 
-		]]--	
-			
-		--[[
-		room 4
-		]]--
-		elseif player_room == 4
+visitedsub[proom][selectedchoice]=1
+
+--room2--
+if proom == 2
+	then
+	if selectedchoice==1 then
+		key1 = 1
+		story[2].followupchoice[3] = {
+		"after using the keycard, the door opens and a small cloud of mist disperses into the room. you can smell fresh plant life around you as you step inside. a faint light illuminates the room, showing a spiral staircase that goes deep into the ground. if there was anything of value, it'd be down there. seeing no other option, you descend the stairs",
+		"you slowly make your way down the stairs, being as careful as you can. each step causes the stairs to let out an awful creak, and whether it'll be from the stair underneath you breaking or tripping on an errant vine, a fall from here wouldn't be pretty.",
+		""}
+	elseif selectedchoice == 2
 		then
-				//
-				if selectedchoice == 1
-				then
-						key2 = 1
-						visitedsub[5][5] = 0
-						story[5].followupchoice[5] = 
-							{
-									"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door.",
-							}
-				end
-				//
-				if selectedchoice == 3
-				then
-						visitedsub[4][3] = 0						
-						visitedsub[5][4] = 0
-						story[5].dialogue[6] = "this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
-				  story[5].followupchoice[4] = 
-							{
-					    "thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
-					    "",
-					  }	
-						player_room = 5
-				end
-	
-		--[[
-	 room 5
-		]]--
-		elseif player_room == 5
-		then
-				if selectedchoice == 1
-				then
-						journal[1] = 1
-				end
-				if selectedchoice == 2
-				then
-						if medicine == 0
-						then	
-								medicine = 1
-								story[5].followupchoice[2] = {
-									"thinking about it more, you decide to pocket them for now, as you might forget about it when you're getting ready to leave. you pocket the medicine with that, putting them in your satchel.",
-									"you check the various desks some more, but there doesn't seem to be anything else worth taking right now."
-								}
-							 visitedsub[5][2] = 0	
-						elseif medicine == 1
-						then
-								medicine = 2
-						end
-				end
-			 if selectedchoice == 5
-		  then
-						player_room = 4
-				end
-				if selectedchoice == 6 
-				and key2 == 1
-				then
-						player_room = 6
-				end
-		
-		--[[
-	 room 6
-		]]--
-		elseif player_room == 6
-		then
-				if selectedchoice == 4
-				then
-						journal[2] = 1
-				end
-				if selectedchoice == 5
-				then				
-						shears = 1
-						visitedsub[6][6] = 0						
-						if scanned == 1 
-						and journal[2] == 1
-						then								
-								story[6].followupchoice[6] = {
-								"you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
-								"with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
-								"you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
-								"carefully, you step through into the next room.",
-								""
-								}
-						elseif scanned == 0 
-						and journal[2] == 1
-						then										
-								story[6].followupchoice[6] = {
-									"seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
-									"you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
-									"you brace yourself, seeing no way to escape from this. the lights hit the top of your head... and continue downwards without any noticable effect until it hits the very bottom of the scanner, where it promptly fades away. you feel no different, it seems the scan is complete.",
-									"you notice a small display screen light up, with a particularly troubling sentenence.",
-									"[error - evaconvolvulus detected. doors have been locked.]",
-									"you brought your shears into here, as you held no reason not to. remembering the journal that you had read, you look down at the vines growing on the ground and begin to trim them with your glorified scissors.",
-									"after a few minutes of careful trimming, the scanner is as vinefree as it'll get. there's still some growing in the cracks, but you can't exactly reach them from here. with a job well done, you toss out the trimmed vines and press the scan button once more.",
-									"the glass door closes once more, and the scan repeats just the same. you close your eyes as it hits your head, to avoid accidentally blinding yourself. after a few moments, you reopen them and are greeted with the sight of new text on the led.",
-									"[no evaconvolvulus detected. you may enter.]",
-									"the opposing glass door on the scanner opens up, and you can see the electronic lock on the opposing door unlock. carefully, you step into the next room...",
-									""
-								}
-						end
-				end
-				
-				if selectedchoice == 6
-				then
-						scanned = 1
-						if shears == 1
-						then
-								player_room = 9
-						end
-				end
+		story[2].choice[3]="open the door"
+		previewroom[1]=1
+		if key1==0	then
+			story[2].followupchoice[3] = {
+				"try as you might, the door to the next room is closed quite tightly. you can't try the keycard reader currently, as you don't have a card.⬇️you're not one to give up easily however, and you try to pry open the door with a spare piece of metal that had been lying around.",
+				"you spend a few minutes trying to use the metal bar to open the door, but it's not budging.⬇️the only result you gain is the gift of pain, as you accidentally hit your leg with the metal during your attempts. letting out a grunt of pain, you come to the realization that you'll need to find a keycard somewhere...",
+				"",}
 		end
-		
-		--[[
-		reset the cursor position
-		after a new event that could
-		cause the player to switch rooms
-		and cause the selected option
-		to be [nil] in the new room.
-		i.e: previous selection = 5
-		room has max 4 selections
-		
-		not necessary for repeated events
-		and is helpful for showing that
-		you already did that option
-		]]--
-		dialogueselection = 1
+	elseif selectedchoice == 3 then
+		if key1==1 and visitedsub[2][3]==1 then
+		 proom=5
+		 previewroom[2]=1
+  else
+		 story[2].followupchoice[3]={
+		 	"you were never quick to give up. you pick up that same piece of metal and try again, working a different angle to open the door.⬇️a few minutes pass, but you're no closer to opening that door while your arms are ready to throw in the towel. it's becoming clearer that you're going to need a keycard.",
+		 	""}
+		 visitedsub[2][3]=0
+	 end					
+	end
+--room 3--
+--room 4--
+elseif proom == 4 then
+	if selectedchoice == 1
+	then
+		key2=1
+		visitedsub[5][5]=0
+		story[5].followupchoice[5]={
+		 "you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door."}
+	elseif selectedchoice==3
+	then
+		visitedsub[4][3]=0						
+		visitedsub[5][4]=0
+		story[5].dialogue[6]="this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
+	 story[5].followupchoice[4]={
+			"thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
+		 "",}	
+		proom=5
+	end
+--room5--
+elseif proom == 5 then
+	if selectedchoice==1 then
+		jrnl[1]=1
+	elseif selectedchoice==2 then	
+		meds+=1
+		story[5].followupchoice[2]={
+			"thinking about it more, you decide to pocket them for now, as you might forget about it when you're getting ready to leave. you pocket the medicine with that, putting them in your satchel.",
+			"you check the various desks some more, but there doesn't seem to be anything else worth taking right now."}
+	 visitedsub[5][2]=0	
+	elseif selectedchoice==5 then
+		proom=4
+	elseif selectedchoice==6 and key2==1 then
+		proom=6
+	end
+--room6--
+elseif proom==6 then
+	if selectedchoice==4 then
+  jrnl[2]=1
+	end
+	if selectedchoice==5 then
+ shears=1
+ visitedsub[6][6]=0						
+ if scan==1 and jrnl[2]==1 then
+	story[6].followupchoice[6]={
+  "you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
+  "with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
+  "you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
+  "carefully, you step through into the next room.",
+  ""}
+	elseif scan==0 and jrnl[2]==1 then										
+	story[6].followupchoice[6] = {
+  "seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
+  "you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
+  "you brace yourself, seeing no way to escape from this. the lights hit the top of your head... and continue downwards without any noticable effect until it hits the very bottom of the scanner, where it promptly fades away. you feel no different, it seems the scan is complete.",
+  "you notice a small display screen light up, with a particularly troubling sentenence.",
+  "[error - evaconvolvulus detected. doors have been locked.]",
+  "you brought your shears into here, as you held no reason not to. remembering the journal that you had read, you look down at the vines growing on the ground and begin to trim them with your glorified scissors.",
+  "after a few minutes of careful trimming, the scanner is as vinefree as it'll get. there's still some growing in the cracks, but you can't exactly reach them from here. with a job well done, you toss out the trimmed vines and press the scan button once more.",
+  "the glass door closes once more, and the scan repeats just the same. you close your eyes as it hits your head, to avoid accidentally blinding yourself. after a few moments, you reopen them and are greeted with the sight of new text on the led.",
+  "[no evaconvolvulus detected. you may enter.]",
+  "the opposing glass door on the scanner opens up, and you can see the electronic lock on the opposing door unlock. carefully, you step into the next room...",
+		""}
+		end
+	elseif selectedchoice == 6 then
+	 scan=1
+		if shears==1 then
+			proom=9
+		end
+	end
+end
+	dialogueselection = 1
 end
 -->8
 -- dialogue splitter
@@ -1513,77 +1230,69 @@ function titlescreen()
 		options, we want to show the
 		default title screen.
 		]]--
-		if selectoption == 0
+		if tpick==0
 		then		
-				print("\^w\^ta forgotten\n  journal",20,20,textcolor)	
+				print("\^w\^ta forgotten\n  journal",20,20,txtclr)	
 		  choices(title)
 				if btnp(4) and 
 				dialogueselection == 1
 				then
-						titlecheck = false		
+						tcheck = false		
 						currentdialogue = 
-				  story[player_room].dialogue[1]
+				  story[proom].dialogue[1]
 						textscroll=0
 				elseif btnp(4) and
 				dialogueselection == 3
 				then
-						selectoption = 1
+						tpick=1
 				end
 		else
-				print(splitdialogue(title.options[1]),5,5,textcolor)
-				print("text color: ",5,28,textcolor)
-				print("border color: ",5,48,textcolor)
-				print("border color: ",5,68,textcolor)
+				print(splitdialogue(title.options[1]),5,5,txtclr)
+				print("text color: ",5,28,txtclr)
+				print("border color: ",5,48,txtclr)
+				print("border color: ",5,68,txtclr)
 				//selector sprite
 						
 				for i = 0, 15 do
-						rectfill(10+i*7,36,13+i*7,39,i)				
+						rectfill(10+i*7,36,13+i*7,39,i)
 						rectfill(10+i*7,56,13+i*7,59,i)
 						rectfill(10+i*7,76,13+i*7,79,i)
 				end
 				
 				if btnp(4)
 				then
-						selectoption += 1
+						tpick+=1
 				elseif btnp(5)
 				then
-						selectoption -= 1
+						tpick-=1
 				end
 				
-				if selectoption == 1
-				then
-						textcolor = options(textcolor)
-				elseif selectoption == 2
-				then
-						uicolor = options(uicolor)
-				elseif selectoption == 3
-				then
-						border = options(border)
-				elseif selectoption > 3
-				then
-						selectoption = 0
+				if tpick==1 then
+						txtclr=options(txtclr)
+				elseif tpick==2 then
+						uiclr=options(uiclr)
+				elseif tpick==3 then
+						brdr = options(brdr)
+				elseif tpick>3 then
+						tpick=0
 				end				
 		end
 end
 
-function options(change)
+function options(c)
 	 
 		selection(blinkchc,
 		true,
 		true,
-		8+7*change,20+selectoption*20)
-		
-		if btnp(0) 
-		and change > 0
-		then
-				change -= 1
-		elseif btnp(1) 
-		and change < 15
-		then
-				change += 1
-		end
-		
-		return change
+		8+7*c,20+tpick*20)
+
+if btnp(0) and c>0 then
+  c-=1
+elseif btnp(1) and c<15 then
+		c+=1
+end
+
+return c
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
