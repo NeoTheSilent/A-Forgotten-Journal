@@ -1,5 +1,5 @@
-# P8-ES
-Pico8 - Visual Novel Test - A Forgotten Journal
+# A Forgotten Journal
+Pico8 - Visual Novel Test
 
 This program is a test to help better my understanding of nested tables, ensuring that I can properly work with stored information without needlessly overwriting it, and work under limiting circumstances to promote efficiency and cleaner code.
 
