@@ -4,7 +4,7 @@ __lua__
 -- default functions
 function _init()
 
-proom=5
+proom=2
 tcheck=true
 tpick=0
 clr={2,3,1}
@@ -26,7 +26,7 @@ vsub={
 {},
 {0,0,0},
 {0,0,0,0,0,0,0},
-{0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
@@ -45,12 +45,12 @@ lock=false
 imv=1
 scrl=1
 --
-story={
+s={
 --room1
 {},
 --room2
 {
-main={
+m={
 "life hasn't been particularly kind to you. money's been hard to come by, and it's been difficult getting the money needed for your little sister's medicine.⬇️the odd jobs haven't been doing enough to even keep both of your stomachs filled, you need something that'll get quite a tidy sum for you quickly.",
 "thankfully, an opportunity has provided itself for you. in front of you is an infamous office building, one that held notoriety for it's questionable practices.⬇️even for the buildings in this part of town that were questionable at best, this one was always bad news to be around, even if nothing could be proven.",
 "last month, an explosion was reported from the inside of the building. not a single inhabitant had been seen since, with most guessing that they had likely perished or fled the city. to be honest, it didn't matter what the truth was. it's not as if it'd be investigated, the police couldn't care less and few had been foolish enough to look around themselves.",
@@ -60,11 +60,11 @@ main={
 "most of the rooms were either too damaged by the explosion for anything of value to have survived, or they've already been stripped bare by looters.⬇️it's nothing you hadn't already expected, but a tinge of concern taints your heart. only one room remained, and it seemed to be another office.",
 "the room was hit hard by the explosion with burn marks visible all around. it's a miracle that the building didn't collapse, but there seems to be parts that are relatively unaffected. a large desk seem to hold the most promise, and a few other areas hold potential for investigation.",
 },
-choice={
+c={
 "check large desk",
 "look around room."
 },
-brnch={
+b={
 {
 "walking up to the desk, you decide to check it out to see if there's anything worth taking. you don't expect much, considering that this place had likely been searched a number of times. if there were anything worth taking, it would already be gone.",
 "to your surprise, in one of the half-open drawers, you find a keycard lying there.⬇️a few leaves seem to be next to it, and the card seems to have some green stains.⬇️pocketing the card, you check the rest of the desk to see if there's anything else.",
@@ -83,17 +83,17 @@ brnch={
 {},
 --room4
 {
-main={
+m={
 "similar to the last room, there were plenty of plants within here, though these were in glass containers instead. to your surprise, the flora seemed to glow ever so slightly.⬇️as you walk in, a quiet alarm goes off. after a few moment, a gentle mist of water sprays onto the plants. ",
 "a few dull monitors adorned the room, as well as a few cabinets... though no exit door could be seen. if you wanted to go deeper in, you likely needed to enter the right door.",
 "your sister is counting on you, you needed to find something to salvage from this place.⬇️if nothing could be salvaged, then you won't be able to afford her medicine and she'd...⬇️at any rate, there's a few things worth checking here. ",
 },
-choice={
+c={
 "check cabinets",
 "check doors",
 "leave the room."
 },
-brnch={
+b={
 {"the cabinets are in a rather sorry state, banged up from having fallen over. thankfully, they seem to be unlocked, so opening it isn't an issue. there's plenty in here, though you're not exactly sure what much of it is. ultimately, the only thing you take from the cabinet is a keycard marked with the number marked 6 on it.",
 "you take a second look to be extra safe. while you do find some scientific instruments that could sell for a pretty penny, there's nothing useful for you at the moment here. you make a mental note to return before you leave."},
 {"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
@@ -106,7 +106,7 @@ brnch={
 },
 --room5
 {
-main={
+m={
 "ultimately, you make your way to the base of the stairs without issue.⬇️the sound of water dripping echoes around you, coming from a few pipes leaking fluids around you.⬇️it'll be impossible to keep your shoes dry, as there's more than a few puddles on the floor.",
 "it's odd, the plant life around you shouldn't have grown so quickly. if it were a few decades, it'd be expected but it's only been a month since that explosion.⬇️some growth could have occurred in that time, but with only a few lightbulbs for light, it doesn't make sense for the plants around you to have gotten so lively. ",
 "the door ahead of you is closed, but it doesn't match the decor of the office above. it's a painfully white door, the type that you'd expect in a hospital or laboratory.⬇️the only color staining the door is a splatter of red and green near the bottom. hesitation grasps your heart at the sight of it.",
@@ -115,7 +115,7 @@ main={
 "yet, you couldn't be blamed if you weren't sure. after all, the room in front of you has no shortage of plants covering the tables.⬇️if the stairs looked overgrown, then this was a proper jungle! the plants had completely taken over, it's impossible to find a single surface that didn't have some sort of flora growing on it. ",
 "you carefully make your way into the room, trying not to step on any of the plants as you carefully look around.⬇️there's a clear glass window in front of you, showing the room on the otherside... or at least it would. it was completely obscured by the plants on the otherside, with a few cracks at certain points.",
 "looking around the room, it seems there's a lot more to explore than there was upstairs.⬇️with two sets of doors, a few desks and a few computers, you'll have plenty of places to check for salvagable items. one of the desks catches your eye, as you see a book wrapped in vines."},
-choice={
+c={
 "check journal",
 "check desks",
 "check computers",
@@ -123,7 +123,7 @@ choice={
 "enter left door.",
 "enter right door.",
 "go back upstairs."},
-brnch = {
+b={
 {
 "it takes some time to pry the journal from the vines, as they had wrapped around it quite tightly. ultimately, you prevail against mother nature, giving the vine a rather triumphant look as you hold your spoils in your hand... though you realize that you're looking rather silly for boasting against a plant.", 
 "you decide to look through your new book, to see if there's anything inside that can help you find anything of value. a majority of the pages seem to be too stained to be legible, or were ripped out. thankfully, you do happen to find a page that remained legible.",
@@ -164,22 +164,22 @@ brnch = {
 },
 --room6
 {
-main={
+m={
 "similar to before, a mist comes out the door as it unlocks. it's hard to control this feeling of dread that's growing inside of you. you can't help but shake the feeling that you're being watched. you've seen a few cameras in the previous rooms, but none of them appeared to be working. it's different, something else may be looking... at least, that's what it feels like.",
 "perhaps your mind is playing tricks on you. it's unlikely that anyone could still be here after all this time, with the place in this condition. if there were anyone, you should've seen them by now. outside of the plants you've found, there's been no evidence of anything else.",
 "at any rate, you can't leave now. you haven't found anything yet that makes this investigation worth it. there should be something valuable that you could take here, whether it's equipment or some information you could sell. with some luck, it'll be enough to keep you and your sister fed for a long time.",
 "summoning your own courage, you step inside the now unlocked room. not knowing what to expect, you carefully survey your surroundings. this room appears to be a decontamination room. there's a few hazmat suits along the wall with a compact shower next to it. you can also see a larger scanner. it's rather large, and the only way to get to the door is to walk through it.",
 "you can also notice that there are two larger desks in the room, and that the scanner on the other doorway seems to have something on it's display. there also seems to be a few lockers along the opposite wall from your doorway.",
-"carefully walking around the room, you start to take a closer look at your surroundings."
-},
-choice={
+"carefully walking around the room, you start to take a closer look at your surroundings."},
+c={
 "check hazmat suits",
 "check shower",
 "check smaller desk.",
 "check larger desk.",
 "check lockers",
-"enter the scanner."},
-brnch = {
+"enter the scanner.",
+"enter left door."},
+b={
 {
 "there's enough suits here for a few people, which makes it all that more concerning that you haven't found anyone... or anything. you fish through the pockets for a few minutes, but there's nothing worth taking within. it would've been too easy if there was a keycard within.",
 "concerned that you may have missed something, you check the pockets again. you did manage to find something this time, a spare handkerchief. it looks rather nice, so it might make a fine gift in the future, though it certainly won't help you today."
@@ -209,80 +209,59 @@ brnch = {
 "you notice a small display screen light up, with a particularly troubling sentenence.",
 "[error - evaconvolvulus detected. doors have been locked.]",
 "[error - evaconvolvulus detected. doors have been locked.]"
+},
+{
+"concerned that you may have missed something, you decide to return to the larger observation room for now. "
 }
 }
 },
-	 -- [room 7] --
-					{
-							main = {"nothing"},
-							choice = {"nothing"}
-					},
-		-- [room 8] --
-					{
-							main = {"nothing"},
-							choice = {"nothing"}
-					},
-		-- [room 9] --
-					{
-							main = {"nothing"},
-							choice = {"nothing"}
-					},
-		}
+--room7
+{
+m={"nothing"},
+c={"nothing"}
+},
+--room8
+{
+m={"nothing"},
+c={"nothing"}
+},
+--room9
+{
+m={"nothing"},
+c={"nothing"}
+},
+}
 		
-		--[[
-		an array containing info
-		that is only relevant for
-		the title screen.
-		]]--		
-		title = {
-				main={"."},
-				choice = {
-						"start new game",
-						"load game",
-						"options"
-				},
-				options = {
-				  "use the arrow keys to change your settings, and press z when you are done."
-				}
-		}
-		
-	 --[[
-	 currentdialogue:
-	 
-	 a variable we use in the
-	 program to know what the
-	 player is reading, and used
-	 to avoid overwriting our
-	 story dialogue needlessly.
-	 
-	 it will initially point to
-	 the first dialogue box in
-	 the room the player starts 
-	 in, and will update as the
-	 player makes choices.
-		]]--
-		currentdialogue = 
-		story[proom].main[1]
+t={
+m={""},
+c={
+"start new game",
+"load game",
+"options"
+},
+o={"use the arrow keys to change your settings, and press z when you are done."}
+}
+
+cdial=s[proom].m[1]
+
 end
 
 function _update()
-		//scrolling, we use #string to see length
-		if scrl < #splitdialogue(currentdialogue)
-		then
-				scrl+=0.5
-				//skip dialogue button
-				if btnp(5)
-				then
-						scrl = #splitdialogue(currentdialogue)
-				end
-		end
 
-if btime>0 then btime-=1
+if scrl<#sdial(cdial) then
+	scrl+=0.5
+ if btnp(5) then
+		scrl=#sdial(cdial)
+	end
+end
+
+if btime>0 then 
+ btime-=1
 elseif btime==0 then
-	if sbs==2 then
-		sbs=1
-	else
-		sbs=2
+	if sbs==2 then 
+	 sbs=1
+	else 
+	 sbs=2 
 	end
 	btime=15
 end
@@ -298,7 +277,7 @@ if tcheck
 then
 	titlescreen()
 else
- dialogue(story[proom])
+ dialogue(s[proom])
 	grid()
 end
 
@@ -307,72 +286,42 @@ bugs()
 end
 -->8
 --ui page
-
 function ui()
 
-rectfill(0,0,128,2,clr[3])
-rectfill(0,0,2,128,clr[3])
-rectfill(0,86,128,89,clr[3])
-rectfill(95,86,97,128,clr[3])
-rectfill(0,124,128,128,clr[3])
-rectfill(125,0,128,128,clr[3])
+rf(0,0,128,2)
+rf(0,0,2,128)
+rf(0,86,128,89)
+rf(95,86,97,128)
+rf(0,124,128,128)
+rf(125,0,128,128)
 
---[[
-dialogue box	appearance.
-]]--
 rect(2,2,125,86,clr[1])
-		
-		--[[
-		grid box appearance
-		]]--
-		rect(98,89,125,124,clr[1])
+rect(98,89,125,124,clr[1])
+rect(2,89,95,124,clr[1])
+end
 
-		--[[
-		choice box appearance.
-		]]--
-		rect(2,89,95,124,clr[1])
+function rf(v,w,x,y)
+	rectfill(v,w,x,y,clr[3])
 end
 
 function grid()
-		--[[
-		it's important to show
-		where the player is on the
-		map.
-		
-		with how our program works,
-		we can check each room and
-		see if we've been in them yet.
-		]]--	
-		for r = 0, 4 do
-				for c = 1, 3 do
-						placement = (r*3)+c
-						if placement==proom
-						then
-							spr(bmap[sbs],
-							92+(8*c),115-(8*r))
-						elseif vroom[placement]==1
-						then
-								spr(001,92+(8*c),
-								115-(8*r))
-						end
-				end
-		end
+	for r=0,3 do
+		for c=1,3 do
+			p=r*3+c
+			if vroom[p]==1 or p==proom then
+				blink(bmap,1,p==proom,92+8*c,115-8*r)
+			end
+	 end
+	end
 
-		--[[
-		used to preview rooms, '
-		i.e: let the player know that
-		a given room exists
-		]]--
-		if prevu[1] == 1
-		then
-				spr(009,108,107)
-		end
-		if prevu[2] == 1
-		then
-				spr(009,108,99)
-				spr(010,100,107)
-				spr(010,116,107,1,1,1)
-		end
+	if prevu[1]==1 then
+		spr(009,108,107)
+	end
+	if prevu[2]==1 then
+		spr(009,108,99)
+		spr(010,100,107)
+		spr(010,116,107,1,1,1)
+	end
 end
 
 function blink(b,c1,c2,x,y)
@@ -383,233 +332,53 @@ function blink(b,c1,c2,x,y)
  end
 end
 
-function choices(item)
-		//
-		if not lock
-		then
-		--[[
-		blinkers to indicate
-		that there are more than
-		three choices available.
-		]]--
-				if #item.choice > 3
-				then
-						blink(bup,
-						dsel>1,
-						scrl == #splitdialogue(currentdialogue),
-						4,117)
-						blink(bdn,
-						dsel<#item.choice,
-						scrl == #splitdialogue(currentdialogue),
-					 9,117)
-				end
-				
-				--[[
-				if we want to scroll our
-				dialogue boxes, we must let
-				our program know exactly 
-				where we are in our choice
-				menu.
-				
-				in this case, we first check
-				to see if the current choice
-				the player is selecting is
-				three or higher.
-				
-				if it is, then we can tell
-				exactly how far over we are
-				by subtracting it from 3.
-				
-				it's basic math, but is
-				important for creating the
-				menu options.
-				]]--
-if dsel>2
-then
-over3=dsel-3
-else over3=0
+function choices(r)
+if not lock then
+	if scrl==#sdial(cdial) then
+  mc(r)
+ end
+
+	u3=3
+	if #r.c>3 then
+		blink(bup,dsel>1,scrl==#sdial(cdial),4,117)
+		blink(bdn,dsel<#r.c,scrl==#sdial(cdial),9,117)
+	else
+	 u3=#r.c
+	end
+
+	if dsel>2 then
+	 o3=dsel-3
+	else
+		o3=0
+	end
+
+	for i=1,u3 do
+		print(r.c[i+o3],15,82+(i*10),clr[2])
+		blink(bsel,i+o3==dsel,scrl==#sdial(cdial),5,80+(i*10))
+	end
+
+else
+	print("continue",15,92)
+	blink(bsel,1,scrl==#sdial(cdial),5,90)
 end
-				
-				--[[
-				conversely, the other
-				potential option is that
-				we're underneath 3 when
-				we look at our menu,
-				whether it's 1 or 2.
-				
-				in this case, we want to
-				limit how many choices appear
-				instead. with this, we can
-				simply set the limit here.
-				]]--
-				under3 = 3
-				if #item.choice < 3
-				then
-						under3 = #item.choice
-				end
-				
-				--[[
-				this is where we actually
-				display our menu for the
-				choices the player has.
-				
-				in this case, we first need
-				to know how many options
-				we want to display. first,
-				if we have less than three
-				choices, under3 make it so
-				the menu displays the
-				choices the player has
-				without forcing it to output
-				a [nil] option in the event
-				that a second or third
-				choice doesn't exist.
-				
-				otherwise, it'll display
-				exactly three choices.
-				]]--
-		 	for i = 1, under3 do	
-		 	--[[
-		 	next: it'll display the 
-		 	choices we deem 'visible'
-		 	based on how the player
-		 	scrolls the menu.
-		 	
-		 	in the event of three or
-		 	less choices, it'll always
-		 	display all choices.
-		 	
-		 	however: if there's more
-		 	than three choices, it'll
-		 	update the choices as the
-		 	player scrolls due to the
-		 	selected choice dynamically
-		 	updating as per the player
-		 	scrolling.
-		 	
-		 	for example: if there are 4
-		 	choices, and the player
-		 	scrolls from the third option
-		 	to the fourth, then our
-		 	"over3" variable will update
-		 	accordingly by +1, so all
-		 	three of the choices will
-		 	shift accordingly, giving
-		 	the appearance that the
-		 	player is scrolling down
-		 	the menu. similarly: when
-		 	the player goes up from
-		 	fourth to the third position,
-		 	then over3 will subtract one
-		 	accordingly, giving us
-		 	the illusion of a menu that
-		 	actually scrolls, when
-		 	in reality it's simply 
-		 	changing the selection.		 	
-		 	]]--
-				  		print(item.choice[i+over3],
-				  		15,82+(i*10),clr[2])
-				--[[
-				we also want to show the
-				player where they are on
-				the menu, and a blinking
-				cursor is the best way to
-				display this information
-				accurately.
-				
-				similarly: we want to
-				ensure that it displays
-				correctly when we're
-				"scrolling" through the 
-				menu, so we use the same
-				principle from before and
-				use over3 to display our
-				selection correctly.
-				]]--
-				  		blink(bsel,
-				  		i+over3==dsel,
-				  		scrl == #splitdialogue(currentdialogue),
-				  		5,80+(i*10))
-				end
-															
-				if not disable and scrl == #splitdialogue(currentdialogue)
-				then
-			   movecursor(item)
-			 end
-		else
-		--[[
-		in the event that we don't
-		wish to give the player a 
-		choice, or rather a choice
-		doesn't matter (such as
-		simply advancing through
-		dialogue), then
-		all we must do is print
-		a "continue" option that does
-		nothing but let the player
-		continue moving, and only
-		do so when the dialogue
-		completes.
-		]]--
-				print("continue",15,92)
-				blink(bsel,
-				true,
-				scrl == #splitdialogue(currentdialogue),
-				5,90)
-		end
 end
 
-function movecursor(item)
-		--[[
-		we want to ensure that
-		the player doesn't update
-		the position of their choice
-		during a choice selection
-		or during the main dialogue,
-		as that can cause issues.
-		
-		as such, we only allow
-		the player to start making
-		choices after the text has
-		been fully displayed, and
-		that we're not disabling
-		their input any further.
-]]--
-if btnp(3) and dsel<#item.choice
-then
-dsel+=1
-sfx(01)
-elseif btnp(2) and dsel>1
-then
-dsel-=1
-sfx(01)
+function mc(s)
+ if btnp(3) and dsel<#s.c then
+  dsel+=1
+  sfx(01)
+ elseif btnp(2) and dsel>1 then
+  dsel-=1
+  sfx(01)
+ end
 end
 
-end
-
-
---[[
-a function to make sound 
-happen as dialogue plays.
-]]--
-function sound(string)
-		--[[
-		we use ord to check the value of the current character being written.
-		- if it's " ", "," or ".", we don't play sound. furthermore,
-		- if the previous character were one of those,
-		we won't play any sound.
-		- if we're at the end of the string, we won't
-		make any sound since it's over.
-		- finally, we use text scroll's delay to make the sounds 
-		happen only when it's just written.
-		]]--
-  if ord(string[scrl])!=(32 or 44 or 46)
-  and ord(string[scrl-1])!=(32 or 44 or 46)
-  and scrl != #string
-  and scrl % 1 == 0
-		then
-				sfx(00)
-		end
+function sound(s)
+ if ord(s[scrl])!=(32 or 44 or 46)
+ and ord(s[scrl-1])!=(32 or 44 or 46)
+ and scrl!=#s and scrl%1==0 then
+		sfx(00)
+	end
 end
 
 function bugs()		
@@ -620,28 +389,19 @@ end
 -->8
 -- dialogue page
 
---[[
-show the current dialogue for 
-the room, whether it is the
-current dialogue or main.
-]]--
-
 function dialogue(item) 
 
 if csel then
-	ddial(item.brnch[dsel],
+	ddial(item.b[dsel],
 	vsub[proom][dsel]==0,1)
 else
-	if vroom[proom] == 0
-	then
+	if vroom[proom]==0 then
 		lock=true
 	end
-	ddial(item.main,lock)
+	ddial(item.m,lock)
 end
 
-if btnp(4)
-and scrl==#splitdialogue(currentdialogue)
-then
+if btnp(4) and scrl==#sdial(cdial) then
 	scrl=0
 	lock=not lock
 	csel=not csel
@@ -673,22 +433,17 @@ function ddial(item,binary,branch)
 		to the 'start', and we can simply 
 		update it as we go along.
 		]]--
-	 		currentdialogue = item[imv]
-				print(sub(splitdialogue
-				(currentdialogue),1,
-				scrl),6,6,clr[2])
+	cdial=item[imv]
+	print(sub(sdial(cdial),1,scrl),6,6,clr[2])
 
-				sound(splitdialogue(currentdialogue))
+	sound(sdial(cdial))
 		--[[
 		we have it set so the dialogue can
 		only be advanced once we have reached
 		the end of the paragraph, and that
 		the button is pressed.
-		]]--
-				if btnp(4)	
-				and scrl==
-				#splitdialogue(item[imv])
-				then 
+  ]]--
+	if btnp(4)	and scrl==#sdial(item[imv]) then
 		--[[
 		once we move to the next 
 		paragraph, we should start from
@@ -697,7 +452,7 @@ function ddial(item,binary,branch)
 		textscroll, which dictates
 		where we are in the sentence.
 		]]--
-						scrl = 0
+	scrl=0
 		--[[
 		next, we check if we're about
 		to reach the end of the current
@@ -752,22 +507,22 @@ function ddial(item,binary,branch)
 		our various checks are being
 		updated.
 		]]--
-						if #item-1 > imv
-						then
-								imv += 1
-				 	else
-				 			if branch
-				 			then
-				 					events()
-				 					csel=false
-				 			else
-				 					vroom[proom] = 1
-								end
-								imv=1
-								lock=false
-						end
+			if #item-1>imv
+			then
+				imv+=1
+			else
+				if branch
+				then
+					events()
+					csel=false
+				else
+					vroom[proom]=1
 				end
-		else
+				imv=1
+				lock=false
+			end
+		end
+	else
 		--[[
 		if the binary is false, it
 		means that we've seen this 
@@ -781,11 +536,10 @@ function ddial(item,binary,branch)
 		we should run the event just
 		in case.
 		]]--
-				currentdialogue = item[#item]
-				print(sub(splitdialogue(currentdialogue),
-				1,scrl),6,6,clr[2])
-				sound(splitdialogue(currentdialogue))
-		end
+		cdial=item[#item]
+		print(sub(sdial(cdial),1,scrl),6,6,clr[2])
+		sound(sdial(cdial))
+	end
 end
 -->8
 -- event tracker
@@ -795,20 +549,18 @@ function events()
 vsub[proom][dsel]=1
 
 --room2--
-if proom == 2
-	then
+if proom==2 then
 	if dsel==1 then
-		key1 = 1
-		story[2].followupchoice[3] = {
+		key1=1
+		s[2].b[3]={
 		"after using the keycard, the door opens and a small cloud of mist disperses into the room. you can smell fresh plant life around you as you step inside. a faint light illuminates the room, showing a spiral staircase that goes deep into the ground. if there was anything of value, it'd be down there. seeing no other option, you descend the stairs",
 		"you slowly make your way down the stairs, being as careful as you can. each step causes the stairs to let out an awful creak, and whether it'll be from the stair underneath you breaking or tripping on an errant vine, a fall from here wouldn't be pretty.",
 		""}
-	elseif dsel==2
-		then
-		story[2].choice[3]="open the door"
+	elseif dsel==2 then
+		s[2].c[3]="open the door"
 		prevu[1]=1
 		if key1==0	then
-			story[2].followupchoice[3] = {
+			s[2].b[3]={
 				"try as you might, the door to the next room is closed quite tightly. you can't try the keycard reader currently, as you don't have a card.⬇️you're not one to give up easily however, and you try to pry open the door with a spare piece of metal that had been lying around.",
 				"you spend a few minutes trying to use the metal bar to open the door, but it's not budging.⬇️the only result you gain is the gift of pain, as you accidentally hit your leg with the metal during your attempts. letting out a grunt of pain, you come to the realization that you'll need to find a keycard somewhere...",
 				"",}
@@ -818,7 +570,7 @@ if proom == 2
 		 proom=5
 		 prevu[2]=1
   else
-		 story[2].followupchoice[3]={
+		 s[2].b[3]={
 		 	"you were never quick to give up. you pick up that same piece of metal and try again, working a different angle to open the door.⬇️a few minutes pass, but you're no closer to opening that door while your arms are ready to throw in the towel. it's becoming clearer that you're going to need a keycard.",
 		 	""}
 		 vsub[2][3]=0
@@ -826,19 +578,16 @@ if proom == 2
 	end
 --room 3--
 --room 4--
-elseif proom == 4 then
-	if dsel == 1
-	then
+elseif proom==4 then
+	if dsel==1	then
 		key2=1
 		vsub[5][6]=0
-		story[5].followupchoice[6]={
-		 "you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door."}
-	elseif dsel==3
-	then
+		s[5].b[6]={"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door."}
+	elseif dsel==3 then
 		vsub[4][3]=0						
 		vsub[5][5]=0
-		story[5].dialogue[6]="this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
-	 story[5].followupchoice[5]={
+		s[5].m[8]="this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
+	 s[5].b[5]={
 			"thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
 		 "",}	
 		proom=5
@@ -849,7 +598,7 @@ elseif proom==5 then
 		jrnl[1]=1
 	elseif dsel==2 then	
 		meds+=1
-		story[5].followupchoice[2]={
+		s[5].b[2]={
 			"thinking about it more, you decide to pocket them for now, as you might forget about it when you're getting ready to leave. you pocket the medicine with that, putting them in your satchel.",
 			"you check the various desks some more, but there doesn't seem to be anything else worth taking right now."}
 	 vsub[5][2]=0	
@@ -867,14 +616,14 @@ elseif proom==6 then
  shears=1
  vsub[6][6]=0						
 	 if scan==1 and vsub[6][3]==1 then
-		story[6].followupchoice[6]={
+		s[6].b[6]={
 	  "you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
 	  "with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
 	  "you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
 	  "carefully, you step through into the next room.",
 	  ""}
 		elseif scan==0 and vsub[6][3]==1 then
-		story[6].followupchoice[6] = {
+		s[6].b[6]={
 	  "seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
 	  "you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
 	  "you brace yourself, seeing no way to escape from this. the lights hit the top of your head... and continue downwards without any noticable effect until it hits the very bottom of the scanner, where it promptly fades away. you feel no different, it seems the scan is complete.",
@@ -887,11 +636,16 @@ elseif proom==6 then
 	  "the opposing glass door on the scanner opens up, and you can see the electronic lock on the opposing door unlock. carefully, you step into the next room...",
 			""}
 		end
-	elseif dsel == 6 then
+	elseif dsel==6 then
 	 scan=1
 		if shears==1 then
 			proom=9
 		end
+	elseif dsel==7 then
+		vsub[6][7]=0
+		vsub[5][6]=0
+		proom=5
+		s[5].b[6]={"taking your keycard out, you swipe it through the reader. the door unlocks again without issue, and you step through. thankfully, the keycard doesn't seem to be a one time use. "}
 	end
 end
 	dsel=1
@@ -899,253 +653,64 @@ end
 -->8
 -- dialogue splitter
 
-function splitdialogue(input)
-		--[[
-		this function exists to 
-		automatically add the 
-		breakline	to a given string, 
-		so we won't	need to do it 
-		manually, as it's	tedious. we
-		take a given string	and we 
-		can make it add a new	line 
-		with any posotive number	for 
-		the sentence length.
+function sdial(s)
 
-		our length must be 1 higher 
-		than	what we want. this is 
-		because	we're adding the 
-		newline	character "\n" at 
-		the end of	every sentence, 
-		and thus must accomodate for
-		it.
-		
-		the second value will update
-		dynamically once the loop 
-		starts	but we wish to keep 
-		the first	number the same 
-		incase we wish	to change 
-		how long it is.
-		]]--
-		setlength=31
-		length=setlength
-		--[[
-		the following string should 
-		contain exactly 31	spaces, 
-		so we can use it to create 
-		artificial empty spaces when 
-		we want to	break	line. we
-		include an alt with periods
-		for bug testing		
-		]]--
-		
-  emptystr="                               "
---emptystr="..............................."	
-		--[[
-		while we can dynamically
-		calculate the size of our
-		string to know how long it
-		is, and how long we should do
-		this for, we know that if it
-		activates more than 13 times
-		we have an issue as it'll run
-		off the text. similarly:
-		it won't display anything if
-		we do it too much, so for now
-		we have it set to run 13 times.
-		]]--
-		
-		for i=0,13 do
-		--[[
-		we first want to ensure that
-		we manually break line when
-		we mark it appropriately.
-		for the purpose of this
-		program, ⬇️ in text represents
-		a manual linebreak that i
-		want to make, for formatting
-		purposes.
-		
-		the best way to do this is to
-		go through the text first and
-		scan if any such character
-		exists. if it doesn't, we
-		do nothing.
+setl=31
+l=setl
+estr="                               "
 
-		bugtesting - to check what the
-		program believes the "first"
-		letter is, and if it's correct
-		
-		print(input[1+(i*setlength)],6+i*4,116)
-		
-		]]--
-
-				for j=1,setlength do
-				  if sub(input,j+(setlength*i),j+(setlength*i)) == "⬇️"
-				  then		
-			--[[
-			we should make
-			an exception manager, in the
-			event that an word is close
-			to the right edge, and the
-			addition of ⬇️ would make
-			it go to the next line, then
-			we need to put this exception
-			into here, or it'll get weird.
-			
-			i plan to look at the linewrap
-			formula next to see if i can
-			fix this without needing an
-			exception like this, bandaids
-			aren't ideal after all.
-			]]--
-								--print(j,4,110)
-								if j>setlength-1
-								then
-										for k=1,length-j do
-												if sub(input,length-k,length-k)==" "
-												then
-														--print(k,28,110)
-														emptystrsize=k
-														break
-												end
-										end
-								else
-										emptystrsize=j
-								end
-		--[[		
-		if it exists: we will "delete"
-		the character by creating a 
-		new string that has every
-		character before it and every
-		character after it, with a
-		certain amount of empty 
-		characters in between so it
-		will display correctly. the
-		amount of characters is
-		found the same way we found
-		the ⬇️ character, so we can
-		easily fix our display.		
-		]]--
-				  		temporary = 
-				  		sub(input,1,j+(setlength*i)-1)
-	 --[[
-	 we know how many characters
-	 we want to add via the j from
-	 the check earlier. we also
-	 wish to adjust it by 2,
-	 to keep \n in our calcs
-	 ]]--
-				  		..sub(emptystr,emptystrsize)
-				  		.."\n"
-				  		..sub(input,j+(setlength*i)+1)
- 		--[[
-		we then	replace the input 
-	 with our	newly sanitized 
-	 string to continue with the 
-	 program. with how we added
-	 the characters, the next line
-	 won't need to do anything, as
-	 we've already ensured it
-	 won't see anything that
-	 causes an error.
-		]]--	 
- 			    input = temporary
-				  end
-				end			
-		--[[
-		we must also check before we
-		insert the newline if we'll
-		cut off a word by doing this.
-		if the given character isn't
-		an empty space, we'll run a
-		check and simply adjust  empty
-		space onto the end of the
-		line. 
-		
-		i.e:
-		if it's cutting off the word
-		like so
-		
-		..... hel
-		lo world
-		
-		then we will see how many
-		characters it must take to
-		move it to the next sentence.
-		in this case, we must move
-		'hel' and we'll adjust our
-		number appropriately so it
-		will display
-		
-		.....
-		hello world
-		
-		assuming that it can all be
-		displayed on one line, of
-		course.
-		]]--
-				if sub(input,length-1,length-1)!=" "
-				then
-						for j=1,ceil(setlength/3) do
-								if sub(input,length-j,length-j)==" "
-								then
-										temporary = sub(input,1,length-j-1)
-										..sub(emptystr,#emptystr-j+2)
-										..sub(input,length-j)
-										input=temporary
-										break
-								end
-						end
-				end
-
-		--[[
-		once we are sure that adding
-		a new line is safe, we will
-		do so by creating a temporary
-		placeholder, and it's value will
-		be what we have already done,
-		the newline, and then what we
-		haven't done yet.
-		
-		thus, each time we go through
-		this loop again, it'll only
-		affect the next line, without
-		compromising any previous lines.
-		
-		we also increase our length
-		appropriately each line.
-		]]--
-				temporary = sub(input,1,length-1)
-				.."\n"
-				..sub(input,length)
- 			input = temporary		
- 			length+=setlength
+for i=0,13 do
+	for j=1,setl do
+	 if sub(s,j+setl*i,j+setl*i)=="⬇️" then
+			if j>setl-1 then
+				for k=1,l-j do
+					if sub(s,l-k,l-k)==" " then
+						esize=k
+					 break
+				 end
+			 end
+	  else
+			 esize=j
+	  end
+		s=sub(s,1,j+(setl*i)-1)..sub(estr,esize).."\n"..sub(s,j+(setl*i)+1)
 		end
-		--[[
-		once we're finished
-		]]--
-		return input
+	end
+
+	if sub(s,l-1,l-1)!=" " then
+		for j=1,ceil(setl/3) do
+			if sub(s,l-j,l-j)==" " then
+				s=sub(s,1,l-j-1)..sub(estr,#estr-j+2)..sub(s,l-j)
+			break
+			end
+		end
+	end
+
+	s=sub(s,1,l-1).."\n"..sub(s,l)
+	l+=setl
+end
+
+return s
 end
 -->8
 -- title screen
 
 function titlescreen()
 
-currentdialogue=title.main[1]
+cdial=t.m[1]
 
 if tpick==0
 then
 	print("\^w\^ta forgotten\n  journal",20,20,clr[2])
- choices(title)
+ choices(t)
 	if btnp(4) and dsel==1 then
-		tcheck = false		
-		currentdialogue=story[proom].main[1]
+		tcheck=false		
+		cdial=s[proom].m[1]
 		scrl=0
 	elseif btnp(4) and dsel==3 then
 		tpick=1
 	end
 else
-	print(splitdialogue(title.options[1]),5,5,clr[2])
+	print(sdial(t.o[1]),5,5,clr[2])
  clr[tpick]=options(clr[tpick])
 	if btnp(4) then
 		tpick+=1
