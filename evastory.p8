@@ -3,8 +3,7 @@ version 42
 __lua__
 -- default functions
 function _init()
-
-proom=2
+proom=5
 tcheck=true
 tpick=0
 clr={2,3,1}
@@ -34,6 +33,7 @@ vsub={
 --
 sbs=1
 btime=0
+delay=0
 bmap={001,002}
 bsel={003,004}
 bup={005,006}		
@@ -243,16 +243,21 @@ o={"use the arrow keys to change your settings, and press z when you are done."}
 }
 
 cdial=s[proom].m[1]
-
 end
 
 function _update()
+if delay>0 then
+	delay-=1
+end
 
 if scrl<#sdial(cdial) then
 	scrl+=0.5
- if btnp(5) then
+ if btnp(5) and delay==0 then
+ 	delay=10
 		scrl=#sdial(cdial)
 	end
+elseif scrl>#sdial(cdial) then
+	scrl=0
 end
 
 if btime>0 then 
@@ -265,11 +270,9 @@ elseif btime==0 then
 	end
 	btime=15
 end
-
 end
 
 function _draw()
-
 cls()
 rectfill(0,0,128,128,bckclr)
 
@@ -277,7 +280,7 @@ if tcheck
 then
 	titlescreen()
 else
- dialogue(s[proom])
+ dial(s[proom])
 	grid()
 end
 
@@ -287,7 +290,6 @@ end
 -->8
 --ui page
 function ui()
-
 rf(0,0,128,2)
 rf(0,0,2,128)
 rf(0,86,128,89)
@@ -389,16 +391,14 @@ end
 -->8
 -- dialogue page
 
-function dialogue(item) 
-
+function dial(i)
 if csel then
-	ddial(item.b[dsel],
-	vsub[proom][dsel]==0,1)
+	ddial(i.b[dsel],vsub[proom][dsel]==0)
 else
 	if vroom[proom]==0 then
 		lock=true
 	end
-	ddial(item.m,lock)
+	ddial(i.m,lock)
 end
 
 if btnp(4) and scrl==#sdial(cdial) then
@@ -406,140 +406,33 @@ if btnp(4) and scrl==#sdial(cdial) then
 	lock=not lock
 	csel=not csel
 end
-
-choices(item)
-
+choices(i)
 end
 
-function ddial(item,binary,branch)
-		--[[
-		we use this to determine if we should
-		go through the entire dialogue,
-		or if the player has already read it.
-		
-		if binary is true, then we haven't
-		seen the dialogue yet and should
-		display it all. otherwise, just
-		skip to the last part.
-		]]--			
-		if binary
-	 then
-		--[[
-		for our various dialogue options,
-		it's important to ensure that the
-		system knows what our current
-		dialogue is. thus, we have it
-		set so it'll always initialize
-		to the 'start', and we can simply 
-		update it as we go along.
-		]]--
-	cdial=item[imv]
-	print(sub(sdial(cdial),1,scrl),6,6,clr[2])
-
-	sound(sdial(cdial))
-		--[[
-		we have it set so the dialogue can
-		only be advanced once we have reached
-		the end of the paragraph, and that
-		the button is pressed.
-  ]]--
-	if btnp(4)	and scrl==#sdial(item[imv]) then
-		--[[
-		once we move to the next 
-		paragraph, we should start from
-		the beginning of the next
-		sentence, hence we reset the
-		textscroll, which dictates
-		where we are in the sentence.
-		]]--
-	scrl=0
-		--[[
-		next, we check if we're about
-		to reach the end of the current
-		dialogue.	if we're not, then
-		we'll continue moving through
-		the paragraphs.
-		
-		otherwise, if we're about to
-		finish, then we'll tell the
-		program that it's time to 
-		adjust	our variables to get
-		ready for allowing the player
-		to make choices again.
-		
-		notably: with how the program
-		works, in one iteration of the
-		loops, it will never display
-		the final part of our dialogue.
-		
-		this is intentional, as for the
-		main dialogue, once the program
-		completes, it will then update
-		our numbers and the program will
-		run again, this time seeing 
-		that it should only run the last
-		line of dialogue and nothing else.
-		
-		this creates a seemless line
-		that ensures we go straight from
-		second to last to last without
-		any issues for the main dialogue.
-		
-		it also ensures that we will 
-		display the last main dialogue
-		after we finish making a choice,
-		giving us something to always
-		go back to.
-		
-		for the branching dialogue, it
-		also works just fine as we can
-		use that last line of dialogue
-		to simply be used as a
-		'reinvestigation' note, i.e
-		after a player checks the same
-		point again, it'll display
-		a short message for the player
-		to understand that they have
-		everything.
-		
-		we're also able to run
-		our events here to ensure that
-		our various checks are being
-		updated.
-		]]--
-			if #item-1>imv
-			then
-				imv+=1
+function ddial(i,b)
+if b then
+cdial=i[imv]
+	if btnp(4)	and scrl==#sdial(i[imv]) then
+ 	scrl=0
+		if #i-1>imv then
+			imv+=1
+		else
+			if csel then
+				events()
+				csel=false
 			else
-				if branch
-				then
-					events()
-					csel=false
-				else
-					vroom[proom]=1
-				end
-				imv=1
-				lock=false
+			 vroom[proom]=1
 			end
+			imv=1
+			lock=false
 		end
-	else
-		--[[
-		if the binary is false, it
-		means that we've seen this 
-		dialogue before and we can
-		skip straight to the end
-		without fear.
-		
-		the only thing we should do
-		is display the dialogue, and
-		if we're in a branch, then
-		we should run the event just
-		in case.
-		]]--
-		cdial=item[#item]
-		print(sub(sdial(cdial),1,scrl),6,6,clr[2])
-		sound(sdial(cdial))
 	end
+else
+	cdial=i[#i]
+end
+
+print(sub(sdial(cdial),1,scrl),6,6,clr[2])
+sound(sdial(cdial))
 end
 -->8
 -- event tracker
@@ -584,7 +477,7 @@ elseif proom==4 then
 		vsub[5][6]=0
 		s[5].b[6]={"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door."}
 	elseif dsel==3 then
-		vsub[4][3]=0						
+		vsub[4][3]=0
 		vsub[5][5]=0
 		s[5].m[8]="this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
 	 s[5].b[5]={
@@ -597,11 +490,13 @@ elseif proom==5 then
 	if dsel==1 then
 		jrnl[1]=1
 	elseif dsel==2 then	
-		meds+=1
-		s[5].b[2]={
-			"thinking about it more, you decide to pocket them for now, as you might forget about it when you're getting ready to leave. you pocket the medicine with that, putting them in your satchel.",
-			"you check the various desks some more, but there doesn't seem to be anything else worth taking right now."}
-	 vsub[5][2]=0	
+		if meds<2 then
+		 meds+=1
+		 s[5].b[2]={
+			 "thinking about it more, you decide to pocket them for now, as you might forget about it when you're getting ready to leave. you pocket the medicine with that, putting them in your satchel.",
+			 "you check the various desks some more, but there doesn't seem to be anything else worth taking right now."}
+	  vsub[5][2]=0	
+	 end
 	elseif dsel==5 then
 		proom=4
 	elseif dsel==6 and key2==1 then
@@ -654,7 +549,6 @@ end
 -- dialogue splitter
 
 function sdial(s)
-
 setl=31
 l=setl
 estr="                               "
@@ -695,7 +589,6 @@ end
 -- title screen
 
 function titlescreen()
-
 cdial=t.m[1]
 
 if tpick==0
