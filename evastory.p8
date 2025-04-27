@@ -2,8 +2,9 @@ pico-8 cartridge // http://www.pico-8.com
 version 42
 __lua__
 -- default functions
+
 function _init()
-proom=5
+proom=2
 tcheck=true
 tpick=0
 clr={2,3,1}
@@ -17,8 +18,8 @@ meds=0
 shears=0
 scan=0
 --
-prevu={0,0,0}
-vroom={0,0,0,0,0,0,0,0,0,0,0,0}
+pr={{0,108,115,3},{1,108,107,1},{1,116,107,3},{1,116,99,2}}
+vroom={0,1,0,1,1,1,0,0,1,0,0,0}
 vsub={
 {},
 {0,0,0},
@@ -165,18 +166,19 @@ b={
 --room6
 {
 m={
-"similar to before, a mist comes out the door as it unlocks. it's hard to control this feeling of dread that's growing inside of you. you can't help but shake the feeling that you're being watched. you've seen a few cameras in the previous rooms, but none of them appeared to be working. it's different, something else may be looking... at least, that's what it feels like.",
-"perhaps your mind is playing tricks on you. it's unlikely that anyone could still be here after all this time, with the place in this condition. if there were anyone, you should've seen them by now. outside of the plants you've found, there's been no evidence of anything else.",
-"at any rate, you can't leave now. you haven't found anything yet that makes this investigation worth it. there should be something valuable that you could take here, whether it's equipment or some information you could sell. with some luck, it'll be enough to keep you and your sister fed for a long time.",
-"summoning your own courage, you step inside the now unlocked room. not knowing what to expect, you carefully survey your surroundings. this room appears to be a decontamination room. there's a few hazmat suits along the wall with a compact shower next to it. you can also see a larger scanner. it's rather large, and the only way to get to the door is to walk through it.",
-"you can also notice that there are two larger desks in the room, and that the scanner on the other doorway seems to have something on it's display. there also seems to be a few lockers along the opposite wall from your doorway.",
-"carefully walking around the room, you start to take a closer look at your surroundings."},
+--"as the door opens, you can't shake the feeling that you're being watched. you've seen a few cameras as you walked around the place, but each one had clearly been damaged or destroyed already.⬇️it's as if something was behind you, hands ready to grasp your throat, yet disappearing when you look. ",
+--"your mind must be playing tricks on you, this place was clearly abandoned after all so it's unlikely you'd find any mad scientists in these halls.⬇️similarly, each of these doors were locked tightly. outside of these plants, it's unlikely that anything else could survive in these conditions.",
+--"leaving now just because of a 'bad feeling' would be a waste. it's likely you're the first person to discover this laboratory after all.⬇️forget sifting through the looted rubble upstairs, who knows how many valuables could be down here still!",
+--"with some luck, you could make enough money to feed you and your sister for months! hell, if you were lucky enough, you might even find some medicine for her down here too without needing to worry about that shady back-alley doctor.⬇️leaving now was out of the question. besides, you can't help but feel curious...",
+"what exactly happened down here? why did the laboratory get to this state? what happened to the people here?⬇️it's might be risky to stay here, but running away from an opportunity like this would leave you filled with regrets!⬇️with that, you step inside the door with great care. ",
+"inside the room, it seems this room looks like a decontamination room. a small glass shower with hazmat suits can be seen, as well as what looks like a large scanner.⬇️there also seems to be a few desks and cabinets to go through. you certainly have your work cut out for you. ",
+},
 c={
 "check hazmat suits",
 "check shower",
 "check smaller desk.",
 "check larger desk.",
-"check lockers",
+"check cabinets",
 "enter the scanner.",
 "enter left door."},
 b={
@@ -289,6 +291,7 @@ bugs()
 end
 -->8
 --ui page
+
 function ui()
 rf(0,0,128,2)
 rf(0,0,2,128)
@@ -316,14 +319,23 @@ function grid()
 	 end
 	end
 
-	if prevu[1]==1 then
-		spr(009,108,107)
+	for i=1,#pr do
+		if pr[i][1]==1 then
+		 prev(pr[i][2],pr[i][3],pr[i][4])
+		end
 	end
-	if prevu[2]==1 then
-		spr(009,108,99)
-		spr(010,100,107)
-		spr(010,116,107,1,1,1)
-	end
+end
+
+function prev(x,y,c)
+if c<2 then
+	spr(010,x+8,y,1,1,1)
+end
+if c<3 then
+	spr(010,x-8,y)
+end
+if c<4 then
+	spr(009,x,y-8)
+end
 end
 
 function blink(b,c1,c2,x,y)
@@ -451,7 +463,7 @@ if proom==2 then
 		""}
 	elseif dsel==2 then
 		s[2].c[3]="open the door"
-		prevu[1]=1
+		pr[1][1]=1
 		if key1==0	then
 			s[2].b[3]={
 				"try as you might, the door to the next room is closed quite tightly. you can't try the keycard reader currently, as you don't have a card.⬇️you're not one to give up easily however, and you try to pry open the door with a spare piece of metal that had been lying around.",
@@ -461,7 +473,7 @@ if proom==2 then
 	elseif dsel==3 then
 		if key1==1 and vsub[2][3]==1 then
 		 proom=5
-		 prevu[2]=1
+		 pr[2][1]=1
   else
 		 s[2].b[3]={
 		 	"you were never quick to give up. you pick up that same piece of metal and try again, working a different angle to open the door.⬇️a few minutes pass, but you're no closer to opening that door while your arms are ready to throw in the towel. it's becoming clearer that you're going to need a keycard.",
@@ -501,6 +513,7 @@ elseif proom==5 then
 		proom=4
 	elseif dsel==6 and key2==1 then
 		proom=6
+		pr[3][1]=1
 	end
 --room6--
 elseif proom==6 then
