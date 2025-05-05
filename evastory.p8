@@ -4,8 +4,9 @@ __lua__
 -- default functions
 
 function _init()
-proom=2
+proom=9
 inv=false
+invn=1
 tcheck=true
 tpick=0
 clr={2,3,1}
@@ -13,23 +14,23 @@ clw={"ui","text","background"}
 bckclr=1
 --
 bp={
-{"green keycard",1},
-{"keycard 6",1},
-{"medicine",1},
-{"shears",1},
-{"",0},
-{"",0},
-{"",0},
-{"",0},
-{"",0},
-{"",0},
-{"",0},
-{"",0}}
+{"g. keycard",0,"a keycard that has been stained green. most of the info on it has faded."},
+{"keycard n.6",0,"a keycard numbered 6. you can also make out the word 'decontamination' on it. "},
+{"medicine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
+{"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
+{"",0,""},
+{"",0,""},
+{"",0,""},
+{"",0,""},
+{"",0,""},
+{"",0,""},
+{"",0,""},
+{"",0,""}}
 jrnl={0,0}
-scan=0
+td={0,0}
 --
 pr={{0,108,115,3},{0,108,107,1},{0,116,107,3},{0,116,99,2}}
-vroom={0,0,0,0,0,0,0,0,0,0,0,0}
+vroom={0,1,0,1,1,1,0,0,0,0,0,0}
 vsub={
 {},
 {0,0,0},
@@ -49,6 +50,7 @@ bmap={001,002}
 bsel={003,004}
 bup={005,006}		
 bdn={007,008}
+bin={011,012}
 --
 dsel=1
 csel=false
@@ -245,6 +247,70 @@ c={"nothing"}
 },
 --room9
 {
+m={
+"as you looked into the room, it becomes quite clear why the scientists had made it difficult to enter this room. this small hallway was completely filled with vines.⬇️the other rooms looked prim and organized compared to this garden of a room. you could hardly see any of the floor thanks to the vines. ",
+"you stepped into the room, ducking to avoid some of the hanging vines in the doorway. if little else, you could make out some details in this hallway.⬇️you could see that directly across the hallway that there was a doorway, and on the left side of the room was another doorway.",
+"you could also make out a map on the wall, and there may be more things hidden in the plant life.⬇️you can also see an open closet with more hazmat suits, vines curling around them.",
+"your thoughts are interrupted as a small but audible beep goes off behind you, and the door closes.⬇️standing here would do you no more good, it was time to take a proper look around. "
+},
+c={
+"check map",
+"look around room",
+"look in closet",
+"check north door",
+"check west door",
+"enter south door"
+},
+b={
+{
+"whoever lived here was kind enough to leave a map on the wall for you to look through. it seems that right now, you were in between a set of decontamination rooms to the north and south. to your left was a larger shower room, which guarded the experimentation room. past that was the 'subjects room'. ",
+"the decontamination you were just in was the south one, and it neighbored the observation room.⬇️it seems the glass in that room was meant to show the experimentation room. the other room in that area was the research room, where you found the six keycard.",
+"finally, upon entering the north decontamination room, if you headed left, it'd lead to the living quarters, and past that the storage room.⬇️the map is stuck behind thick glass, so you decide to come back here if you need to look at the map again. ",
+""
+},
+{
+"you cautiously decide to spend a few minutes looking through the room. a few pass, but you do ultimately find something of note: a scrap of paper that was buried in vines. using your shears, you free the piece of paper and take a proper look at it.",
+"\"there's an issue with the scanner that leads to the experimentation room. if yours doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
+"you continue to look around, but it seems there's nothing else in the main hallways at least."
+},
+{
+"you step into the closet to see if there was anything worth taking. there's a few hazmat suits within... two of which had been torn open by something.⬇️pushing the thought of what could've caused this away, you continue to check around the room.",
+"you do happen upon something in one of the torn suits' pockets. inside is another page from the journal. seeing little reason not to, you start to read it.",
+"\"april 10th, 20█\"⬇️\"our experiments have gone quite well, we've recently celebrated the █th anniversary from the start of our tests with eva. her body is holding up quite well, with the degeneration of her body's █ only at █5%.\"⬇️\"her mental tests have also been within working results.\" ",
+"\"as it stands, we're steadily heading towards our goal of creating the █ █.\"⬇️\"we can't celebrate too early, as we had similar hopes with test subject █4, and their body quickly ███ to the point that we had to dispose of them.\" ",
+"\"we've recently begun the advanced testing, and introduced eva to █. while initial results did cause a █3% increase in mental distress to eva, we were able to confirm that the █ properly █ into her body.\"⬇️\"we're getting closer to our goals, before long we'll conquer the human █.\" ",
+"\"still, we can't ignore that eva hasn't been cooperative, though it isn't a surprise.\" ⬇️\"withholding the evacurine medicine is enough to quell resistance, as she can't bear the pain without it. she's a genius, surely she should understand what we're doing!\"⬇️\"a little pain is nothing for what we're dreaming of.\" ",
+"\"if only we could still operate on our own bodies... still, this experiment is best performed with growing bodies. we're getting close. we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
+"there isn't anything else of note in the closet room."
+},
+{
+"the door in front of you seems to be locked via a card reader, much like in the decontamination room. trying your luck, you swipe your keycards through the door, and it opens up.⬇️you're taken aback by the ease of this, this room had been difficult to enter, but it seems leaving was rather easy.",
+"you stand at the doorway for a few moments before stepping away from the door. it may be wise to look around a little more before leaving.",
+""
+},
+{
+"the room to your left has a scanner, like the room you were just in.⬇️you try swiping each of your keycards, but the scanner flashes red and lets out a negative beep. it seems this won't work. it may be worth coming back when you have a new card.",
+"you try swiping your keycards again, but it still refuses to let you through."
+},
+{
+"your move towards the decontamination room that you had come into this room from. you don't know exactly what guides your hand to the scanner.⬇️was it concern that you missed something, or was it fear of what was here? ",
+"ultimately, your body moves on its own and you swipe the door open, stepping through it and returning to the decontamination room. ",
+""
+},
+}
+},
+--room10
+{
+m={"nothing"},
+c={"nothing"}
+},
+--room11
+{
+m={"nothing"},
+c={"nothing"}
+},
+--room12
+{
 m={"nothing"},
 c={"nothing"}
 },
@@ -275,7 +341,7 @@ if scrl<#sdial(cdial) then
  	delay=10
 		scrl=#sdial(cdial)
 	end
-elseif scrl==#sdial(cdial) and btnp(5) then
+elseif scrl==#sdial(cdial) and btnp(5) and not tcheck then
  inv=not inv
 elseif scrl>#sdial(cdial) then
 	scrl=0
@@ -305,8 +371,8 @@ else
 		pckt()
 	else
 	 dial(s[proom])
+	 grid()
 	end
-	grid()
 end
 
 ui()
@@ -319,30 +385,68 @@ function ui()
 rf(0,0,128,2)
 rf(0,0,2,128)
 rf(0,86,128,89)
-rf(95,86,97,128)
 rf(0,124,128,128)
 rf(125,0,128,128)
 
-rect(2,2,125,86,clr[1])
+if inv then
+rect(2,89,125,124,clr[1])
+line(6,75,120,75,clr[1])
+line(6,13,120,13,clr[1])
+rect(5,112,122,92,clr[1])
+else
+rf(95,86,97,128)
 rect(98,89,125,124,clr[1])
 rect(2,89,95,124,clr[1])
 end
+rect(2,2,125,86,clr[1])
+end
 
 function rf(v,w,x,y)
-	rectfill(v,w,x,y,clr[3])
+rectfill(v,w,x,y,clr[3])
 end
 
 function pckt()
-	print("inventory",46,6,clr[2])
-	print("journal pages: ",6,78,clr[2])
-	line(6,75,120,75,clr[1])
-	line(6,13,120,13,clr[1])
-	for i=1,#bp do
-			rect(6+flr(i/7)*58,5+i*10-flr(i/7)*60,62+flr(i/7)*58,13+i*10-flr(i/7)*60,clr[1])
-		if bp[i][2]>0 then
-				print(bp[i][1],8+flr(i/7)*60,7+i*10-flr(i/7)*60,clr[2])
+--
+print("inventory",46,6,clr[2])
+print("journal pages: ",6,78,clr[2])
+--
+for i=1,#bp do
+ j=flr(i/7)*60
+ k=i*10
+	rect(12+j,5+k-j,60+j,13+k-j,clr[2])
+	if bp[i][2]>0 then
+		print(bp[i][1],14+j,7+k-j,clr[2])
+		if i==invn then
+			print(sub(sdial(bp[i][3],30),1,scrl),8,94,clr[2])
 		end
 	end
+end
+--
+invn=opt(invn,1,12,2)
+l=flr(invn/7)*60
+blink(bin,1,1,4+l,5+invn*10-l)
+--
+print("save code: ",8,116,clr[2])
+end
+
+function opt(c,n1,n2,i)
+if btnp(i) and c>n1 then
+ c-=1
+ sfx(1)
+elseif btnp(i+1) and c<n2 then
+	c+=1
+	sfx(1)
+end
+if inv then
+	if btnp(0) and c>n2/2 then
+ c-=n2/2
+	sfx(1)
+ elseif btn(1) and c<=n2/2 then
+ c+=n2/2
+	sfx(1)
+ end
+end
+return c
 end
 
 function grid()
@@ -433,7 +537,7 @@ end
 
 function bugs()		
  if false then
-	 print("csel: "..csel,5,80,clr[2])
+	 print("bp[3][2]: "..bp[3][2],5,80,clr[2])
  end
 end
 -->8
@@ -553,15 +657,15 @@ elseif proom==5 then
 	end
 --room6--
 elseif proom==6 then
-	s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
-	if scan==1 and vsub[6][3]==1 then
+	s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, but it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
+	if td[1]==1 and vsub[6][3]==1 then
 	s[6].b[6]={
   "you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
   "with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
   "you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
   "carefully, you step through into the next room.",
   ""}
-	elseif scan==0 and vsub[6][3]==1 then
+	elseif td[1]==0 and vsub[6][3]==1 then
 	s[6].b[6]={
   "seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
   "you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
@@ -585,8 +689,9 @@ elseif proom==6 then
    vsub[6][6]=0
   end
 	elseif dsel==6 then
-	 scan=1
+	 td[1]=1
 		if bp[4][2]==1 and vsub[6][3]==1 then
+			pr[4][1]=1
 			proom=9
 		end
 	elseif dsel==7 then
@@ -595,16 +700,41 @@ elseif proom==6 then
 		proom=5
 		s[5].b[6]={"taking your keycard out, you swipe it through the reader. the door unlocks again without issue, and you step through. thankfully, the keycard doesn't seem to be a one time use. "}
 	end
+elseif proom==9 then
+	s[9].m[#s[9].m]="the longer you spend in this room, the more it feels like the plants are moving around you. was it just your mind, or were they shifting beneath your feet?⬇️it would be best to keep moving."
+ if dsel==1 then
+  vsub[9][1]=0
+ 	s[9].c[5]="check shower room"
+ elseif dsel==4 then
+ 	vsub[9][4]=0
+ 	s[9].b[4]={"you step through the door cautiously, as who knows what could be on the other side..."}
+ 	if td[2]==1 then
+ 		proom=12
+ 	else
+	 	td[2]=1
+	 	s[9].c[4]="enter north room"
+	 end
+	elseif dsel==6 then
+		vsub[9][6]=0
+		s[6].m[#s[6].m]="you quickly reenter the room, the doorway to the hallway closing behind you. as it did, you could swear for just a moment you heard the faintest guttural groan of some monster.⬇️you had to stop reading your sister's horror books. this place was starting to get to you..."
+		proom=6		
+ end
 end
 	dsel=1
 end
 -->8
 -- dialogue splitter
 
-function sdial(s)
-setl=31
-l=setl
+function sdial(s,d)
+
 estr="                               "
+if d then
+ setl=d
+ estr=sub(estr,1,d)
+else
+ setl=31
+end
+l=setl
 
 for i=0,13 do
 	for j=1,setl do
@@ -624,7 +754,7 @@ for i=0,13 do
 	end
 
 	if sub(s,l-1,l-1)!=" " then
-		for j=1,ceil(setl/3) do
+		for j=1,ceil(setl/2) do
 			if sub(s,l-j,l-j)==" " then
 				s=sub(s,1,l-j-1)..sub(estr,#estr-j+2)..sub(s,l-j)
 			break
@@ -657,7 +787,7 @@ then
 	end
 else
 	print(sdial(t.o[1]),5,5,clr[2])
- clr[tpick]=options(clr[tpick])
+ clr[tpick]=opt(clr[tpick],0,15,0)
 	if btnp(4) then
 		tpick+=1
 	elseif btnp(5) then
@@ -677,25 +807,14 @@ else
 	end
 end
 end
-
-function options(c)
-if btnp(0) and c>0 then
- c-=1
- sfx(1)
-elseif btnp(1) and c<15 then
-	c+=1
-	sfx(1)
-end
-return c
-end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000033333300333333000000000000000000000000000000000000000000000000000000000000003300000000000000000000000000000000000000000
-00700700030000300300003003333300033333000003300000033000003333000033330000000000000000300000000000000000000000000000000000000000
-0007700003000030030bb030030000300300003000300300003bb30000300300003bb30000000000000000300000000000000000000000000000000000000000
-0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb30000000000000000300000000000000000000000000000000000000000
-00700700030000300300003003000030030000300033330000333300000330000003300003000030000000300000000000000000000000000000000000000000
-00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300000000000000000000000000000000000000000
+00700700030000300300003003333300033333000003300000033000003333000033330000000000000000300033300000333000000000000000000000000000
+0007700003000030030bb030030000300300003000300300003bb30000300300003bb300000000000000003000300300003bb300000000000000000000000000
+0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb300000000000000003000300300003bb300000000000000000000000000
+007007000300003003000030030000300300003000333300003333000003300000033000030000300000003000300300003bb300000000000000000000000000
+00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300033300000333000000000000000000000000000
 __sfx__
 0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
 000100003a05000000000002d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
