@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=9
+proom=12
 inv=false
 invn=1
 tcheck=true
@@ -26,11 +26,14 @@ bp={
 {"",0,""},
 {"",0,""},
 {"",0,""}}
-jrnl={0,0}
+jrnl={0,0,0}
 td={0,0}
 --
-pr={{0,108,115,3},{0,108,107,1},{0,116,107,3},{0,116,99,2}}
-vroom={0,1,0,1,1,1,0,0,0,0,0,0}
+pr={{0,108,115,3},{0,108,107,1},
+{0,116,107,3},{0,116,99,2},
+{0,116,91,2},{0,108,91,2},
+{0,108,99,2}}
+vroom={0,0,0,0,0,0,0,0,0,0,0,0}
 vsub={
 {},
 {0,0,0},
@@ -41,6 +44,9 @@ vsub={
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0}
 }	
 --
 sbs=1
@@ -250,39 +256,14 @@ c={"nothing"}
 m={
 "as you looked into the room, it becomes quite clear why the scientists had made it difficult to enter this room. this small hallway was completely filled with vines.⬇️the other rooms looked prim and organized compared to this garden of a room. you could hardly see any of the floor thanks to the vines. ",
 "you stepped into the room, ducking to avoid some of the hanging vines in the doorway. if little else, you could make out some details in this hallway.⬇️you could see that directly across the hallway that there was a doorway, and on the left side of the room was another doorway.",
-"you could also make out a map on the wall, and there may be more things hidden in the plant life.⬇️you can also see an open closet with more hazmat suits, vines curling around them.",
-"your thoughts are interrupted as a small but audible beep goes off behind you, and the door closes.⬇️standing here would do you no more good, it was time to take a proper look around. "
+"your thoughts are interrupted as a small but audible beep goes off behind you, and the door closes.⬇️there was little you could do in this overgrown hallway, it would be best to move quickly... as you could swear that you saw the vines shift around you."
 },
 c={
-"check map",
-"look around room",
-"look in closet",
 "check north door",
 "check west door",
 "enter south door"
 },
 b={
-{
-"whoever lived here was kind enough to leave a map on the wall for you to look through. it seems that right now, you were in between a set of decontamination rooms to the north and south. to your left was a larger shower room, which guarded the experimentation room. past that was the 'subjects room'. ",
-"the decontamination you were just in was the south one, and it neighbored the observation room.⬇️it seems the glass in that room was meant to show the experimentation room. the other room in that area was the research room, where you found the six keycard.",
-"finally, upon entering the north decontamination room, if you headed left, it'd lead to the living quarters, and past that the storage room.⬇️the map is stuck behind thick glass, so you decide to come back here if you need to look at the map again. ",
-""
-},
-{
-"you cautiously decide to spend a few minutes looking through the room. a few pass, but you do ultimately find something of note: a scrap of paper that was buried in vines. using your shears, you free the piece of paper and take a proper look at it.",
-"\"there's an issue with the scanner that leads to the experimentation room. if yours doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
-"you continue to look around, but it seems there's nothing else in the main hallways at least."
-},
-{
-"you step into the closet to see if there was anything worth taking. there's a few hazmat suits within... two of which had been torn open by something.⬇️pushing the thought of what could've caused this away, you continue to check around the room.",
-"you do happen upon something in one of the torn suits' pockets. inside is another page from the journal. seeing little reason not to, you start to read it.",
-"\"april 10th, 20█\"⬇️\"our experiments have gone quite well, we've recently celebrated the █th anniversary from the start of our tests with eva. her body is holding up quite well, with the degeneration of her body's █ only at █5%.\"⬇️\"her mental tests have also been within working results.\" ",
-"\"as it stands, we're steadily heading towards our goal of creating the █ █.\"⬇️\"we can't celebrate too early, as we had similar hopes with test subject █4, and their body quickly ███ to the point that we had to dispose of them.\" ",
-"\"we've recently begun the advanced testing, and introduced eva to █. while initial results did cause a █3% increase in mental distress to eva, we were able to confirm that the █ properly █ into her body.\"⬇️\"we're getting closer to our goals, before long we'll conquer the human █.\" ",
-"\"still, we can't ignore that eva hasn't been cooperative, though it isn't a surprise.\" ⬇️\"withholding the evacurine medicine is enough to quell resistance, as she can't bear the pain without it. she's a genius, surely she should understand what we're doing!\"⬇️\"a little pain is nothing for what we're dreaming of.\" ",
-"\"if only we could still operate on our own bodies... still, this experiment is best performed with growing bodies. we're getting close. we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
-"there isn't anything else of note in the closet room."
-},
 {
 "the door in front of you seems to be locked via a card reader, much like in the decontamination room. trying your luck, you swipe your keycards through the door, and it opens up.⬇️you're taken aback by the ease of this, this room had been difficult to enter, but it seems leaving was rather easy.",
 "you stand at the doorway for a few moments before stepping away from the door. it may be wise to look around a little more before leaving.",
@@ -311,8 +292,45 @@ c={"nothing"}
 },
 --room12
 {
-m={"nothing"},
-c={"nothing"}
+m={
+"stepping into the room, you're greeted by yet another scanner, closing you off from the rest of the room with a glass panel. remembering the trick from last time, you take your shears and cut through the stray vines that had made their way into the scanner and toss them into the hallway.",
+"with your gardening complete, you press the button. the machine lights up, and you see a red wave of light appear above you. a few moments pass, and the screen on the tablet lights up.⬇️[no evaconvolvulus detected. you may enter.]⬇️glad that the scan went smoothly, you walk inside. ",
+"it's similar to the last decontamination room you were in, sporting similar desks and cabinets. the shower likewise looked similar, though the hazmat suits were in a closet this time. finally, you also saw a map along the wall.",
+"there wasn't any reason to wait, so you move forward... as you take your first step, you hear a noise from a different room, like metal groaning and some other inhumane roar.⬇️it faded just as soon as you heard it, and the facility remains quiet, only to be disturbed by the occasional drip of water. ",
+"your imagination must be getting to you... right? there was no more reason to delay, so you prepare to make your move."
+},
+c={
+"check map",
+"check desks",
+"look in closet",
+"test"
+},
+b={
+{
+"whoever lived here was kind enough to leave a map on the wall for you to look through.⬇️it seems that right now, you were in the northern decontamination room. the vinefilled hallway connected the two decontamination rooms, and held a larger 'shower' room to the west. ",
+"past that shower room were two rooms, experimentation and 'subject's'. while the former explained itself, the subject room didn't seem as clear... at least in comparison to the other rooms on the map.⬇️speaking of them, to your west was the living quarters and storage room.",
+"each of these rooms were worth checking for valuables. holding back dreams of wishes, you continue to look at the map.⬇️the only other rooms worth noting were in the southern sections, labelled as the research and observation rooms, with the later marked with having a glass window to the experimentation room. ",
+"it must've been the room with the glass window blocked off by vines. considering the state of the closed off hallway, it seemed a little too dangerous to go in there. it'd be best to call it quit if the storage or living quarters brought a profit. ",
+"having fully examined the map, you tried to remove it from the wall to take it with you, but it was stuck behind thick glass.⬇️after trying your luck, you come to the conclusion that it wasn't going to budge, and that if you wanted to revisit the map, it'd be best to come back here.",
+""
+},
+{
+"you cautiously decide to spend a few minutes looking through the desks. a few pass, but you do ultimately find something of note: a scrap of paper that was in one of the drawers. picking up the piece of paper, you take a proper look at it. ",
+"\"there's an issue with the scanner that leads to the experimentation room. if yours doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
+"you continue to look around, but it seems there's nothing else in the desks at least, outside of office supplies that were water damaged and heavy medical equipment that was clearly too damaged to be worth taking."
+},
+{
+"you step into the closet to see if there was anything worth taking. there's a few hazmat suits within... two of which had been torn open by something.⬇️pushing the thought of what could've caused this away, you continue to check around the room.",
+"you do happen upon something in one of the torn suits' pockets. inside is another page from the journal. seeing little reason not to, you start to read it.",
+"\"april 10th, 20█\"⬇️\"our experiments have gone quite well, we've recently celebrated the █th anniversary from the start of our tests with eva. her body is holding up quite well, with the degeneration of her body's █ only at █5%.\"⬇️\"her mental tests have also been within working results.\" ",
+"\"as it stands, we're steadily heading towards our goal of creating the █ █.\"⬇️\"we can't celebrate too early, as we had similar hopes with test subject █4, and their body quickly ███ to the point that we had to dispose of them.\" ",
+"\"we've recently begun the advanced testing, and introduced eva to █. while initial results did cause a █3% increase in mental distress to eva, we were able to confirm that the █ properly █ into her body.\"⬇️\"we're getting closer to our goals, before long we'll conquer the human █.\" ",
+"\"still, we can't ignore that eva hasn't been cooperative, though it isn't a surprise.\" ⬇️\"withholding the evacurine medicine is enough to quell resistance, as she can't bear the pain without it. she's a genius, surely she should understand what we're doing!\"⬇️\"a little pain is nothing for what we're dreaming of.\" ",
+"\"if only we could still operate on our own bodies... still, this experiment is best performed with growing bodies. we're getting close. we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
+"there isn't anything else of note in the closet room."
+},
+{},
+}
 },
 }
 		
@@ -702,23 +720,29 @@ elseif proom==6 then
 	end
 elseif proom==9 then
 	s[9].m[#s[9].m]="the longer you spend in this room, the more it feels like the plants are moving around you. was it just your mind, or were they shifting beneath your feet?⬇️it would be best to keep moving."
+ vsub[9][1]=0
+ vsub[9][3]=0
  if dsel==1 then
-  vsub[9][1]=0
- 	s[9].c[5]="check shower room"
- elseif dsel==4 then
- 	vsub[9][4]=0
- 	s[9].b[4]={"you step through the door cautiously, as who knows what could be on the other side..."}
+ 	s[9].b[1]={"you step through the door cautiously, as who knows what could be on the other side..."}
  	if td[2]==1 then
  		proom=12
  	else
 	 	td[2]=1
-	 	s[9].c[4]="enter north room"
+	 	s[9].c[1]="enter north room"
 	 end
-	elseif dsel==6 then
-		vsub[9][6]=0
+	elseif dsel==2 then
+		s[9].c[2]="try west door"
+	elseif dsel==3 then
 		s[6].m[#s[6].m]="you quickly reenter the room, the doorway to the hallway closing behind you. as it did, you could swear for just a moment you heard the faintest guttural groan of some monster.⬇️you had to stop reading your sister's horror books. this place was starting to get to you..."
 		proom=6		
  end
+elseif proom==12 then
+ s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
+	if dsel==1 then
+	 vsub[12][1]=0
+	elseif dsel==3 then
+		jrnl[3]=3
+	end
 end
 	dsel=1
 end
