@@ -16,24 +16,21 @@ bckclr=1
 bp={
 {"g. keycard",0,"a keycard that has been stained green. most of the info on it has faded."},
 {"keycard n.6",0,"a keycard numbered 6. you can also make out the word 'decontamination' on it. "},
-{"medicine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
+{"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
 {"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
-{"",0,""},
-{"",0,""},
-{"",0,""},
-{"",0,""},
-{"",0,""},
-{"",0,""},
-{"",0,""},
-{"",0,""}}
+{"metal rod",1,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
+{"hazmat suit",1,"a suit that looks like a hazmat suit. it's stuffy, but very durable."},
+{"herbicide",1,"a bottle of industrial herbicide, able to kill any plant in seconds."},
+{"ethe's card",1,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
-td={0,0}
+td={0,1,0,0}
 --
-pr={{0,108,115,3},{0,108,107,1},
+pr={
+{0,108,115,3},{0,108,107,1},
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,0,0,0,0,0,0,0}
+vroom={0,0,0,0,0,0,0,0,1,0,0,1}
 vsub={
 {},
 {0,0,0},
@@ -186,7 +183,7 @@ b={
 m={
 "as the door opens, you can't shake the feeling that you're being watched. you've seen a few cameras as you walked around the place, but each one had clearly been damaged or destroyed already.⬇️it's as if something was behind you, hands ready to grasp your throat, yet disappearing when you look. ",
 "your mind must be playing tricks on you, this place was clearly abandoned after all so it's unlikely you'd find any mad scientists in these halls.⬇️similarly, each of these doors were locked tightly. outside of these plants, it's unlikely that anything else could survive in these conditions.",
-"leaving now just because of a 'bad feeling' would be a waste. it's likely you're the first person to discover this laboratory after all.⬇️forget sifting through the looted rubble upstairs, who knows how many valuables could be down here still!",
+"leaving now just because of a 'bad feeling' would be a waste. it's likely you're the first person to discover this laboratory after all.⬇️forget sifting through the looted rubble upstairs, who knows how many valuables could be down here still! ",
 "with some luck, you could make enough money to feed you and your sister for months! hell, if you were lucky enough, you might even find some medicine for her down here too without needing to worry about that shady back-alley doctor.⬇️leaving now was out of the question. besides, you can't help but feel curious...",
 "what exactly happened down here? why did the laboratory get to this state? what happened to the people here?⬇️it might be risky to stay here, but running away from an opportunity like this would leave you filled with regrets!⬇️with that, you step inside the door with great care. ",
 "inside the room, it seems this room looks like a decontamination room. a small glass shower with hazmat suits can be seen, as well as what looks like a large scanner.⬇️there also seems to be a few desks and cabinets to go through. you certainly have your work cut out for you. ",
@@ -237,7 +234,7 @@ b={
 "[error - evaconvolvulus detected. doors have been locked.]"
 },
 {
-"concerned that you may have missed something, you decide to return to the larger observation room for now. "
+"concerned that you may have missed something, you decide to return to the larger observation room for now. swiping your card through the scanner, the led above the door turns green and the door unlocks, letting you walk through with ease."
 }
 }
 },
@@ -303,7 +300,9 @@ c={
 "check map",
 "check desks",
 "look in closet",
-"test"
+"look around room",
+"check left door",
+"enter south door"
 },
 b={
 {
@@ -316,7 +315,7 @@ b={
 },
 {
 "you cautiously decide to spend a few minutes looking through the desks. a few pass, but you do ultimately find something of note: a scrap of paper that was in one of the drawers. picking up the piece of paper, you take a proper look at it. ",
-"\"there's an issue with the scanner that leads to the experimentation room. if yours doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
+"\"there's an issue with the scanner that leads to the experimentation room. if your card doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
 "you continue to look around, but it seems there's nothing else in the desks at least, outside of office supplies that were water damaged and heavy medical equipment that was clearly too damaged to be worth taking."
 },
 {
@@ -329,7 +328,21 @@ b={
 "\"if only we could still operate on our own bodies... still, this experiment is best performed with growing bodies. we're getting close. we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
 "there isn't anything else of note in the closet room."
 },
-{},
+{
+"looking around the room, there doesn't seem to be much else worth looking at, outside of the points of interest. what's here is either too complicated for you to understand, or otherwise is too damaged to be worth taking.",
+"you do happen to find a thick metal rod lying on the floor, having fallen out of something. it looks a little rusty, but it seems like it's worth taking.",
+"you spend a few minutes more looking around, but there's not much here worth looking at in finer detail, at least with your education."
+},
+{
+"moving towards the left door, it seems that like the previous observation room, you must swipe your card through a reader to open the door.⬇️you swipe your card, and the led above the door goes green. however, as it tries to open, an odd groaning sound comes from the frame as the door gets stuck.",
+"looking at the frame, you see that a few vines are growing inside of it, causing the door to get jammed. even if you were to trim what you could see with your shears, it's unlikely you'd get the vines under the door that are causing the jam.",
+"for now, there's little hope of opening the door unless you could deal with those vines. ",
+"as fun of an idea as squeezing past the opening would be, there are two issues.⬇️first, it's too tight for you to squeeze through, and if the door got unstuck while you were moving, you'd be sliced in half... there has to be a better way. "
+},
+{
+"carefully, you walk through the scanner once again. the scanner runs its scan, alerting you to the fact that no 'evaconvolvulus' was detected. the door to the hallway unlocks with a click, and you carefully step into the hallway. ",
+"you take a single step towards the door before you're forced to stop. whatever *that* was, it was on the otherside... at least it was the last time you saw it. it'd be suicide to try and go through again. "
+}
 }
 },
 }
@@ -408,7 +421,7 @@ rf(125,0,128,128)
 
 if inv then
 rect(2,89,125,124,clr[1])
-line(6,75,120,75,clr[1])
+line(6,15+ceil(#bp/2)*10,120,15+ceil(#bp/2)*10,clr[1])
 line(6,13,120,13,clr[1])
 rect(5,112,122,92,clr[1])
 else
@@ -425,24 +438,33 @@ end
 
 function pckt()
 --
-print("inventory",46,6,clr[2])
-print("journal pages: ",6,78,clr[2])
+print("inventory",6,6,clr[2])
+print("journal pages: ",6,18+ceil(#bp/2)*10,clr[2])
 --
+y=ceil((#bp/2)*10)
+z=(1+(#bp/2))
 for i=1,#bp do
- j=flr(i/7)*60
+ j=flr(i/z)
  k=i*10
-	rect(12+j,5+k-j,60+j,13+k-j,clr[2])
+ if i>z and #bp%2==1 then
+	 k-=5
+	end
+	rect(12+j*60,5+k-j*y,60+j*60,13+k-j*y,clr[2])
 	if bp[i][2]>0 then
-		print(bp[i][1],14+j,7+k-j,clr[2])
+		print(bp[i][1],14+j*60,7+k-j*y,clr[2])
 		if i==invn then
 			print(sub(sdial(bp[i][3],30),1,scrl),8,94,clr[2])
 		end
 	end
 end
 --
-invn=opt(invn,1,12,2)
-l=flr(invn/7)*60
-blink(bin,1,1,4+l,5+invn*10-l)
+invn=opt(invn,1,#bp,2)
+l=flr(invn/z)
+m=invn*10
+if invn>z and #bp%2==1 then
+ m-=5
+end
+blink(bin,1,1,4+l*60,5+m-l*y)
 --
 print("save code: ",8,116,clr[2])
 end
@@ -719,29 +741,69 @@ elseif proom==6 then
 		s[5].b[6]={"taking your keycard out, you swipe it through the reader. the door unlocks again without issue, and you step through. thankfully, the keycard doesn't seem to be a one time use. "}
 	end
 elseif proom==9 then
-	s[9].m[#s[9].m]="the longer you spend in this room, the more it feels like the plants are moving around you. was it just your mind, or were they shifting beneath your feet?⬇️it would be best to keep moving."
- vsub[9][1]=0
- vsub[9][3]=0
- if dsel==1 then
- 	s[9].b[1]={"you step through the door cautiously, as who knows what could be on the other side..."}
- 	if td[2]==1 then
- 		proom=12
- 	else
-	 	td[2]=1
-	 	s[9].c[1]="enter north room"
+//fixmelater
+	if vroom[10]==0 then
+		s[9].m[#s[9].m]="the longer you spend in this room, the more it feels like the plants are moving around you. was it just your mind, or were they shifting beneath your feet?⬇️it would be best to keep moving."
+		vsub[9][1]=0
+		vsub[9][3]=0
+		if dsel==1 then
+		 if td[3]==0 then
+				s[9].b[1]={"you step through the door cautiously, as who knows what could be on the other side..."}
+			else
+				s[12].m[#s[12].m]="your mind desperately tries to take it's mind off what it had just seen... it must've been a trick of the lights, just as the shadows at night play tricks on you, thinking someone's there when there's nobody."
+			end
+			if td[2]==1 then
+				proom=12
+				pr[5][1]=1
+			else
+		 	td[2]=1
+		 	s[9].c[1]="enter north room"
+		 end
+		elseif dsel==2 then
+			s[9].c[2]="try west door"
+		elseif dsel==3 then
+			s[6].m[#s[6].m]="you quickly reenter the room, the doorway to the hallway closing behind you. as it did, you could swear for just a moment you heard the faintest guttural groan of some monster.⬇️you had to stop reading your sister's horror books. this place was starting to get to you..."
+			proom=6		
+		end
+	else
+		if dsel==1 then
+			proom=8
+		elseif dsel==2 then
+			proom=6
 	 end
-	elseif dsel==2 then
-		s[9].c[2]="try west door"
-	elseif dsel==3 then
-		s[6].m[#s[6].m]="you quickly reenter the room, the doorway to the hallway closing behind you. as it did, you could swear for just a moment you heard the faintest guttural groan of some monster.⬇️you had to stop reading your sister's horror books. this place was starting to get to you..."
-		proom=6		
- end
+	end
 elseif proom==12 then
- s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
+	if td[3]==0 then
+	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
+	end
+	if td[3]==1 and bp[5][1]==1 then
+		s[12].b[5]={}
+	elseif td[3]==0 and bp[5][1]==1 then
+	 s[12].b[5]={
+"seeing no reason not to try, you leverage the pipe between the door and the frame, and put as much weight as you can against it. slowly but surely, you manage to jam the door open."
+}
+ end
 	if dsel==1 then
 	 vsub[12][1]=0
 	elseif dsel==3 then
 		jrnl[3]=3
+	elseif dsel==4 then
+	 bp[5][1]=1
+	 vsub[12][5]=0
+	elseif dsel==5 then
+	 if bp[5][1]==1 then
+ 		proom=11
+ 	end
+	elseif dsel==6 then
+	 if vroom[10]==0 and td[3]==0 then
+	  vroom[9]=0
+	  s[9].m={"at least... you had intended to enter the room. yet, as you looked through the glass, you could see through the dimmed windows as some sort of creature was moving around in the room.⬇️you could feel your heart in your chest, and you struggled to breath as panic set in. whatever it was, it *wasn't* human.",
+	  "thankfully, you hadn't opened the door yet... but your mind tried to think of any escape plan it could. for now, only one option remained."}
+	  s[9].c={"step away from door"}
+ 		s[9].b[1]={"quickly, you back away from the door, hoping that whatever *it* was, that it didn't see you."}
+ 		proom=9
+ 		td[3]=1 	
+ 	end
 	end
 end
 	dsel=1
@@ -839,6 +901,22 @@ __gfx__
 0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb300000000000000003000300300003bb300000000000000000000000000
 007007000300003003000030030000300300003000333300003333000003300000033000030000300000003000300300003bb300000000000000000000000000
 00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300033300000333000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000333333333333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000360060600063000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000360060006063000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000360006006063000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000360600060063000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000360006060063000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000366666666663000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000333333333333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __sfx__
 0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
 000100003a05000000000002d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
