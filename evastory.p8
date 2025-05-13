@@ -334,14 +334,16 @@ b={
 "you spend a few minutes more looking around, but there's not much here worth looking at in finer detail, at least with your education."
 },
 {
-"moving towards the left door, it seems that like the previous observation room, you must swipe your card through a reader to open the door.⬇️you swipe your card, and the led above the door goes green. however, as it tries to open, an odd groaning sound comes from the frame as the door gets stuck.",
-"looking at the frame, you see that a few vines are growing inside of it, causing the door to get jammed. even if you were to trim what you could see with your shears, it's unlikely you'd get the vines under the door that are causing the jam.",
-"for now, there's little hope of opening the door unless you could deal with those vines. ",
-"as fun of an idea as squeezing past the opening would be, there are two issues.⬇️first, it's too tight for you to squeeze through, and if the door got unstuck while you were moving, you'd be sliced in half... there has to be a better way. "
+"similar to the room on the other end of the hall, there's a keycard scanner that gives you access to the next set of rooms.⬇️you rummage through your pockets for a moment, not finding your keycards for a few moments.",
+"your heart races... but ultimately as you turn around you see that you simply dropped them on the ground behind you.⬇️oddly though, they seem to have some vines on top of them. joking to yourself that you have to watch out for pickpocket plants, you pick your cards back up. ",
+"taking your cards, you swipe the keycard marked 6 first. the led above the door goes green after a moment, and the door starts to open with an awful groaning sound.⬇️looking at the door frame as it opens, you notice that there are vines grown into the frame.",
+"the door opens aroud halfway before it stutters to a stop. it wasn't perfect... but considering the state of this place, you were just surprised it worked at all.⬇️you try to take a step through the doorway-",
+"to your surprise, the door came to life and quickly started moving back and forth before stopping again.⬇️this... wasn't ideal. going through would risk injury, and if it closed and broke when you were on the other side, you'd be trapped. you needed to find a way to keep it open.",
+"you try to use what you have to keep it open, but nothing seems to hold much promise in keeping the door open. "
 },
 {
 "carefully, you walk through the scanner once again. the scanner runs its scan, alerting you to the fact that no 'evaconvolvulus' was detected. the door to the hallway unlocks with a click, and you carefully step into the hallway. ",
-"you take a single step towards the door before you're forced to stop. whatever *that* was, it was on the otherside... at least it was the last time you saw it. it'd be suicide to try and go through again. "
+"you take a single step towards the door, before you unconsciously stop yourself. whatever *that* was, it was likely still in there...⬇️there was more for you to do anyhow. with these excuses in your head, and the courage to step inside gone, you return to the center of the room as you plan your next move. "
 }
 }
 },
@@ -775,13 +777,6 @@ elseif proom==9 then
 elseif proom==12 then
 	if td[3]==0 then
 	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
-	end
-	if td[3]==1 and bp[5][1]==1 then
-		s[12].b[5]={}
-	elseif td[3]==0 and bp[5][1]==1 then
-	 s[12].b[5]={
-"seeing no reason not to try, you leverage the pipe between the door and the frame, and put as much weight as you can against it. slowly but surely, you manage to jam the door open."
-}
  end
 	if dsel==1 then
 	 vsub[12][1]=0
@@ -789,22 +784,35 @@ elseif proom==12 then
 		jrnl[3]=3
 	elseif dsel==4 then
 	 bp[5][1]=1
-	 vsub[12][5]=0
 	elseif dsel==5 then
-	 if bp[5][1]==1 then
+	 if td[4]==0 then
+	  td[4]=1
+	 elseif td[4]==1 and bp[5][1]==1 then
+ 	 td[4]=2
+ 	 vsub[12][5]=0
+ 	 s[12].b[5]={"cautiously, you step into the next room, hoping that whatever you'd find here would be worth it... it had to be. what happened here, what remained here... and what this place would show you. these questions would be answered soon..."}
+ 	elseif td[4]==2 then
  		proom=11
  	end
 	elseif dsel==6 then
 	 if vroom[10]==0 and td[3]==0 then
 	  vroom[9]=0
-	  s[9].m={"at least... you had intended to enter the room. yet, as you looked through the glass, you could see through the dimmed windows as some sort of creature was moving around in the room.⬇️you could feel your heart in your chest, and you struggled to breath as panic set in. whatever it was, it *wasn't* human.",
-	  "thankfully, you hadn't opened the door yet... but your mind tried to think of any escape plan it could. for now, only one option remained."}
+	  s[9].m={"at least... you had intended to enter the room. yet, as you looked through the glass, you could see through the dimmed windows as *something* was moving around in the vines along the wall.⬇️you could feel your heart in your chest, and you struggled to breath as panic set in. something else was here...",
+	  "thankfully, you hadn't opened the door yet... but your mind tried to think of any escape plan it could as it looked at the writhing vines moving in the walls. for now, only one option remained."}
 	  s[9].c={"step away from door"}
- 		s[9].b[1]={"quickly, you back away from the door, hoping that whatever *it* was, that it didn't see you."}
+ 		s[9].b[1]={"quickly, you back away from the door, hoping that perhaps it was a trick of the light, and that when you were ready to leave, you'd see that it was a trick of your imagination."}
  		proom=9
  		td[3]=1 	
  	end
 	end
+	if bp[5][1]==1 and td[4]==1 then
+	 s[12].b[5]={
+"holding the metal pipe you found in your hands, you walk to the erratic door. you weren't exactly sure if this would work, but it was better than sitting around doing nothing.⬇️quickly, as the door started to open, you place the metal pipe to jam the door. ",
+"as the door tries to close again, it gets stuck on the metal pipe as a *loud* whine comes from the door. you can hear the mechanisms in the door give great protest to the pipe, before finally the door comes to a stop, the metal pipe stuck now and the door unable to move. ",
+"you're now able to move into the next room. glad to have defeated the door, you decide to spend a minute longer looking through the room, in case you missed anything. ",
+"test12.choice5.variant2"}
+	 vsub[12][5]=0
+ end
 end
 	dsel=1
 end
