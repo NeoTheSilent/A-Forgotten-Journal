@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=12
+proom=6
 inv=false
 invn=1
 tcheck=true
@@ -18,10 +18,10 @@ bp={
 {"keycard n.6",0,"a keycard numbered 6. you can also make out the word 'decontamination' on it. "},
 {"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
 {"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
-{"metal rod",1,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
-{"hazmat suit",1,"a suit that looks like a hazmat suit. it's stuffy, but very durable."},
-{"herbicide",1,"a bottle of industrial herbicide, able to kill any plant in seconds."},
-{"ethe's card",1,"a keycard you found in the living quarters by a corpse. should open any room. "}}
+{"metal rod",0,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
+{"hazmat suit",0,"a suit that looks like a hazmat suit. it's stuffy, but very durable."},
+{"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
+{"ethe's card",0,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
 td={0,1,0,0}
 --
@@ -30,7 +30,7 @@ pr={
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,0,0,0,1,0,0,1}
+vroom={0,0,0,0,0,0,0,0,0,0,0,0}
 vsub={
 {},
 {0,0,0},
@@ -479,12 +479,19 @@ elseif btnp(i+1) and c<n2 then
 	c+=1
 	sfx(1)
 end
+if n2%2==0 then
+	vr=n2/2
+elseif (n2+1)/2!=c then
+	vr=(n2/2)+0.5
+else
+ vr=0
+end
 if inv then
-	if btnp(0) and c>n2/2 then
- c-=n2/2
+	if btnp(0) and c>vr and vr!=0 then
+ c-=vr
 	sfx(1)
- elseif btn(1) and c<=n2/2 then
- c+=n2/2
+ elseif btn(1) and c<=vr then
+ c+=vr
 	sfx(1)
  end
 end
@@ -699,37 +706,12 @@ elseif proom==5 then
 	end
 --room6--
 elseif proom==6 then
-	s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, but it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
-	if td[1]==1 and vsub[6][3]==1 then
-	s[6].b[6]={
-  "you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
-  "with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
-  "you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
-  "carefully, you step through into the next room.",
-  ""}
-	elseif td[1]==0 and vsub[6][3]==1 then
-	s[6].b[6]={
-  "seeing no reason not to try, you enter the scanner. it's a larger box, able to hold you inside without issue. on the other side is a glass panel blocking the actual doorway. there also seems to be a button labeled [begin scan] next to you, as well as a display screen that is powered off. finally, there seems to be several vines on the floor.",
-  "you press the button, and the opening behind you closes with a glass panel coming down to lock you in. after a few moments, the top of the scanner lights up, completely covering the top with red light. after a few moments, it begins moving downwards.",
-  "you brace yourself, seeing no way to escape from this. the lights hit the top of your head... and continue downwards without any noticable effect until it hits the very bottom of the scanner, where it promptly fades away. you feel no different, it seems the scan is complete.",
-  "you notice a small display screen light up, with a particularly troubling sentenence.",
-  "[error - evaconvolvulus detected. doors have been locked.]",
-  "you brought your shears into here, as you held no reason not to. remembering the journal that you had read, you look down at the vines growing on the ground and begin to trim them with your glorified scissors.",
-  "after a few minutes of careful trimming, the scanner is as vinefree as it'll get. there's still some growing in the cracks, but you can't exactly reach them from here. with a job well done, you toss out the trimmed vines and press the scan button once more.",
-  "the glass door closes once more, and the scan repeats just the same. you close your eyes as it hits your head, to avoid accidentally blinding yourself. after a few moments, you reopen them and are greeted with the sight of new text on the led.",
-  "[no evaconvolvulus detected. you may enter.]",
-  "the opposing glass door on the scanner opens up, and you can see the electronic lock on the opposing door unlock. carefully, you step into the next room...",
-		""}
-	end
-	if dsel==3 then
-	 vsub[6][6]=0
-	elseif dsel==4 then
+ tmp="as you ponder what evaconvolvulus is, you remember the note you found. chances were that the vines along the floor were the evaconvolvulus that was detected. still... you couldn't just rip them up with your hands. you'd need to find a tool to cut them. "
+ s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, but it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
+	if dsel==4 then
   jrnl[2]=1
 	elseif dsel==5 then
   bp[4][2]=1
-  if vsub[6][3]==1 then
-   vsub[6][6]=0
-  end
 	elseif dsel==6 then
 	 td[1]=1
 		if bp[4][2]==1 and vsub[6][3]==1 then
@@ -741,6 +723,27 @@ elseif proom==6 then
 		vsub[5][6]=0
 		proom=5
 		s[5].b[6]={"taking your keycard out, you swipe it through the reader. the door unlocks again without issue, and you step through. thankfully, the keycard doesn't seem to be a one time use. "}
+	end
+	if vsub[6][3]==1 and bp[4][2]==1 then
+	 vsub[6][6]=0
+	end
+	if td[1]==1 and vsub[6][3]==1 and bp[4][2]==1 then
+	s[6].b[6]={
+  "you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
+  "with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
+  "you press the button again, to see if you'll get a better result this time. the laser comes down again, following the proper path. you close your eyes before the lasers blind you, and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
+  "carefully, you step through into the next room.",
+  ""}
+ elseif vsub[6][3]==1 and bp[4][2]==0 then
+ s[6].b[6][6]=tmp
+ s[6].b[6][7]=tmp
+ elseif td[1]==0 and vsub[6][3]==1 and bp[4][2]==1 then
+	s[6].b[6][6]="you brought your shears into here, as you held no reason not to. remembering the journal that you had read, you look down at the vines growing on the ground and begin to trim them with your glorified scissors."
+ s[6].b[6][7]="after a few minutes of careful trimming, the scanner is as vinefree as it'll get. there's still some growing in the cracks, but you can't exactly reach them from here. with a job well done, you toss out the trimmed vines and press the scan button once more."
+ s[6].b[6][8]="the glass door closes once more, and the scan repeats just the same. you close your eyes as it hits your head, to avoid accidentally blinding yourself. after a few moments, you reopen them and are greeted with the sight of new text on the led."
+ s[6].b[6][9]="[no evaconvolvulus detected. you may enter.]"
+ s[6].b[6][10]="the opposing glass door on the scanner opens up, and you can see the electronic lock on the opposing door unlock. carefully, you step into the next room..."
+	s[6].b[6][11]=""
 	end
 elseif proom==9 then
 //fixmelater
