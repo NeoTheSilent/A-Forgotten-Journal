@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=6
+proom=12
 inv=false
 invn=1
 tcheck=true
@@ -284,7 +284,15 @@ c={"nothing"}
 },
 --room11
 {
-m={"nothing"},
+m={
+"carefully, you step into the hall. you can't help but feel anxious, the pipe was holding for now, but who knew how long it'd hold.⬇️looking through the room, it seems that these were likely the living quarters. ",
+"there were six rooms in total, though the nameplates had been scratched out.⬇️you could see a bookshelf, as well as some chairs, tables and other niceties. yet, it seemed out of place.⬇️considering the state of the facility, it was too nice, the damage was minimal.",
+"the plants hadn't grown into here at all, and the area looked too intact.⬇️your thoughts were interrupted as you heard a metal groan behind you.⬇️turning to look, you saw as the pipe bend before flying into the other room, hitting the floor with a loud clang as the door closed.",
+"it seems your luck ran dry, you hadn't even been in here for a minute before the pipe failed you.⬇️mumbling a curse under your breath, you walk towards the door and try the button.⬇️*click*⬇️...no luck. it didn't open. ",
+"you look back to the room, perhaps something here could open the way for you- ⬇️yet again, your thoughts were interrupted as a load roar echoed through the facility.",
+"the thought of what could make a sound like that didn't ease your heart... perhaps it was your imagination?⬇️this optimistic thought gave you some hope, but if there were something in here, you've gone and made a nice and loud noise for it. ",
+"regardless, it was time to get to work. these rooms wouldn't search themselves, and you held plenty of reason to look through them now. "
+},
 c={"nothing"}
 },
 --room12
@@ -777,6 +785,8 @@ elseif proom==9 then
 			proom=6
 	 end
 	end
+elseif proom==11 then
+ 
 elseif proom==12 then
 	if td[3]==0 then
 	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
@@ -804,6 +814,7 @@ elseif proom==12 then
 	  "thankfully, you hadn't opened the door yet... but your mind tried to think of any escape plan it could as it looked at the writhing vines moving in the walls. for now, only one option remained."}
 	  s[9].c={"step away from door"}
  		s[9].b[1]={"quickly, you back away from the door, hoping that perhaps it was a trick of the light, and that when you were ready to leave, you'd see that it was a trick of your imagination."}
+   s[11].m[6]="did that sound come from that shadowy mass in the halls?⬇️...it would be best to hurry up your investigation."
  		proom=9
  		td[3]=1 	
  	end
