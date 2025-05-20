@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=12
+proom=11
 inv=false
 invn=1
 tcheck=true
@@ -15,7 +15,7 @@ bckclr=1
 --
 bp={
 {"g. keycard",0,"a keycard that has been stained green. most of the info on it has faded."},
-{"keycard n.6",0,"a keycard numbered 6. you can also make out the word 'decontamination' on it. "},
+{"keycard n.1",0,"a keycard numbered 1. you can also make out the word 'decontamination' on it. "},
 {"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
 {"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
 {"metal rod",0,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
@@ -42,7 +42,7 @@ vsub={
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0}
 }	
 --
@@ -110,7 +110,7 @@ c={
 "leave the room."
 },
 b={
-{"the cabinets are in a rather sorry state, banged up from having fallen over. thankfully, they seem to be unlocked, so opening it isn't an issue. there's plenty in here, though you're not exactly sure what much of it is. ultimately, the only thing you take from the cabinet is a keycard marked with the number marked 6 on it.",
+{"the cabinets are in a rather sorry state, banged up from having fallen over. thankfully, they seem to be unlocked, so opening it isn't an issue. there's plenty in here, though you're not exactly sure what much of it is. ultimately, the only thing you take from the cabinet is a keycard marked with the number marked 1 on it.",
 "you take a second look to be extra safe. while you do find some scientific instruments that could sell for a pretty penny, there's nothing useful for you at the moment here. you make a mental note to return before you leave."},
 {"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
 "after spending a few minutes scavenging the place, its clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
@@ -209,7 +209,7 @@ b={
 {
 "you check the drawers on the smaller desk and see a smaller notepad. jotted on the surprisingly dry pages seems to be some instructions.",
 "[before entering or exiting, the door won't open unless the scanner detects no problematic elements. this includes evaconvolvulus, so be careful that nothing sticks to you when you leave. if something goes wrong, it'll lock down the door until the issue is resolved.⬇️- ethe]",
-"[before entering or exiting, the door won't open unless the scanner detects no problematic elements. this includes evaconvolvulus, so be careful that nothing sticks to you when you leave. if something goes wrong, it'll lock down the door until the issue is resolved.⬇️- ethe]",
+""
 },
 {
 "you rummage through the larger desk, trying to see if you can find anything. ultimately, you do happen upon a few pages torn out of a notebook. seeing little reason not to, you decide to read them.",
@@ -293,7 +293,45 @@ m={
 "the thought of what could make a sound like that didn't ease your heart... perhaps it was your imagination?⬇️this optimistic thought gave you some hope, but if there were something in here, you've gone and made a nice and loud noise for it. ",
 "regardless, it was time to get to work. these rooms wouldn't search themselves, and you held plenty of reason to look through them now. "
 },
-c={"nothing"}
+c={
+"check far door",
+"check desks",
+"check bookshelf",
+"check door 1",
+"check door 2",
+"check door 3",
+"check door 4",
+"check door 5",
+"check door 6",
+},
+b={
+{""},
+{"you cautiously decide to spend a few minutes looking through the desks. a few minutes pass, and ultimately you find something of note: a scrap of paper that was in on top of one of the desks. picking up the piece of paper, you take a proper look at it. ",
+"\"there's an issue with the scanner that leads to the experimentation room. if your card doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
+""
+},
+{""},
+{
+"the door in front of you is the farthest from the decontamination room you had been in. this one was labelled as [ikalle's room]⬇️similar to the other rooms here, it seems to be locked by a keycard reader. you try your luck with your keycards... and notably, keycard no.1 manages to unlock the door!",
+"with a click, the door unlocks, and you gently open the door. inside, you see that there's a semblance of a proper bedroom in here. a closet is present, as is a bed and closet.⬇️as you look around the room, the only notable item seems to be a spare hazmat suit inside the closet.",
+"considering the state of the hallway the last time you saw it, it might not be a bad idea to take it... though it's not like this is your only choice for a hazmat suit, you could always take one from the decontamination room.⬇️if nothing else, having more options wasn't bad.",
+"before you leave, you notice a note that had fallen behind the desk. picking it up, you take a look at it.",
+""
+
+},
+{
+"as you step towards this door, you see that this one is marked as [inne's room].⬇️you try your luck at the door handle, and find that it's locked.",
+"you try your luck with the keycards that you have, but none of them seem to be the correct one.⬇️perhaps with some luck, you'll find one that opens this door soon."
+},
+{
+"walking up to the door, you see that the nameplate marks it as [ethe's room].⬇️they must be one and the same from the note that you had read. if there was any room that held potential, it was this one.",
+"you try your luck at the door handle, and shockingly it's not locked. however, something seems to be pressed against the door, as you can't get it to budge.⬇️you certainly spend a few minutes trying, but unless you wanted to risk throwing your shoulder out, you weren't getting anywhere. ",
+"once more, you try your luck at getting into the door, but it seems no different than before. oh well, it was worth a try at least. you'll need something to either break down the door, or find an alternate way in."
+},
+{""},
+{""},
+{""}
+}
 },
 --room12
 {
@@ -322,8 +360,7 @@ b={
 ""
 },
 {
-"you cautiously decide to spend a few minutes looking through the desks. a few pass, but you do ultimately find something of note: a scrap of paper that was in one of the drawers. picking up the piece of paper, you take a proper look at it. ",
-"\"there's an issue with the scanner that leads to the experimentation room. if your card doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
+"you spend a few minutes looking around, but unfortunately it seems that despite the abundance of desks, there's little in there that's useful for you. you find a bottle of water, at least... but you can't say you feel confident drinking from it considering the state of things here. ",
 "you continue to look around, but it seems there's nothing else in the desks at least, outside of office supplies that were water damaged and heavy medical equipment that was clearly too damaged to be worth taking."
 },
 {
@@ -344,7 +381,7 @@ b={
 {
 "similar to the room on the other end of the hall, there's a keycard scanner that gives you access to the next set of rooms.⬇️you rummage through your pockets for a moment, not finding your keycards for a few moments.",
 "your heart races... but ultimately as you turn around you see that you simply dropped them on the ground behind you.⬇️oddly though, they seem to have some vines on top of them. joking to yourself that you have to watch out for pickpocket plants, you pick your cards back up. ",
-"taking your cards, you swipe the keycard marked 6 first. the led above the door goes green after a moment, and the door starts to open with an awful groaning sound.⬇️looking at the door frame as it opens, you notice that there are vines grown into the frame.",
+"taking your cards, you swipe the keycard marked 1 first. the led above the door goes green after a moment, and the door starts to open with an awful groaning sound.⬇️looking at the door frame as it opens, you notice that there are vines grown into the frame.",
 "the door opens aroud halfway before it stutters to a stop. it wasn't perfect... but considering the state of this place, you were just surprised it worked at all.⬇️you try to take a step through the doorway-",
 "to your surprise, the door came to life and quickly started moving back and forth before stopping again.⬇️this... wasn't ideal. going through would risk injury, and if it closed and broke when you were on the other side, you'd be trapped. you needed to find a way to keep it open.",
 "you try to use what you have to keep it open, but nothing seems to hold much promise in keeping the door open. "
@@ -649,6 +686,8 @@ end
 function events()
 
 vsub[proom][dsel]=1
+tmp="as you ponder what evaconvolvulus is, you remember the note you found. chances were that the vines along the floor were the evaconvolvulus that was detected. still... you couldn't just rip them up with your hands. you'd need to find a tool to cut them. "
+tmp2="you try your luck with the door, but unfortunately it's locked tightly and you can't make it budge. your try your luck with your keycards, but none of them seem to open this door.⬇️notably: the name plate seems to be scratched out, you can't make out what it said."
 
 --room2--
 if proom==2 then
@@ -714,9 +753,10 @@ elseif proom==5 then
 	end
 --room6--
 elseif proom==6 then
- tmp="as you ponder what evaconvolvulus is, you remember the note you found. chances were that the vines along the floor were the evaconvolvulus that was detected. still... you couldn't just rip them up with your hands. you'd need to find a tool to cut them. "
  s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, but it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
-	if dsel==4 then
+	if dsel==3 then
+		s[6].b[3][3]=s[6].b[3][2]
+	elseif dsel==4 then
   jrnl[2]=1
 	elseif dsel==5 then
   bp[4][2]=1
@@ -786,7 +826,10 @@ elseif proom==9 then
 	 end
 	end
 elseif proom==11 then
- 
+ if dsel==2 then
+  add(s[11].b[6][1],"s")
+  s[11].b[2][3]=s[11].b[2][2]
+ end
 elseif proom==12 then
 	if td[3]==0 then
 	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
@@ -796,11 +839,11 @@ elseif proom==12 then
 	elseif dsel==3 then
 		jrnl[3]=3
 	elseif dsel==4 then
-	 bp[5][1]=1
+	 bp[5][2]=1
 	elseif dsel==5 then
 	 if td[4]==0 then
 	  td[4]=1
-	 elseif td[4]==1 and bp[5][1]==1 then
+	 elseif td[4]==1 and bp[5][2]==1 then
  	 td[4]=2
  	 vsub[12][5]=0
  	 s[12].b[5]={"cautiously, you step into the next room, hoping that whatever you'd find here would be worth it... it had to be. what happened here, what remained here... and what this place would show you. these questions would be answered soon..."}
@@ -819,13 +862,16 @@ elseif proom==12 then
  		td[3]=1 	
  	end
 	end
-	if bp[5][1]==1 and td[4]==1 then
+	if bp[5][2]==1 and td[4]==1 then
 	 s[12].b[5]={
 "holding the metal pipe you found in your hands, you walk to the erratic door. you weren't exactly sure if this would work, but it was better than sitting around doing nothing.⬇️quickly, as the door started to open, you place the metal pipe to jam the door. ",
 "as the door tries to close again, it gets stuck on the metal pipe as a *loud* whine comes from the door. you can hear the mechanisms in the door give great protest to the pipe, before finally the door comes to a stop, the metal pipe stuck now and the door unable to move. ",
 "you're now able to move into the next room. glad to have defeated the door, you decide to spend a minute longer looking through the room, in case you missed anything. ",
 "test12.choice5.variant2"}
 	 vsub[12][5]=0
+	 s[11].b[7][1]=tmp2
+	 s[11].b[8][1]=tmp2
+	 s[11].b[9][1]=tmp2
  end
 end
 	dsel=1
