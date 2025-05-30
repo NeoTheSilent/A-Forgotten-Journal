@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=5
+proom=4
 inv=false
 invn=1
 tcheck=true
@@ -23,19 +23,19 @@ bp={
 {"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
 {"ethe's card",0,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
-td={0,1,0,0}
+td={0,0,0,0,0}
 --
 pr={
 {0,108,115,3},{0,108,107,1},
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,0,0,0,0,0,0,0}
+vroom={0,0,0,1,0,0,0,0,0,0,0,0}
 vsub={
 {},
 {0,0,0},
 {},
-{0,0,0},
+{0,0,0,0},
 {0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
@@ -77,7 +77,7 @@ m={
 "the room wasn't hit as hard by the explosion.⬇️a large desk seem to hold the most promise, and a few other areas hold potential for investigation."},
 c={
 "check large desk",
-"look around room."},
+"look around room"},
 b={
 {
 "as you walk up to the desk, you're surprised to see it still in tact. the explosion must not have been as bad in this room. you spend a few minutes rummaging through the drawers, ultimately finding a keycard inside a half-open drawer.⬇️it's stained green, and has a few leaves next to it, but otherwise looks usable. ",
@@ -97,24 +97,34 @@ b={
 --room4
 {
 m={
-"similar to the last room, there were plenty of plants within here, though these were in glass containers instead. to your surprise, the flora seemed to glow ever so slightly.⬇️as you walk in, a quiet alarm goes off. after a few moment, a gentle mist of water sprays onto the plants. ",
-"a few dull monitors adorned the room, as well as a few cabinets... though no exit door could be seen. if you wanted to go deeper in, you likely needed to enter the right door.",
-"your sister is counting on you, you needed to find something to salvage from this place.⬇️if nothing could be salvaged, then you won't be able to afford her medicine and she'd...⬇️at any rate, there's a few things worth checking here. ",
+"as you enter the room, a few dim lights turn on. this room looked like a plant zoo of sorts, as there were plants in glass containers everywhere.⬇️without warning, a small beep chimes out, and a gentle mist of water sprays onto the plants.",
+"seeing this, you understand how the why there were puddles everywhere, as a few containers had been broken open, and the water leaked out.⬇️you could also see a larger map along the wall, as well as some cabinets and desks. this room was also closed off, there was no other door.",
+"there was no time like the present, it was time to get to work. you needed to find something for your sister after all... she couldn't go on longer without her medicine."
 },
 c={
-"check cabinets",
-"check doors",
-"leave the room."
+"check map",
+"check desks",
+"look around room",
+"leave room"
 },
 b={
-{"the cabinets are in a rather sorry state, banged up from having fallen over. thankfully, they seem to be unlocked, so opening it isn't an issue. there's plenty in here, though you're not exactly sure what much of it is. ultimately, the only thing you take from the cabinet is a keycard marked with the number marked 1 on it.",
-"you take a second look to be extra safe. while you do find some scientific instruments that could sell for a pretty penny, there's nothing useful for you at the moment here. you make a mental note to return before you leave."},
-{"you look throughout the broken room. there's a lot to take in, such as the plant life that has won its battle against the odds and found life inside this broken room.",
-"after spending a few minutes scavenging the place, its clear that anything of value or importance is likely already gone, taken by any who had already come before you.",
-"if nothing else, you had some fun while you were doing it, so it's not like this was a complete waste.",
-"you check around again, but there's still not much of note."},
-{"you walk out of the room, careful not to bump into anything on the way out. as you step through the door, you're careful to leave it open slightly, on the off chance that closing it could get the door stuck.",
+{
+"whoever lived here was kind enough to leave a map on the wall. ⬇️right now, you were in the research room. the neighboring room was the observation room, which made sense as you remembered the large window.⬇️it's a shame you couldn't look through the window. ",
+"past that were two decontamination rooms and a hallway that connected them.⬇️that hallway also led to a room called the experimentation room and \"subject's room\".⬇️it might be worth looking in there for expensive scientific equipment.",
+"otherwise, past the northern observation room, there was another set of larger rooms, one labelled as the living quarters and one as the storage room.⬇️those two seemed to hold the most promise for looting. it'd be best to go there first.",
+"having fully examined the map, you tried to remove it from the wall to take it with you, but it was stuck behind thick glass.⬇️ultimately, you decide that if you wanted to revisit the map, it'd be best to come back here.",
 ""
+},
+{
+"as you go through the desks, you find a keycard marked with the number 1 on a desk by the north wall near a vent. taking the card, you continue looking.⬇️while you find a few confusing documents and devices, they're not useful at the moment. when you're leaving, it might be worth taking them to sell later. ",
+"you take a second look through, but there's nothing else worth noting in the various desks."},
+{
+"there's a lot to take in with the room. vines are coming from the vents along the wall, and there's a lot of scientific equipment that you don't exactly understand.",
+"you see a few flowers in the glass containers. one in particular is flourishing, in a container that had been broken by something. perhaps you'll take it for your sister before you leave."
+""
+},
+{
+"as you move to the door, you can't help but feel that you're leaving too early.⬇️there's still a few things worth checking here.⬇️with that, you decide to continue looking."
 }
 }
 },
@@ -162,12 +172,10 @@ b={
 ""
 },
 {
-"walking up to the door, you see it runs on a similar system to the other doors, needing a keycard to get in. a red light shines above the door, displaying that it's locked.⬇️with nothing to lose, you swipe your keycard. the red light above turns to green as it opens. cautiously, you enter the room.",
-""
+"walking up to the door, you see it runs on a similar system to the other doors, needing a keycard to get in. a red light shines above the door, displaying that it's locked.⬇️with nothing to lose, you swipe your keycard. the red light above turns to green as it opens. cautiously, you enter the room."
 },
 {
-"the right door looks similar to the other doors you had seen here, with a red led above it and a scanner allowing entry. you take out your keycard and swipe it through the scanner.⬇️unfortunately, it doesn't work as the scanner lets out a negative beep and the door remains closed.",
-"you try to swipe your keycard again, but like last time the scanner refuses it. it seems you may need a different card, or another way in. "
+"the right door looks similar to the other doors you had seen here, with a red led above it and a scanner allowing entry. you take out your keycard and swipe it through the scanner.⬇️unfortunately, it doesn't work as the scanner lets out a negative beep and the door remains closed."
 },
 {
 --gameover1
@@ -354,7 +362,6 @@ m={
 "your imagination must be getting to you... right? there was no more reason to delay, so you prepare to make your move."
 },
 c={
-"check map",
 "check desks",
 "look in closet",
 "look around room",
@@ -362,14 +369,6 @@ c={
 "enter south door"
 },
 b={
-{
-"whoever lived here was kind enough to leave a map on the wall for you to look through.⬇️it seems that right now, you were in the northern decontamination room. the vinefilled hallway connected the two decontamination rooms, and held a larger 'shower' room to the west. ",
-"past that shower room were two rooms, experimentation and 'subject's'. while the former explained itself, the subject room didn't seem as clear... at least in comparison to the other rooms on the map.⬇️speaking of them, to your west was the living quarters and storage room.",
-"each of these rooms were worth checking for valuables. holding back dreams of wishes, you continue to look at the map.⬇️the only other rooms worth noting were in the southern sections, labelled as the research and observation rooms, with the later marked with having a glass window to the experimentation room. ",
-"it must've been the room with the glass window blocked off by vines. considering the state of the closed off hallway, it seemed a little too dangerous to go in there. it'd be best to call it quit if the storage or living quarters brought a profit. ",
-"having fully examined the map, you tried to remove it from the wall to take it with you, but it was stuck behind thick glass.⬇️after trying your luck, you come to the conclusion that it wasn't going to budge, and that if you wanted to revisit the map, it'd be best to come back here.",
-""
-},
 {
 "you spend a few minutes looking around, but unfortunately it seems that despite the abundance of desks, there's little in there that's useful for you. you find a bottle of water, at least... but you can't say you feel confident drinking from it considering the state of things here. ",
 "you continue to look around, but it seems there's nothing else in the desks at least, outside of office supplies that were water damaged and heavy medical equipment that was clearly too damaged to be worth taking."
@@ -725,21 +724,26 @@ if proom==2 then
 		 pr[2][1]=1
 	 end					
 	end
---room 3--
---room 4--
+--room3--
+--room4--
 elseif proom==4 then
+ s[4].m[#s[4].m]="this botanical zoo looks breathtaking, it's hard to focus on the investigation as you look at the beautiful plants.⬇️still, you can't afford to get distracted now, there's work to be done."
 	if dsel==1	then
+	 vsub[4][1]=0
+	 td[1]=1
+	 s[4].b[4]={"satisfied that you've looked through the room properly, you leave the room from the way you came."}
+	elseif dsel==2 then
 		bp[2][2]=1
-		vsub[5][5]=0
-		s[5].b[5]={"you take the new keycard from your pocket and swipe it through the scanner. after a few moments, it lets out a positive sounding beep as the light above the door as well as the scanner flashes green, and the sound of a mechanism unlocking can be heard. it's unlocked now, and all that's left to do now is enter the door."}
+		s[5].b[5]={"walking up to the door, you take your newly acquired keycard and swipe it. after a few moments, the led above the door flashes green. the door opens, and you're free to explore this new area. "}
 	elseif dsel==3 then
-		vsub[4][3]=0
-		vsub[5][5]=0
-		s[5].m[#s[5].m]="this observation room seems to be no different than when you had left it a few minutes ago. you carefully walk through the room, avoiding stepping on any vines while you consider your options."
-	 s[5].b[4]={
-"thinking that you may have missed something, you decide to check out the room on the left one more time, walking in slowly and carefully.",
-"",}	
-		proom=5
+		vsub[4][2]=0
+	elseif dsel==4 then
+		vsub[4][4]=0
+		if td[1]>0 then
+			s[5].m[#s[5].m]="this \"observation\" room seems no different from how you had left it.⬇️you take a few moments to consider your next move as you look around."
+		 s[5].b[4]={"you can't help but feel that you missed something in the research room. with that, you swipe your keycard and enter the room."}
+			proom=5
+		end		
 	end
 --room5--
 elseif proom==5 then
@@ -757,9 +761,14 @@ elseif proom==5 then
 		s[5].b[3][3]=s[5].b[3][2]
 	elseif dsel==4 then
 		proom=4
-	elseif dsel==5 and bp[2][2]==1 then
-		proom=6
-		pr[3][1]=1
+	elseif dsel==5	then
+		vsub[5][5]=0
+	 if bp[2][2]==1 then
+		 proom=6
+		 pr[3][1]=1
+		else
+		 s[5].b[5]={"you try to swipe your keycard again, but like last time the scanner refuses it. it seems you may need a different card, or another way in. "}
+		end
 	end
 --room6--
 elseif proom==6 then
@@ -771,7 +780,7 @@ elseif proom==6 then
 	elseif dsel==5 then
   bp[4][2]=1
 	elseif dsel==6 then
-	 td[1]=1
+	 td[2]=1
 		if bp[4][2]==1 and vsub[6][3]==1 then
 			pr[4][1]=1
 			proom=9
@@ -785,7 +794,7 @@ elseif proom==6 then
 	if vsub[6][3]==1 and bp[4][2]==1 then
 	 vsub[6][6]=0
 	end
-	if td[1]==1 and vsub[6][3]==1 and bp[4][2]==1 then
+	if td[2]==1 and vsub[6][3]==1 and bp[4][2]==1 then
 	s[6].b[6]={
   "you step into the scanner, shears in hand. the journals had noted that this 'evaconvolvulus' seems to be plant matter. knowing this, you crouch down towards the vines on the ground. you already checked that there wasn't anything like that stuck to your clothes, so it must be this.",
   "with some regret in your heart, you trim away at the vines, cutitng through them cleanly until you've clipped all of them. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
@@ -795,7 +804,7 @@ elseif proom==6 then
  elseif vsub[6][3]==1 and bp[4][2]==0 then
  s[6].b[6][6]=tmp
  s[6].b[6][7]=tmp
- elseif td[1]==0 and vsub[6][3]==1 and bp[4][2]==1 then
+ elseif td[2]==0 and vsub[6][3]==1 and bp[4][2]==1 then
 	s[6].b[6][6]="you brought your shears into here, as you held no reason not to. remembering the journal that you had read, you look down at the vines growing on the ground and begin to trim them with your glorified scissors."
  s[6].b[6][7]="after a few minutes of careful trimming, the scanner is as vinefree as it'll get. there's still some growing in the cracks, but you can't exactly reach them from here. with a job well done, you toss out the trimmed vines and press the scan button once more."
  s[6].b[6][8]="the glass door closes once more, and the scan repeats just the same. you close your eyes as it hits your head, to avoid accidentally blinding yourself. after a few moments, you reopen them and are greeted with the sight of new text on the led."
@@ -811,16 +820,16 @@ elseif proom==9 then
 		vsub[9][1]=0
 		vsub[9][3]=0
 		if dsel==1 then
-		 if td[3]==0 then
+		 if td[4]==0 then
 				s[9].b[1]={"you step through the door cautiously, as who knows what could be on the other side..."}
 			else
 				s[12].m[#s[12].m]="your mind desperately tries to take it's mind off what it had just seen... it must've been a trick of the lights, just as the shadows at night play tricks on you, thinking someone's there when there's nobody."
 			end
-			if td[2]==1 then
+			if td[3]==1 then
 				proom=12
 				pr[5][1]=1
 			else
-		 	td[2]=1
+		 	td[3]=1
 		 	s[9].c[1]="enter north room"
 		 end
 		elseif dsel==2 then
@@ -845,27 +854,27 @@ elseif proom==11 then
  end
 --room12--
 elseif proom==12 then
-	if td[3]==0 then
+	if td[4]==0 then
 	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
  end
 	if dsel==1 then
 	 vsub[12][1]=0
-	elseif dsel==3 then
+	elseif dsel==2 then
 		jrnl[3]=3
-	elseif dsel==4 then
+	elseif dsel==3 then
 	 bp[5][2]=1
-	elseif dsel==5 then
-	 if td[4]==0 then
-	  td[4]=1
-	 elseif td[4]==1 and bp[5][2]==1 then
- 	 td[4]=2
- 	 vsub[12][5]=0
+	elseif dsel==4 then
+	 if td[5]==0 then
+	  td[5]=1
+	 elseif td[5]==1 and bp[5][2]==1 then
+ 	 td[5]=2
+ 	 vsub[12][4]=0
  	 s[12].b[5]={"cautiously, you step into the next room, hoping that whatever you'd find here would be worth it... it had to be. what happened here, what remained here... and what this place would show you. these questions would be answered soon..."}
- 	elseif td[4]==2 then
+ 	elseif td[5]==2 then
  		proom=11
  	end
-	elseif dsel==6 then
-	 if vroom[10]==0 and td[3]==0 then
+	elseif dsel==5 then
+	 if vroom[10]==0 and td[4]==0 then
 	  vroom[9]=0
 	  s[9].m={"at least... you had intended to enter the room. yet, as you looked through the glass, you could see through the dimmed windows as *something* was moving around in the vines along the wall.⬇️you could feel your heart in your chest, and you struggled to breath as panic set in. something else was here...",
 	  "thankfully, you hadn't opened the door yet... but your mind tried to think of any escape plan it could as it looked at the writhing vines moving in the walls. for now, only one option remained."}
@@ -873,10 +882,10 @@ elseif proom==12 then
  		s[9].b[1]={"quickly, you back away from the door, hoping that perhaps it was a trick of the light, and that when you were ready to leave, you'd see that it was a trick of your imagination."}
    s[11].m[6]="did that sound come from that shadowy mass in the halls?⬇️...it would be best to hurry up your investigation."
  		proom=9
- 		td[3]=1 	
+ 		td[4]=1
  	end
 	end
-	if bp[5][2]==1 and td[4]==1 then
+	if bp[5][2]==1 and td[5]==1 then
 	 s[12].b[5]={
 "holding the metal pipe you found in your hands, you walk to the erratic door. you weren't exactly sure if this would work, but it was better than sitting around doing nothing.⬇️quickly, as the door started to open, you place the metal pipe to jam the door. ",
 "as the door tries to close again, it gets stuck on the metal pipe as a *loud* whine comes from the door. you can hear the mechanisms in the door give great protest to the pipe, before finally the door comes to a stop, the metal pipe stuck now and the door unable to move. ",
