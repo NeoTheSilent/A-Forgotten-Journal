@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=6
+proom=9
 inv=false
 invn=1
 tcheck=true
@@ -30,7 +30,7 @@ pr={
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,1,0,0,0,0,0,0}
+vroom={0,0,0,0,0,0,0,0,0,0,0,0}
 vsub={
 {},
 {0,0,0},
@@ -255,9 +255,9 @@ c={"nothing"}
 --room9
 {
 m={
-"as you looked into the room, it becomes quite clear why the scientists had made it difficult to enter this room. this small hallway was completely filled with vines.⬇️the other rooms looked prim and organized compared to this garden of a room. you could hardly see any of the floor thanks to the vines. ",
-"you stepped into the room, ducking to avoid some of the hanging vines in the doorway. if little else, you could make out some details in this hallway.⬇️you could see that directly across the hallway that there was a doorway, and on the left side of the room was another doorway.",
-"your thoughts are interrupted as a small but audible beep goes off behind you, and the door closes.⬇️there was little you could do in this overgrown hallway, it would be best to move quickly... as you could swear that you saw the vines shift around you."
+"as you stepped into the room, you understand why the scanners were necessary. this hallway had been taken over by plants.⬇️the other rooms looked prim and organized compared to this garden of a room. you couldn't move without stepping on a vine.",
+"as you move into the room, ducking to avoid some of the hanging vines, you could make out some details.⬇️there were two doorways, the one across the hall was likely the north decon. room.⬇️the one to your west was the experimentation room. ",
+"there was little you could do in this overgrown hallway, it would be best to move quickly... as you could swear that you saw the vines shift around you."
 },
 c={
 "check north door",
@@ -266,17 +266,17 @@ c={
 },
 b={
 {
-"the door in front of you seems to be locked via a card reader, much like in the decontamination room. trying your luck, you swipe your keycards through the door, and it opens up.⬇️you're taken aback by the ease of this, this room had been difficult to enter, but it seems leaving was rather easy.",
-"you stand at the doorway for a few moments before stepping away from the door. it may be wise to look around a little more before leaving.",
+"like the other rooms, the door in front of you seems to be locked via a card reader. trying your luck, you swipe your keycards through the door. to your surprise, it opens.⬇️this room had been difficult to enter, but it seems leaving was rather easy.",
+"you stand at the doorway for a few moments before stepping away from the door. it may be wise to look around a little more before leaving, you wouldn't want to miss anything.",
 ""
 },
 {
-"the room to your left has a scanner, like the room you were just in.⬇️you try swiping each of your keycards, but the scanner flashes red and lets out a negative beep. it seems this won't work. it may be worth coming back when you have a new card.",
+"like the other rooms, the western door has a scanner.⬇️you try swiping each of your keycards, but the scanner flashes red.⬇️it seems this won't work. ",
 "you try swiping your keycards again, but it still refuses to let you through."
 },
 {
-"your move towards the decontamination room that you had come into this room from. you don't know exactly what guides your hand to the scanner.⬇️was it concern that you missed something, or was it fear of what was here? ",
-"ultimately, your body moves on its own and you swipe the door open, stepping through it and returning to the decontamination room. ",
+"you don't know exactly what guides your hand to the scanner, but before you realize it, the door to the southern room had opened.⬇️was it concern that you missed something, or was it fear of what was here? ",
+"ultimately, you don't know. your mind lags behind as your body moves on its own and you return to the decontamination room. ",
 ""
 },
 }
@@ -822,16 +822,15 @@ elseif proom==6 then
 	end
 --room9
 elseif proom==9 then
-//fixmelater
 	if vroom[10]==0 then
 		s[9].m[#s[9].m]="the longer you spend in this room, the more it feels like the plants are moving around you. was it just your mind, or were they shifting beneath your feet?⬇️it would be best to keep moving."
 		vsub[9][1]=0
 		vsub[9][3]=0
 		if dsel==1 then
 		 if td[4]==0 then
-				s[9].b[1]={"you step through the door cautiously, as who knows what could be on the other side..."}
+				s[9].b[1]={"hestitation would not get you any closer to your goal. you enter the room with your heart in your throat."}
 			else
-				s[12].m[#s[12].m]="your mind desperately tries to take it's mind off what it had just seen... it must've been a trick of the lights, just as the shadows at night play tricks on you, thinking someone's there when there's nobody."
+				s[12].m[#s[12].m]="your mind desperately tries to take it's mind off what it had just seen... it must've been a trick of the lights, just as the shadows at night pretend to be beasts to scare children."
 			end
 			if td[3]==1 then
 				proom=12
@@ -840,11 +839,9 @@ elseif proom==9 then
 		 	td[3]=1
 		 	s[9].c[1]="enter north room"
 		 end
-		elseif dsel==2 then
-			s[9].c[2]="try west door"
 		elseif dsel==3 then
-   s[6].m[#s[6].m]="you quickly reenter the room, the doorway to the hallway closing behind you. as it did, you could swear for just a moment you heard the faintest guttural groan of some monster.⬇️you had to stop reading your sister's horror books. this place was starting to get to you..."
-   s[6].b[6]={"entering the scanner again, you swipe you press the button and wait for the scan to complete. after a few moments, the door to the hallway opens."}
+   s[6].m[#s[6].m]="as you step into the room, for just a moment, you could swear that you heard the faintest roar of a monster behind you.⬇️yet when you looked, there was nothing.⬇️this place was starting to get to you...you had to stop reading your sister's horror books."
+   s[6].b[6]={"entering the scanner again, you swipe you press the button and wait for the scan to complete. after a few moments, the door to the hallway opens and you step inside."}
 			proom=6		
 		end
 	else
