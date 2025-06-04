@@ -74,21 +74,23 @@ m={
 "in front of you is an certain building, one that held plenty of bad rumors. last month, an explosion was reported from the inside of the building. not a single inhabitant was found, with most guessing that they had perished or fled. it didn't matter what the truth was. it wouldn't be investigated, not in this part of town. ",
 "the building looked like it could collapse at any moment, and nobody wanted to test their luck looting the place.⬇️still, that meant that there was a good chance you could find something worth taking in here. you carefully make your way into the building, moving past the rubble.",
 "the door was blocked off, but you could see a window. after carefully moving around the broken glass, you hop inside.⬇️most of the rooms were too damaged by the explosion for anything of value to have survived. it was expected, but still disappointing. only one room showed promise, a small office room.",
-"the room wasn't hit as hard by the explosion.⬇️a large desk seem to hold the most promise, and a few other areas hold potential for investigation."},
-c={
-"check large desk",
-"look around room"},
-b={
-{
-"as you walk up to the desk, you're surprised to see it still in tact. the explosion must not have been as bad in this room. you spend a few minutes rummaging through the drawers, ultimately finding a keycard inside a half-open drawer.⬇️it's stained green, and has a few leaves next to it, but otherwise looks usable. ",
-"outside of the keycard, nothing else in the desk seems to be worth taking. pocketing the keycard, you decide to continue looking around the room.",
-"you check the desk again to see if you might've missed anything on your initial sweep. after a few minutes, you find that you were quite thorough the first time, there's nothing you missed. "
+"the room wasn't hit as hard by the explosion.⬇️a large desk seem to hold the most promise, and a few other areas hold potential for investigation."
 },
+c={
+"look around room",
+"check large desk"
+},
+b={
 {
 "as you look through the room, you're surprised to see that a number of vines and other plants have started to grow in the room. to think that only a month ago the building had exploded, yet nature still tried to rebuild. it didn't make much sense to you, it was too soon, but it was still admirable.",
 "looking through the room, you walk up to a bookshelf, it seems to be undamaged to your surprise.⬇️as you check around it, your finger brushes against a hidden button on its side. with a mechanical whirr, it sinks into the ground until only the top is visible. ",
 "in front of you seems to be a larger door, something that wouldn't look out of place in the sci-fi books that your sister likes reading.⬇️the door lacks a handle to open it, instead there's a card reader on the frame. ",
 "you check around the room again, concerned you might've missed something. yet, while there's a lot to look at, there's nothing useful for you."
+},
+{
+"as you walk up to the desk, you're surprised to see it still in tact. the explosion must not have been as bad in this room. you spend a few minutes rummaging through the drawers, ultimately finding a keycard inside a half-open drawer.⬇️it's stained green, and has a few leaves next to it, but otherwise looks usable. ",
+"outside of the keycard, nothing else in the desk seems to be worth taking. pocketing the keycard, you decide to continue looking around the room.",
+"you check the desk again to see if you might've missed anything on your initial sweep. after a few minutes, you find that you were quite thorough the first time, there's nothing you missed. "
 }
 }
 },
@@ -102,12 +104,17 @@ m={
 "there was no time like the present, it was time to get to work. you needed to find something for your sister after all... she couldn't go on longer without her medicine."
 },
 c={
+"look around room",
 "check map",
 "check desks",
-"look around room",
 "leave room"
 },
 b={
+{
+"there's a lot to take in with the room. vines are coming from the vents along the wall, and there's a lot of scientific equipment that you don't exactly understand.",
+"you see a few flowers in the glass containers. one in particular is flourishing, in a container that had been broken by something. perhaps you'll take it for your sister before you leave. ",
+"outside of a few flowers you'd like to take with you, there's nothing that jumps out at you."
+},
 {
 "whoever lived here was kind enough to leave a map on the wall. ⬇️right now, you were in the research room. the neighboring room was the observation room, which made sense as you remembered the large window.⬇️it's a shame you couldn't look through the window. ",
 "past that were two decontamination rooms and a hallway that connected them.⬇️that hallway also led to a room called the experimentation room and \"subject's room\".⬇️it might be worth looking in there for expensive scientific equipment.",
@@ -118,11 +125,6 @@ b={
 {
 "as you go through the desks, you find a keycard marked with the number 1 on a desk by the north wall near a vent. taking the card, you continue looking.⬇️while you find a few confusing documents and devices, they're not useful at the moment. when you're leaving, it might be worth taking them to sell later. ",
 "you take a second look through, but there's nothing else worth noting in the various desks."
-},
-{
-"there's a lot to take in with the room. vines are coming from the vents along the wall, and there's a lot of scientific equipment that you don't exactly understand.",
-"you see a few flowers in the glass containers. one in particular is flourishing, in a container that had been broken by something. perhaps you'll take it for your sister before you leave. ",
-"outside of a few flowers you'd like to take with you, there's nothing that jumps out at you."
 },
 {
 "as you move to the door, you can't help but feel that you're leaving too early.⬇️there's still a few things worth checking here.⬇️with that, you decide to continue looking."
@@ -142,6 +144,7 @@ m={
 "there's a window that spanned across the opposing wall, and a single book catches your eye, lying next to the window on a table. you could also see two sets of doors to each side of you, as well as a few desks and computers in the room itself."
 },
 c={
+"look around room",
 "check window",
 "check desks",
 "check computers",
@@ -150,6 +153,10 @@ c={
 "go back upstairs."
 },
 b={
+{
+"as you step through the room, you see plenty of puddles and plants on the ground. the room looks like it's been abandoned for a long time...⬇️the explosion only happened a month ago, it couldn't have gotten this bad already. still, it almost looks beautiful how nature has reclaimed this room. ",
+"there seems to be nothing of importance lying around in the room, at least nothing that's usable."
+},
 {
 "you walk up to the larger window. peering through the glass, you try to make out what's on the other side. to your dismay, it was too dark on the other side of the window, you could only make out vines on the other side of the glass.⬇️at least it wasn't the only reason you walked over here. ",
 "a journal lay on a table next to you, wrapped in vines. it takes some time to pry the journal from them, as they had wrapped around it quite tightly.",
@@ -196,14 +203,18 @@ m={
 "with these thoughts, you step inside the room. as the map had said, it seems this room was a decontamination room. you spot three unique places, a closet with hazmat suits, a small glass shower, and what looks like a large scanner.⬇️there also seems to be a few desks and cabinets to go through. you certainly have your work cut out for you. ",
 },
 c={
+"look around room",
 "check hazmat suits",
 "check shower",
 "check smaller desk.",
 "check larger desk.",
-"look around room",
 "enter the scanner.",
 "enter left door."},
 b={
+{
+"as you look through the room, outside of the plant infestation, you see something shining in the corner of the room. walking over to it, you find shears lying on the ground. you take them for now, they could be useful.",
+"outside of the various plants, there's nothing that stands out to you right now."
+},
 {
 "there's a number of suits here. still, it makes it all that more concerning that you haven't found anyone here. a few seem to be missing⬇️you search the suits, but there's nothing worth taking within. oh well...",
 "concerned that you may have missed something, you check the pockets again.⬇️you find something this time, a spare handkerchief. it looks rather nice at least, though not helpful. "
@@ -225,10 +236,6 @@ b={
 "\"the one that the director had used was rather dull. we decided to call her eva.\"⬇️\"with all the preparations done, we can begin our tests soon. should our luck hold, then we won't need another █ subject.\"",
 "\"now, it was important to apply the results of our research and reach the next stage in █ █.\"⬇️...⬇️it takes some time to come to terms with what you had read. ultimately, you pocket these spare pages and continue moving, unsure of what to do next. ",
 "you check through the larger desks again, but nothing remains. you can't help but remember the journal as you rummage through them...⬇️what happened here? "
-},
-{
-"as you look through the room, outside of the plant infestation, you see something shining in the corner of the room. walking over to it, you find shears lying on the ground. you take them for now, they could be useful.",
-"outside of the various plants, there's nothing that stands out to you right now."
 },
 {
 "you approach the scanner. to get to the next room, you'll have to enter it. as you peer inside, you see some vines on the ground, a led display, and a few buttons.",
@@ -353,38 +360,39 @@ b={
 --room12
 {
 m={
-"stepping into the room, you're greeted by yet another scanner, closing you off from the rest of the room with a glass panel. remembering the trick from last time, you take your shears and cut through the stray vines that had made their way into the scanner and toss them into the hallway.",
-"with your gardening complete, you press the button. the machine lights up, and you see a red wave of light appear above you. a few moments pass, and the screen on the tablet lights up.⬇️[no evaconvolvulus detected. you may enter.]⬇️glad that the scan went smoothly, you walk inside. ",
-"it's similar to the last decontamination room you were in, sporting similar desks and cabinets. the shower likewise looked similar, though the hazmat suits were in a closet this time. finally, you also saw a map along the wall.",
-"there wasn't any reason to wait, so you move forward... as you take your first step, you hear a noise from a different room, like metal groaning and some other inhumane roar.⬇️it faded just as soon as you heard it, and the facility remains quiet, only to be disturbed by the occasional drip of water. ",
-"your imagination must be getting to you... right? there was no more reason to delay, so you prepare to make your move."
+"as you step inside, you see a scanner like in the previous room. glass panes block the scanner exit, and a scan button was displayed.⬇️noticing vines on the ground, and remembering the last room, you dispose of them with your shears before pressing the scan button. ",
+"",
+"odd... you had gotten all of the vines when you entered.⬇️you spend a minute looking around, only to notice a stray vine was half inside your pants pocket.⬇️you don't remember putting it in there. tossing it out, you press the scan button once more.",
+"",
+"the door opens, and as you take your first step inside the room, you hear a noise from a different room, like metal groaning and some other inhumane roar.⬇️silence follows the roar, only to be disturbed by the occasional drip of water. what... what was that? ",
+"your imagination must be getting to you... right?⬇️at any rate, as the map had shown, this room was a mirror of the other decontamination room, with desks, a closet with hazmat suits, and a shower.⬇️it's time to get to work. "
 },
 c={
+"look around room",
 "check desks",
 "look in closet",
-"look around room",
 "check left door",
 "enter south door"
 },
-b={
+b=
 {
-"you spend a few minutes looking around, but unfortunately it seems that despite the abundance of desks, there's little in there that's useful for you. you find a bottle of water, at least... but you can't say you feel confident drinking from it considering the state of things here. ",
-"you continue to look around, but it seems there's nothing else in the desks at least, outside of office supplies that were water damaged and heavy medical equipment that was clearly too damaged to be worth taking."
+{
+"you spend a few minutes looking around. notably, this room looks much cleaner than its sister room. there's no water, nor can you see any plants.⬇️you do notice a metal rod lying on the floor, having fallen out of something. it looks a little rusty, but it seems like it's worth taking. ",
+"there's nothing else that seems useful at the moment for you around the room, it's actually organized unlike its sister room."
 },
 {
-"you step into the closet to see if there was anything worth taking. there's a few hazmat suits within... two of which had been torn open by something.⬇️pushing the thought of what could've caused this away, you continue to check around the room.",
-"you do happen upon something in one of the torn suits' pockets. inside is another page from the journal. seeing little reason not to, you start to read it.",
-"\"april 10th, 20█\"⬇️\"our experiments have gone quite well, we've recently celebrated the █th anniversary from the start of our tests with eva. her body is holding up quite well, with the degeneration of her body's █ only at █5%.\"⬇️\"her mental tests have also been within working results.\" ",
-"\"as it stands, we're steadily heading towards our goal of creating the █ █.\"⬇️\"we can't celebrate too early, as we had similar hopes with test subject █4, and their body quickly ███ to the point that we had to dispose of them.\" ",
+"as you check through the desks, you find a number of documents, but they're too complicated for you.⬇️you do find a photo of a child, no older than 6. she has an green hair, and an odd look in her eyes.⬇️outside of that, there's nothing else.",
+"there's little else in the desks worth looking at, outside of the photo of the green haired child."
+},
+{
+"you step into the closet to see if there was anything worth noting. there's a few hazmat suits within... two of which had been torn by *something*.⬇️you try not to think about it as you search the suits.",
+"you do happen to find a document in one of the pockets of a torn suit. taking it to a flickering desk lamp, you read it.",
+"\"april 10th, 20█\"⬇️\"our experiments have gone quite well, we've recently celebrated the █th █ of our tests with eva. her body is holding up quite well, with the degeneration of her body's █ only at █5%.\"⬇️\"her mental tests have also been within working results.\" ",
+"\"as it stands, we're steadily heading towards our goal of creating the █ █.\"⬇️\"we can't celebrate too early, as we had similar hopes with test subject █4 until they █.\" ",
 "\"we've recently begun the advanced testing, and introduced eva to █. while initial results did cause a █3% increase in mental distress to eva, we were able to confirm that the █ properly █ into her body.\"⬇️\"we're getting closer to our goals, before long we'll conquer the human █.\" ",
-"\"still, we can't ignore that eva hasn't been cooperative, though it isn't a surprise.\" ⬇️\"withholding the evacurine medicine is enough to quell resistance, as she can't bear the pain without it. she's a genius, surely she should understand what we're doing!\"⬇️\"a little pain is nothing for what we're dreaming of.\" ",
-"\"if only we could still operate on our own bodies... still, this experiment is best performed with growing bodies. we're getting close. we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
+"\"still, we can't ignore that eva hasn't been █, though it isn't a surprise.\" ⬇️\"withholding the evacurine medicine is enough to quell resistance, as she can't bear the pain without it. she's a genius, surely she should █ what we're doing!\"⬇️\"a little pain is nothing for what we're dreaming of.\" ",
+"\"if only we could still █ on our own bodies... still, this experiment is best performed with █ bodies. we're getting close, we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
 "there isn't anything else of note in the closet room."
-},
-{
-"looking around the room, there doesn't seem to be much else worth looking at, outside of the points of interest. what's here is either too complicated for you to understand, or otherwise is too damaged to be worth taking.",
-"you do happen to find a thick metal rod lying on the floor, having fallen out of something. it looks a little rusty, but it seems like it's worth taking.",
-"you spend a few minutes more looking around, but there's not much here worth looking at in finer detail, at least with your education."
 },
 {
 "similar to the room on the other end of the hall, there's a keycard scanner that gives you access to the next set of rooms.⬇️you rummage through your pockets for a moment, not finding your keycards for a few moments.",
@@ -696,17 +704,12 @@ function events()
 vsub[proom][dsel]=1
 tmp="as you ponder what evaconvolvulus is, you remember the note you found.⬇️chances are that the vines along the floor is the evaconvolvulus.⬇️still... you couldn't just rip them up with your hands. you'd need to find a tool to cut them. "
 tmp2="you try your luck with the door, but unfortunately it's locked tightly and you can't make it budge. your try your luck with your keycards, but none of them seem to open this door.⬇️notably: the name plate seems to be scratched out, you can't make out what it said."
+sc1="[error - evaconvolvulus detected. doors have been locked.]"
+sc2="[no evaconvolvulus detected. you may enter.]"
 
 --room2
 if proom==2 then
 	if dsel==1 then
-		bp[1][2]=1
-	 vsub[2][3]=0
-		s[2].b[3]={
-"you swipe the card through the reader, and the door opens with a faint rumbling.⬇️a dim light illuminates the room, a spiral staircase covered in vines and other flora was visible, one whose bottom you could not see. ",
-"you had finished your investigation up here, and had found nothing of value.⬇️this set off red flags for you, but you couldn't leave now, not empty-handed.⬇️with a heavy heart and a careful foot, you descend down the stairs.",
-""}
-	elseif dsel==2 then
 		s[2].c[3]="open the door"
 		pr[1][1]=1
 		if bp[1][2]==0	then
@@ -716,6 +719,13 @@ if proom==2 then
 "you were never quick to give up. picking up that same piece of metal, you try to wedge open the door again.⬇️a few minutes pass, and while your arms are ready to throw in the towel, the door hasn't moved an inch. it's becoming clearer that you're going to need a keycard. "
 }
 		end
+	elseif dsel==2 then
+		bp[1][2]=1
+	 vsub[2][3]=0
+		s[2].b[3]={
+"you swipe the card through the reader, and the door opens with a faint rumbling.⬇️a dim light illuminates the room, a spiral staircase covered in vines and other flora was visible, one whose bottom you could not see. ",
+"you had finished your investigation up here, and had found nothing of value.⬇️this set off red flags for you, but you couldn't leave now, not empty-handed.⬇️with a heavy heart and a careful foot, you descend down the stairs.",
+""}
 	elseif dsel==3 then
 		if bp[1][2]==1 then
 		 proom=5
@@ -726,80 +736,78 @@ if proom==2 then
 --room4--
 elseif proom==4 then
  s[4].m[#s[4].m]="this botanical zoo looks breathtaking, it's hard to focus on the investigation as you look at the beautiful plants.⬇️still, you can't afford to get distracted now, there's work to be done."
-	if dsel==1	then
-	 vsub[4][1]=0
+	if dsel==2	then
+	 vsub[4][2]=0
 	 td[1]=1
 	 s[4].b[4]={"satisfied that you've looked through the room properly, you leave the room from the way you came."}
-	elseif dsel==2 then
-		bp[2][2]=1
-		s[5].b[5]={"walking up to the door, you take your newly acquired keycard and swipe it. after a few moments, the led above the door flashes green. the door opens, and you're free to explore this new area. "}
 	elseif dsel==3 then
-		vsub[4][2]=0
+		bp[2][2]=1
+  s[6].b[6][4]=sc1
+  s[6].b[6][5]=sc1
+		s[5].b[6]={"walking up to the door, you take your newly acquired keycard and swipe it. after a few moments, the led above the door flashes green. the door opens, and you're free to explore this new area. "}
 	elseif dsel==4 then
 		vsub[4][4]=0
 		if td[1]>0 then
 			s[5].m[#s[5].m]="this \"observation\" room seems no different from how you had left it.⬇️you take a few moments to consider your next move as you look around."
-		 s[5].b[4]={"you can't help but feel that you missed something in the research room. with that, you swipe your keycard and enter the room."}
+		 s[5].b[5]={"you can't help but feel that you missed something in the research room. with that, you swipe your keycard and enter the room."}
 			proom=5
 		end		
 	end
 --room5--
 elseif proom==5 then
-	if dsel==1 then
+	if dsel==2 then
 		jrnl[1]=1
-	elseif dsel==2 then	
+	elseif dsel==3 then	
 	bp[3][2]+=1
-	s[5].b[2]={
+	s[5].b[3]={
 "thinking about it more, you decide to put the medicine in your satchel, as you don't want to forget about them when you're getting ready to leave.",
 "you check the desks again, but there doesn't seem to be anything else worth taking right now."}
 	 if bp[3][2]<1 then
-			vsub[5][2]=0
+			vsub[5][3]=0
 	 end
-	elseif dsel==3 then
-		s[5].b[3][3]=s[5].b[3][2]
 	elseif dsel==4 then
+		s[5].b[4][3]=s[5].b[4][2]
+	elseif dsel==5 then
 		proom=4
-	elseif dsel==5	then
 		vsub[5][5]=0
+	elseif dsel==6	then
+		vsub[5][6]=0
 	 if bp[2][2]==1 then
 		 proom=6
 		 pr[3][1]=1
 		else
-		 s[5].b[5]={"you try to swipe your keycard again, but like last time the scanner refuses it. it seems you may need a different card, or another way in. "}
+		 s[5].b[6]={"you try to swipe your keycard again, but like last time the scanner refuses it.⬇️it seems you may need a different card, or another way in. "}
 		end
 	end
 --room6
 elseif proom==6 then
  s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, but it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
  --
-	if dsel==3 then
-		s[6].b[3][3]=s[6].b[3][2]
-	elseif dsel==4 then
-  jrnl[2]=1
-	elseif dsel==5 then
+	if dsel==1 then
   bp[4][2]=1
+ elseif dsel==4 then
+		s[6].b[4][3]=s[6].b[4][2]
+	elseif dsel==5 then
+  jrnl[2]=1
 	elseif dsel==6 then
 	 td[2]=1
-		if bp[4][2]==1 and vsub[6][3]==1 then
+		if bp[4][2]==1 and vsub[6][4]==1 then
 			pr[4][1]=1
 			proom=9
 		end
 	elseif dsel==7 then
 		vsub[6][7]=0
-		vsub[5][6]=0
 		proom=5
 		s[5].b[6]={"taking your keycard out, you swipe it through the reader. the door unlocks again without issue, and you step through. thankfully, the keycard doesn't seem to be a one time use. "}
 	end
 	--
 	if vroom[9]==0 then
 		if bp[4][2]==0 then
-		 if vsub[6][3]==0 then
-		  s[6].b[6][5]=s[6].b[6][4]
-		 else
+		 if vsub[6][4]>0 then
 		  s[6].b[6][5]=tmp
 		  s[6].b[6][6]=tmp
 		 end
-		elseif vsub[6][3]==1 then
+		elseif vsub[6][4]==1 then
 		 if td[2]==1 then
 	s[6].b[6]={
 	"you step into the scanner, shears in hand. the note had said that this 'evaconvolvulus' was plant matter. there wasn't anything stuck to your clothes, so it must be the vines on the floor.",
@@ -810,14 +818,14 @@ elseif proom==6 then
 	 	else
 	s[6].b[6][5]="as you read the screen, a lightbulb goes off in your head. the evaconvolvulus, or whatever it was, was a plant.⬇️there were plants down by your feet and thankfully, you were smart enough to bring the shears in with you. "
 	s[6].b[6][6]="after a few minutes of careful trimming, the scanner is as vine free as it'll get. you toss out the trimmed vines and press the scan button once more.⬇️the scanning process goes smoothly, though you almost blind yourself by opening your eyes too early. to your delight, the screen has a new message for you."
-	s[6].b[6][7]="[no evaconvolvulus detected. you may enter.]"
+	s[6].b[6][7]=sc2
 	s[6].b[6][8]="the doors in front of you and behind you open, revealing the hallway. carefully, you step into the next room. "
 	s[6].b[6][9]=""
 	  end
 	 end
 	end
 	--
-	if vsub[6][3]==1 and bp[4][2]==1 then
+	if vsub[6][4]==1 and bp[4][2]==1 then
 	 vsub[6][6]=0
 	end
 --room9
@@ -829,6 +837,8 @@ elseif proom==9 then
 		if dsel==1 then
 		 if td[4]==0 then
 				s[9].b[1]={"hestitation would not get you any closer to your goal. you enter the room with your heart in your throat."}
+				s[12].m[2]=sc1
+    s[12].m[4]=sc2
 			else
 				s[12].m[#s[12].m]="your mind desperately tries to take it's mind off what it had just seen... it must've been a trick of the lights, just as the shadows at night pretend to be beasts to scare children."
 			end
@@ -864,11 +874,9 @@ elseif proom==12 then
 	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
  end
 	if dsel==1 then
-	 vsub[12][1]=0
-	elseif dsel==2 then
-		jrnl[3]=3
-	elseif dsel==3 then
 	 bp[5][2]=1
+	elseif dsel==3 then
+		jrnl[3]=1
 	elseif dsel==4 then
 	 if td[5]==0 then
 	  td[5]=1
