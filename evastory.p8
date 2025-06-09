@@ -4,11 +4,12 @@ __lua__
 -- default functions
 
 function _init()
-proom=9
+proom=12
 inv=false
 invn=1
 tcheck=true
 tpick=0
+ending=0
 clr={2,3,1}
 clw={"ui","text","background"}
 bckclr=1
@@ -17,34 +18,37 @@ bp={
 {"g. keycard",0,"a keycard that has been stained green. most of the info on it has faded. "},
 {"keycard n.1",0,"a keycard numbered 1. you can also make out the word 'decontamination' on it. "},
 {"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
-{"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
+{"shears",1,"a pair of pruning shears, the blades stained green. it's quite sharp."},
 {"metal rod",0,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
 {"hazmat suit",0,"a suit that looks like a hazmat suit. it's stuffy, but very durable."},
 {"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
 {"ethe's card",0,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
-td={0,0,0,0,0}
+td={1,0,0,0,0,0}
 --
 pr={
 {0,108,115,3},{0,108,107,1},
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,0,0,0,0,0,0,0}
+vroom={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 vsub={
-{},
+{0},
 {0,0,0},
-{},
+{0},
 {0,0,0,0},
-{0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0}
-}	
+{0,0,0,0,0,0,0},
+{0},
+{0},
+{0,0,0}
+}
 --
 sbs=1
 btime=0
@@ -186,9 +190,9 @@ b={
 "the right door looks similar to the other doors you had seen here, with a red led above it and a scanner allowing entry. you take out your keycard and swipe it through the scanner.⬇️unfortunately, it doesn't work as the scanner lets out a negative beep and the door remains closed."
 },
 {
---gameover1
-"you just came down here. leaving now would be a waste, as you haven't found enough valuables. it may be safer to leave, but your sister needs money for her medicine. you have to keep looking... you can't stop now.",
-"it's a painful choice to make, but ultimately you return to the door. whatever's happened down here is out of your league, and the longer you stay, the longer you risk something happening to you. if you got hurt or worse, then your sister would be in just as much trouble. there's safer ways to make money anyhow."
+"you've only arrived a short time ago, but you're already starting to consider abandoning this place. there's a lot down here, and the things you could take could keep you and your sister fed for ages... but it certainly didn't seem safe. if something happened to you down here, then you'd both be in terrible trouble.",
+"still, there's a few things you wanted to check first. when you're finished looking, you'd come back here and leave right away.",
+""
 }
 }
 },
@@ -408,6 +412,16 @@ b=
 }
 }
 },
+--gameover1
+{
+m={
+"as you climb up the stairs, you consider returning here to loot more in the future... but this place seems too risky.⬇️who knows, the previous owners might come back and give you hell if they find you here.",
+"what happened down there?⬇️why did things turn out this way?⬇️these questions faded from your mind, unanswered.⬇️you heard a rumor about some *thing* leaving this place in the following weeks, but it wasn't your problem anymore.",
+"the items you found down here sold for a pretty penny, and you could buy your sister medicine and food for a few weeks. before long, even the memory of this place faded from your mind. it was time to move on.",
+},
+c={"return to title"},
+b={{"game over⬇️neutral ending⬇️thank you for playing."}}
+}
 }
 
 t={
@@ -464,7 +478,7 @@ else
 	if inv then
 		pckt()
 	else
-	 dial(s[proom])
+ 	dial(s[proom])
 	 grid()
 	end
 end
@@ -778,6 +792,13 @@ elseif proom==5 then
 		else
 		 s[5].b[6]={"you try to swipe your keycard again, but like last time the scanner refuses it.⬇️it seems you may need a different card, or another way in. "}
 		end
+	elseif dsel==7 then
+	 if td[6]==1 then
+	  proom=13
+	 end
+	 vsub[5][7]=0
+	 s[5].b[7]={"the decision to leave wasn't a hard one to make, this place looked too dangerous.⬇️one bad slip is all it'd take for you to hurt yourself on some rusty metal or worse.⬇️you had taken a few things already,  they'll have to do for now."}
+	 td[6]+=1
 	end
 --room6
 elseif proom==6 then
@@ -910,8 +931,36 @@ elseif proom==12 then
 	 s[11].b[8][1]=tmp2
 	 s[11].b[9][1]=tmp2
  end
+elseif proom==13 then
+	tcheck=true
+	res()
 end
 	dsel=1
+end
+
+function res()
+ for i=1,#bp do
+  bp[i][2]=0
+ end
+ bp[3][2]=-1
+ for i=1,#jrnl do
+  jrnl[i]=0
+ end
+ for i=1,#td do
+  td[i]=0
+ end
+ for i=1,#pr do
+  pr[i][1]=0
+ end
+ for i=1,#vroom do
+  vroom[i]=0
+ end
+ for i=1,#vsub do
+  for j=1,#vsub[i] do
+   vsub[i][j]=0
+  end
+ end
+ proom=2
 end
 -->8
 -- dialogue splitter
