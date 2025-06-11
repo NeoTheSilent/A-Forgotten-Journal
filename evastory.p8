@@ -4,12 +4,11 @@ __lua__
 -- default functions
 
 function _init()
-proom=12
+proom=9
 inv=false
 invn=1
 tcheck=true
 tpick=0
-ending=0
 clr={2,3,1}
 clw={"ui","text","background"}
 bckclr=1
@@ -18,7 +17,7 @@ bp={
 {"g. keycard",0,"a keycard that has been stained green. most of the info on it has faded. "},
 {"keycard n.1",0,"a keycard numbered 1. you can also make out the word 'decontamination' on it. "},
 {"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
-{"shears",1,"a pair of pruning shears, the blades stained green. it's quite sharp."},
+{"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
 {"metal rod",0,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
 {"hazmat suit",0,"a suit that looks like a hazmat suit. it's stuffy, but very durable."},
 {"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
@@ -389,26 +388,27 @@ b=
 "there's little else in the desks worth looking at, outside of the photo of the green haired child."
 },
 {
-"you step into the closet to see if there was anything worth noting. there's a few hazmat suits within... two of which had been torn by *something*.⬇️you try not to think about it as you search the suits.",
-"you do happen to find a document in one of the pockets of a torn suit. taking it to a flickering desk lamp, you read it.",
+"you step into the closet to see if there was anything worth noting. there's a few hazmat suits within... two of which had been torn by *something*.⬇️you try not to think about it as you search the suits. ",
+"you do happen to find a document in one of the pockets of a torn suit. taking it to a flickering desk lamp, you read it. ",
 "\"april 10th, 20█\"⬇️\"our experiments have gone quite well, we've recently celebrated the █th █ of our tests with eva. her body is holding up quite well, with the degeneration of her body's █ only at █5%.\"⬇️\"her mental tests have also been within working results.\" ",
 "\"as it stands, we're steadily heading towards our goal of creating the █ █.\"⬇️\"we can't celebrate too early, as we had similar hopes with test subject █4 until they █.\" ",
 "\"we've recently begun the advanced testing, and introduced eva to █. while initial results did cause a █3% increase in mental distress to eva, we were able to confirm that the █ properly █ into her body.\"⬇️\"we're getting closer to our goals, before long we'll conquer the human █.\" ",
 "\"still, we can't ignore that eva hasn't been █, though it isn't a surprise.\" ⬇️\"withholding the evacurine medicine is enough to quell resistance, as she can't bear the pain without it. she's a genius, surely she should █ what we're doing!\"⬇️\"a little pain is nothing for what we're dreaming of.\" ",
 "\"if only we could still █ on our own bodies... still, this experiment is best performed with █ bodies. we're getting close, we can't stop now.\"⬇️quietly, you put the page in the journal, trying to come to terms with what you had just read...",
-"there isn't anything else of note in the closet room."
+"there isn't anything else of note in the closet... and considering what you read, you're not keen on looking closer."
 },
 {
-"similar to the room on the other end of the hall, there's a keycard scanner that gives you access to the next set of rooms.⬇️you rummage through your pockets for a moment, not finding your keycards for a few moments.",
-"your heart races... but ultimately as you turn around you see that you simply dropped them on the ground behind you.⬇️oddly though, they seem to have some vines on top of them. joking to yourself that you have to watch out for pickpocket plants, you pick your cards back up. ",
-"taking your cards, you swipe the keycard marked 1 first. the led above the door goes green after a moment, and the door starts to open with an awful groaning sound.⬇️looking at the door frame as it opens, you notice that there are vines grown into the frame.",
-"the door opens aroud halfway before it stutters to a stop. it wasn't perfect... but considering the state of this place, you were just surprised it worked at all.⬇️you try to take a step through the doorway-",
+"a keycard scanner and a broken looking door stand in front of you. it looks like it's seen better days, the metal seeming warped.⬇️taking your cards, you swipe the keycard marked 1 first.",
+"the led above the door goes green, and the door starts to open with an awful groan.⬇️looking at the door frame as it opens, you notice that there are vines grown into the frame.",
+"the door opens around halfway before it stutters to a stop. it wasn't perfect... but considering the state of this place, you were just surprised it worked at all.⬇️you try to take a step through the doorway-",
 "to your surprise, the door came to life and quickly started moving back and forth before stopping again.⬇️this... wasn't ideal. going through would risk injury, and if it closed and broke when you were on the other side, you'd be trapped. you needed to find a way to keep it open.",
 "you try to use what you have to keep it open, but nothing seems to hold much promise in keeping the door open. "
 },
 {
-"carefully, you walk through the scanner once again. the scanner runs its scan, alerting you to the fact that no 'evaconvolvulus' was detected. the door to the hallway unlocks with a click, and you carefully step into the hallway. ",
-"you take a single step towards the door, before you unconsciously stop yourself. whatever *that* was, it was likely still in there...⬇️there was more for you to do anyhow. with these excuses in your head, and the courage to step inside gone, you return to the center of the room as you plan your next move. "
+"carefully, you step into the scanner again and start the scan.",
+"",
+"the door to the hallway unlocks with a click, and you carefully step into the hallway. ",
+"you take a single step towards the door, before you stop. whatever *that* was, it was in there...⬇️there was more for you to do here anyhow. with this excuse in your mind and the courage to step inside gone, you begin to plan your next move."
 }
 }
 },
@@ -860,6 +860,7 @@ elseif proom==9 then
 				s[9].b[1]={"hestitation would not get you any closer to your goal. you enter the room with your heart in your throat."}
 				s[12].m[2]=sc1
     s[12].m[4]=sc2
+    s[12].b[5][2]=sc2
 			else
 				s[12].m[#s[12].m]="your mind desperately tries to take it's mind off what it had just seen... it must've been a trick of the lights, just as the shadows at night pretend to be beasts to scare children."
 			end
@@ -892,7 +893,7 @@ elseif proom==11 then
 --room12--
 elseif proom==12 then
 	if td[4]==0 then
-	 s[12].m[#s[12].m]="you can feel a growing sense of anxiety fill you, this place felt more and more dangerous by the minute and it'd be best to finish your business quickly and leave. "
+	 s[12].m[#s[12].m]="it'd be best to finish your business quickly and leave, this place felt more and more dangerous by the minute. "
  end
 	if dsel==1 then
 	 bp[5][2]=1
@@ -904,15 +905,15 @@ elseif proom==12 then
 	 elseif td[5]==1 and bp[5][2]==1 then
  	 td[5]=2
  	 vsub[12][4]=0
- 	 s[12].b[5]={"cautiously, you step into the next room, hoping that whatever you'd find here would be worth it... it had to be. what happened here, what remained here... and what this place would show you. these questions would be answered soon..."}
+ 	 s[12].b[4]={"you step into the doorway. you had to be close to the finding the answers... and the valuables.⬇️what happened here?⬇️what remained here?⬇️what would you do?⬇️these questions would be answered soon."}
  	elseif td[5]==2 then
  		proom=11
  	end
 	elseif dsel==5 then
 	 if vroom[10]==0 and td[4]==0 then
 	  vroom[9]=0
-	  s[9].m={"at least... you had intended to enter the room. yet, as you looked through the glass, you could see through the dimmed windows as *something* was moving around in the vines along the wall.⬇️you could feel your heart in your chest, and you struggled to breath as panic set in. something else was here...",
-	  "thankfully, you hadn't opened the door yet... but your mind tried to think of any escape plan it could as it looked at the writhing vines moving in the walls. for now, only one option remained."}
+	  s[9].m={"at least... you had intended to enter the room. yet, you saw it through the glass, *something* was moving around in the vines along the wall.⬇️you could feel your heart in your throat, and you struggled to breath as panic set in.",
+"thankfully, you hadn't opened the door yet. your mind tried to think of any escape plan it could as it looked at the writhing vines moving in the walls. for now, only one option remained."}
 	  s[9].c={"step away from door"}
  		s[9].b[1]={"quickly, you back away from the door, hoping that perhaps it was a trick of the light, and that when you were ready to leave, you'd see that it was a trick of your imagination."}
    s[11].m[6]="did that sound come from that shadowy mass in the halls?⬇️...it would be best to hurry up your investigation."
@@ -921,12 +922,12 @@ elseif proom==12 then
  	end
 	end
 	if bp[5][2]==1 and td[5]==1 then
-	 s[12].b[5]={
-"holding the metal pipe you found in your hands, you walk to the erratic door. you weren't exactly sure if this would work, but it was better than sitting around doing nothing.⬇️quickly, as the door started to open, you place the metal pipe to jam the door. ",
-"as the door tries to close again, it gets stuck on the metal pipe as a *loud* whine comes from the door. you can hear the mechanisms in the door give great protest to the pipe, before finally the door comes to a stop, the metal pipe stuck now and the door unable to move. ",
-"you're now able to move into the next room. glad to have defeated the door, you decide to spend a minute longer looking through the room, in case you missed anything. ",
-"test12.choice5.variant2"}
-	 vsub[12][5]=0
+	 s[12].b[4]={
+"holding the metal pipe you found in your hands, you approach the erratic door. you weren't sure if this'd work, but it was worth a shot.⬇️quickly, as the door started to open, you jam the metal pipe into the frame. ",
+"as the door tries to close again, it hits the metal pipe and a *loud* whine comes from the door. you can hear the mechanisms in the door give great protest to the pipe, before finally the door comes to a stop. the metal pipe was now stuck and the door unable to move.",
+"you can now move to the next room having defeated the door. you decide to spend a minute longer looking through the room, in case you missed anything.",
+""}
+	 vsub[12][4]=0
 	 s[11].b[7][1]=tmp2
 	 s[11].b[8][1]=tmp2
 	 s[11].b[9][1]=tmp2
