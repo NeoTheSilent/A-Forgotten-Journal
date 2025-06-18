@@ -341,12 +341,14 @@ b={
 {
 "this door, the farthest from the entrance, is labelled as [ikalle's room]⬇️like all other rooms here, it seems to be locked by a keycard reader. keycard no.1 manages to unlock the door to your pleasant surprise.",
 "with a click, the door unlocks and you step inside. shockingly, you see that there's a semblance of a proper bedroom in here.⬇️you look around for a few minutes, but the only notable item seems to be a spare hazmat suit you find inside a closet.",
-"considering the state of the hallway the last time you saw it, it might be worth taking.⬇️still, it's not like this is your only choice for a hazmat suit, you could always take one from the decontamination room.⬇️if nothing else, having more options wasn't bad.",
-"before you leave, you notice a note that had fallen behind the desk. picking it up, you take a look at it.",
-[next]
-""
-
-},
+"considering the state of the hallway the last time you saw it, it might be worth taking.⬇️still, it's not like this is your only choice for a hazmat suit, you could always take one from the decontamination room.⬇️if nothing else, having more options wasn't bad. ",
+"before you leave, you notice a note that had fallen behind the desk. picking it up, you take a look at it. ",
+"\"september 29th, 20█\"⬇️\"the discussion over eva's future has been divided. █ and █ wish to dispose of eva and salvage the █. during last night's escape attempt, █ was thrown into a wall and i fear that their left arm is broken. while the scanners have stopped eva so far, they fear that we're running out of ways to stop her.\" ",
+"\"ethe and i agree, yet is this not the point of our test? to surpass the human body, to create a new type of █?\"⬇️\"yes, we will need to be more █, but we can't stop now. we've locked eva with our strongest █. we have to use them, as sedatives are █. she only remained asleep for █ minutes with horse █.\" ",
+"\"if we can simply keep her immobile, we can continue. surely █ understands that we don't have the time nor budget to start over. even if we could, there's a risk that we can't salvage the █ from her. we can't give up now.\"",
+"\"still, with how things are going, it's only a matter of time before someone dies. we can't take the restraints off of her unless it's for a test. we'll keep the key in ethe's room.\"",
+"...⬇️you start to feel sick as you read the note over.⬇️if they locked 'eva' here... what should you do next?⬇️you thought it over for a few minutes, yet couldn't find the answer.",
+"...you'd rather not be here if you can avoid it."
 {
 "as you step towards this door, you see that this one is marked as [inne's room].⬇️you try your luck at the door handle, and find that it's locked.",
 "you try your luck with the keycards that you have, but none of them seem to be the correct one.⬇️perhaps with some luck, you'll find one that opens this door soon."
