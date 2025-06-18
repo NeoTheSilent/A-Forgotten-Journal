@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=9
+proom=11
 inv=false
 invn=1
 tcheck=true
@@ -299,13 +299,12 @@ c={"nothing"}
 --room11
 {
 m={
-"carefully, you step into the hall. you can't help but feel anxious, the pipe was holding for now, but who knew how long it'd hold.⬇️looking through the room, it seems that these were likely the living quarters. ",
-"there were six rooms in total, though the nameplates had been scratched out.⬇️you could see a bookshelf, as well as some chairs, tables and other niceties. yet, it seemed out of place.⬇️considering the state of the facility, it was too nice, the damage was minimal.",
-"the plants hadn't grown into here at all, and the area looked too intact.⬇️your thoughts were interrupted as you heard a metal groan behind you.⬇️turning to look, you saw as the pipe bend before flying into the other room, hitting the floor with a loud clang as the door closed.",
-"it seems your luck ran dry, you hadn't even been in here for a minute before the pipe failed you.⬇️mumbling a curse under your breath, you walk towards the door and try the button.⬇️*click*⬇️...no luck. it didn't open. ",
-"you look back to the room, perhaps something here could open the way for you- ⬇️yet again, your thoughts were interrupted as a load roar echoed through the facility.",
-"the thought of what could make a sound like that didn't ease your heart... perhaps it was your imagination?⬇️this optimistic thought gave you some hope, but if there were something in here, you've gone and made a nice and loud noise for it. ",
-"regardless, it was time to get to work. these rooms wouldn't search themselves, and you held plenty of reason to look through them now. "
+"as you step into the room, you're shocked by the state of the room.⬇️in front of you were tables, bookshelves and other furniture you'd expect from a place called the \"living quarters\". they were coated in dust, but otherwise were in perfect condition. ",
+"it didn't make sense. the rest of the facility looked awful, yet this one only needed a little dusting. furthermore, not a single plant could be seen in here.⬇️as you think things over, a sharp metal whine sounds out behind you.",
+"you look just in time to see the metal pipe bend before flying into the previous room, clanging loudly as the door shut in front of you. quickly, you try to swipe your card to open the door.⬇️*click*⬇️the led lights up, but the door stays closed. you're stuck in here.",
+"it seems that you'd be spending some time here whether you wanted it or not.⬇️a number of side rooms are present, judging from the nameplates, they're the rooms for those who lived here.⬇️you should be safe to check them, you doubt the inhabitants are still here after all. ",
+"as you prepare to look around, a second loud roar echoes through the facility.⬇️was that some *being* making that sound, or was it something else in the facility breaking?⬇️you could only pray for the latter.",
+"there was no reason to hold back, it was time to explore and get to the bottom of this place."
 },
 c={
 "check far door",
@@ -320,29 +319,31 @@ c={
 },
 b={
 {
-"approaching the door on the far end of the room, it looks quite similar to the other doors you've seen here. a scanner is present, with a red led at the top of the door frame glowing idly.⬇️seeing little reason not to try, you swipe each of your cards. to your surprise, the no.1 keycard seems to unlock it without issue.",
-"you've certainly lucked out getting this card. if you didn't find it, you wouldn't have been able to get anywhere!⬇️you make a mental note to thank your lucky stars later. at any rate, it's clear that you can enter this room whenever you want.",
-"still... you should probably explore around here a little more first, there's clearly a lot here and it'd be worth checking.",
-"it might be worth checking a few more spots first, you haven't checked around enough. you were risking a lot already, and this place would have some things worth taking."
+"the door you approached directly across from the door you came in from. it was locked by a scanner, the led glowing red as it waited for you to scan.⬇️seeing no reason not to, you swipe your cards. to your surprise, the no.1 keycard unlocks it without issue.",
+"you were quite lucky to find this card, it's unlocked almost every door for you. you'll have to thank your lucky stars later. at any rate, it's clear that you can enter this room whenever you want.",
+"still... you should probably explore around here a little more first, there's clearly a lot here and it'd be worth checking for valuables.",
+"it might be worth checking a few more spots first, you haven't checked around enough yet. you were risking a lot already, and this place would have some things worth taking."
 },
-{"you cautiously decide to spend a few minutes looking through the desks. a few minutes pass, and ultimately you find something of note: a scrap of paper that was in on top of one of the desks. picking up the piece of paper, you take a proper look at it. ",
+{
+"you spend a few minutes looking through the desks. a few minutes pass, and ultimately you find something of note: a note on one of the desks. picking up the paper, you take a proper look at it.",
 "\"there's an issue with the scanner that leads to the experimentation room. if your card doesn't work, come to my room and i'll swap it out with an updated one.\"⬇️\"it's the *third* room from the storage room in the living quarters, in case you've forgotten\"⬇️-ethe",
 ""
 },
 {
-"as you rummage through the bookshelves, you see a spare piece of paper near the vents on the ground, with a green residue stained on it.⬇️picking it up, you decide to read it.",
-"\"june 1st, 20█\"⬇️\"we reached a breakthrough today. introducing █ to eva had resulted in several changes in her physiology. we noticed that she's started healing exponentially faster than usual as when she was cut by inne earlier for a test, the cut quickly healed without leaving a mark within █ seconds.\"",
-"\"the █ are now growing from her body, treating her as a host.\"⬇️\"we learned this the hard way when it grabbed inne by the leg. he's lucky that his foot didn't break, though he'll be walking with a limp for a few weeks.\"",
-"\"sedatives were applied during this incident, though eva woke up █% earlier than expected. she's growing a tolerance to them.\"⬇️\"this is an ideal result for our experiments, our goal is for ██ after all. still, it means we're running out of ways to sedate her.\" ",
-"\"still... we've noticed that eva's displaying symptoms of withdrawal when not given evacurine.\"⬇️\"the perfect ██ can't have drug dependencies. we'll need to test how long we can withhold it to understand the limits. it may be time to consider whether we continue in the project with eva or not...\"",
-"it's clear... something awful happened here. if nothing else, it's likely whoever ran this place got what was coming to them, considering the state of the facility...",
+"as you look through the bookshelves, you see a page torn from a notebook on the ground near some vents. there's a green residue stained on it.⬇️picking it up, you decide to read it.",
+"\"june 1st, 20█\"⬇️\"we reached a breakthrough today. introducing █ to eva had resulted in █ changes in her physiology. we noticed that she's started █ exponentially faster. when she was cut by inne earlier for a test, it healed within █ seconds without leaving a mark.\"",
+"\"the █ are now growing from her body, treating her as a host. they seem to follow her will, as they grabbed inne by the leg and threw him during a █ test. we're lucky his foot didn't break.\"",
+"\"█ were applied during this incident, though eva woke up █% earlier than expected. she's growing a █ to them.\"⬇️\"this is an ideal result for our experiments, our goal is for █ but it means we're running out of ways to sedate her.\"",
+"\"we've also noticed that eva's displaying symptoms of █ when not given evacurine.\"⬇️\"the perfect █ can't have drug █. we'll have to find a solution, or we may have to consider whether we continue the project with eva or not.\"",
+"it's clear, something awful happened here. at least it's likely whoever ran this place got what was coming to them, considering the state of the facility...",
 ""
 },
 {
-"the door in front of you is the farthest from the decontamination room you had been in. this one was labelled as [ikalle's room]⬇️similar to the other rooms here, it seems to be locked by a keycard reader. you try your luck with your keycards... and notably, keycard no.1 manages to unlock the door!",
-"with a click, the door unlocks, and you gently open the door. inside, you see that there's a semblance of a proper bedroom in here. a closet is present, as is a bed and closet.⬇️as you look around the room, the only notable item seems to be a spare hazmat suit inside the closet.",
-"considering the state of the hallway the last time you saw it, it might not be a bad idea to take it... though it's not like this is your only choice for a hazmat suit, you could always take one from the decontamination room.⬇️if nothing else, having more options wasn't bad.",
+"this door, the farthest from the entrance, is labelled as [ikalle's room]⬇️like all other rooms here, it seems to be locked by a keycard reader. keycard no.1 manages to unlock the door to your pleasant surprise.",
+"with a click, the door unlocks and you step inside. shockingly, you see that there's a semblance of a proper bedroom in here.⬇️you look around for a few minutes, but the only notable item seems to be a spare hazmat suit you find inside a closet.",
+"considering the state of the hallway the last time you saw it, it might be worth taking.⬇️still, it's not like this is your only choice for a hazmat suit, you could always take one from the decontamination room.⬇️if nothing else, having more options wasn't bad.",
 "before you leave, you notice a note that had fallen behind the desk. picking it up, you take a look at it.",
+[next]
 ""
 
 },
