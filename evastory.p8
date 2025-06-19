@@ -23,7 +23,7 @@ bp={
 {"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
 {"ethe's card",0,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
-td={1,0,0,0,0,0}
+td={0,0,0,0,0,0,0}
 --
 pr={
 {0,108,115,3},{0,108,107,1},
@@ -319,7 +319,7 @@ c={
 },
 b={
 {
-"the door you approached directly across from the door you came in from. it was locked by a scanner, the led glowing red as it waited for you to scan.⬇️seeing no reason not to, you swipe your cards. to your surprise, the no.1 keycard unlocks it without issue.",
+"the door you approached directly across from the door you came in from. it was locked by a scanner, the led glowing red as it waited for you to scan.⬇️seeing no reason not to, you swipe your cards. to your surprise, the no.1 keycard unlocks it without issue. ",
 "you were quite lucky to find this card, it's unlocked almost every door for you. you'll have to thank your lucky stars later. at any rate, it's clear that you can enter this room whenever you want.",
 "still... you should probably explore around here a little more first, there's clearly a lot here and it'd be worth checking for valuables.",
 "it might be worth checking a few more spots first, you haven't checked around enough yet. you were risking a lot already, and this place would have some things worth taking."
@@ -345,18 +345,19 @@ b={
 "before you leave, you notice a note that had fallen behind the desk. picking it up, you take a look at it. ",
 "\"september 29th, 20█\"⬇️\"the discussion over eva's future has been divided. █ and █ wish to dispose of eva and salvage the █. during last night's escape attempt, █ was thrown into a wall and i fear that their left arm is broken. while the scanners have stopped eva so far, they fear that we're running out of ways to stop her.\" ",
 "\"ethe and i agree, yet is this not the point of our test? to surpass the human body, to create a new type of █?\"⬇️\"yes, we will need to be more █, but we can't stop now. we've locked eva with our strongest █. we have to use them, as sedatives are █. she only remained asleep for █ minutes with horse █.\" ",
-"\"if we can simply keep her immobile, we can continue. surely █ understands that we don't have the time nor budget to start over. even if we could, there's a risk that we can't salvage the █ from her. we can't give up now.\"",
+"\"if we can simply keep her immobile, we can continue. surely █ understands that we don't have the time nor budget to start over. even if we could, there's a risk that we can't salvage the █ from her. we can't give up now.\" ",
 "\"still, with how things are going, it's only a matter of time before someone dies. we can't take the restraints off of her unless it's for a test. we'll keep the key in ethe's room.\"",
 "...⬇️you start to feel sick as you read the note over.⬇️if they locked 'eva' here... what should you do next?⬇️you thought it over for a few minutes, yet couldn't find the answer.",
-"...you'd rather not be here if you can avoid it."
+"...you'd rather not be here if you can avoid it. "
+},
 {
-"as you step towards this door, you see that this one is marked as [inne's room].⬇️you try your luck at the door handle, and find that it's locked.",
+"the door you're approaching is labelled as [inne's room] with a scanner allowing entry.⬇️you swipe your cards into the scanner, but they remain locked. it seems you'll have to come back later.",
 "you try your luck with the keycards that you have, but none of them seem to be the correct one.⬇️perhaps with some luck, you'll find one that opens this door soon."
 },
 {
-"walking up to the door, you see that the nameplate marks it as [ethe's room].⬇️they must be one and the same from the note that you had read. if there was any room that held potential, it was this one.",
-"you try your luck at the door handle, and shockingly it's not locked. however, something seems to be pressed against the door, as you can't get it to budge.⬇️you certainly spend a few minutes trying, but unless you wanted to risk throwing your shoulder out, you weren't getting anywhere. ",
-"once more, you try your luck at getting into the door, but it seems no different than before. oh well, it was worth a try at least. you'll need something to either break down the door, or find an alternate way in."
+"walking up to the door, you see that the nameplate marks it as [ethe's room], a name that is sounding quite familiar from the notes around here.",
+"to your surprise, the led is glowing green, and the door is unlocked. however, something seems to be jammed against the door, it won't budge.⬇️you certainly spend a few minutes trying, but unless you wanted to risk throwing your shoulder out, you aren't getting in.",
+"once more, you try your luck at getting into the door, but the progress made is nonexistent. oh well, it was worth a try at least. you'll need something to either break down the door, or find an alternate way in."
 },
 {""},
 {""},
@@ -720,7 +721,12 @@ function events()
 
 vsub[proom][dsel]=1
 tmp="as you ponder what evaconvolvulus is, you remember the note you found.⬇️chances are that the vines along the floor is the evaconvolvulus.⬇️still... you couldn't just rip them up with your hands. you'd need to find a tool to cut them. "
-tmp2="you try your luck with the door, but unfortunately it's locked tightly and you can't make it budge. your try your luck with your keycards, but none of them seem to open this door.⬇️notably: the name plate seems to be scratched out, you can't make out what it said."
+tmp2="you try your luck with the door, but unfortunately it's locked tightly and your keycards don't seem to work with this door.⬇️notably: the name plate seems to be scratched out, you can't make out what it said."
+tmp3={
+"satisfied with how you've looked through here, you're ready to move into the final room on this path. the map had called it the \"storage room\".⬇️if you were lucky, you'd find what you were looking for in here.",
+"this is what you were waiting for, there should be plenty of valuables in here.⬇️hopefully it would be enough to make up for the risk of coming here.⬇️you could only pray that this journey would continue in solitude as another roar shakes through the facility. ",
+""
+}
 sc1="[error - evaconvolvulus detected. doors have been locked.]"
 sc2="[no evaconvolvulus detected. you may enter.]"
 
@@ -888,10 +894,25 @@ elseif proom==9 then
 	end
 --room11--
 elseif proom==11 then
- if dsel==2 then
+ if dsel==1 then
+  td[7]=1
+ elseif dsel==2 then
   s[11].b[2][3]=s[11].b[2][2]
  elseif dsel==3 then
  	s[11].b[3][7]=s[11].b[3][6]
+ end
+ if vsub[11][2]==1 and vsub[11][4]==1 and vsub[11][6]==1 then
+  vsub[11][1]=0
+  if td[7]==1 then
+   s[11].b[1]=tmp3
+  else
+   s[11].b[1][3]=tmp3[1]
+   s[11].b[1][4]=tmp3[2]
+   s[11].b[1][5]=""
+  end
+  if dsel==1 then
+   proom=10
+  end
  end
 --room12--
 elseif proom==12 then
