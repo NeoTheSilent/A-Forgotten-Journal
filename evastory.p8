@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=11
+proom=10
 inv=false
 invn=1
 tcheck=true
@@ -293,8 +293,34 @@ b={
 },
 --room10
 {
-m={"nothing"},
-c={"nothing"}
+m={
+"when you walk in, an odd feeling of joy and disappointment blossoms within you.⬇️joy from the fact that here was the storage room, likely packed to the brim with valuables and goodies. you finally got here!⬇️yet, disappointed from a simple fact.",
+"this place looked *awful*. it looked like it was organized by a chipmunk that had finished three different coffees and at least one soda.⬇️it'd take ages to look through here and see what was valuable and what was trash. even with the state of this facility, how had it gotten so bad?",
+"your thoughts were interrupted by a message you had heard a number of times before, yet never wished to hear again.",
+"",
+"it was quiet, but you could tell it came from the room across the living quarters. why had it-⬇️you received your answer before you could even finish your thought. as the sound of metal being smashed through echoed through the facility. ",
+"you hadn't exactly gone to school, but you were still plenty smart enough to know one simple fact.⬇️you were in trouble.⬇️something was here, and it was following you.",
+"you likely didn't have long, so you needed to look through here fast.⬇️there were no other doors other than the one that you come through, and a number of containers.⬇️you needed a way to protect yourself or hide, and a way to get out of here. you can't take your time."
+},
+c={
+"check shelves",
+"check containers",
+"check boxes",
+"leave room"
+},
+b={
+{},
+{},
+{},
+{
+"as you move towards the door, you see something on the far wall of the next room.⬇️the door that had jammed shut lets out an awful groan something grabs at the door and forces it open, warping it in the process.",
+"after a few moments, the door is torn open, hanging loosely half open as an amalgamation of branches and vines lumbers into the room.⬇️your heart stops for a few moments. like a deer caught in headlights, your mind emptied as it tried to comprehand what it was. ",
+"there's no doubt, if that thing catches you, it won't end well.⬇️it's looking around the room slowly, you can't leave now. you have to wait until it leaves... or better yet, hide.",
+"you don't know why it's checking through here... it might not know that you're here yet. if you hid well, it might leave and give you a chance to escape!",
+"with that thought, you step away from the door.",
+""
+},
+}
 },
 --room11
 {
@@ -892,6 +918,12 @@ elseif proom==9 then
 			proom=6
 	 end
 	end
+--room10--
+elseif proom==10 then
+ if dsel==1 then
+ elseif dsel==4 then
+  s[10].c[4]="wait and hide"
+ end
 --room11--
 elseif proom==11 then
  if dsel==1 then
