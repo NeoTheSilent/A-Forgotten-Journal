@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=10
+proom=8
 inv=false
 invn=1
 tcheck=true
@@ -19,18 +19,18 @@ bp={
 {"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
 {"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
 {"metal rod",0,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
-{"hazmat suit",0,"a suit that looks like a hazmat suit. it's stuffy, but very durable."},
-{"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
-{"ethe's card",0,"a keycard you found in the living quarters by a corpse. should open any room. "}}
+{"stained key",1,"a key you found in ethe's room. it should open a certain lock."},
+{"herbicide",1,"a bottle of industrial herbicide, able to kill any plant in seconds."},
+{"ethe's card",1,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
-td={0,0,0,0,0,0,0}
+td={0,0,0,0,0,0,0,0}
 --
 pr={
 {0,108,115,3},{0,108,107,1},
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+vroom={0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}
 vsub={
 {0},
 {0,0,0},
@@ -254,13 +254,31 @@ b={
 },
 --room7
 {
-m={"nothing"},
-c={"nothing"}
+m={
+"as you stepped inside the room, it was painfully quiet.⬇️you had been running and hiding from this monster for too long... but now?⬇️nothing.⬇️that branch monster was nowhere to be found.",
+"instead, what was in front of you was a room looked like a child's room that turned into a greenhouse, the vines were everywhere.⬇️yet, the rest of the room didn't matter right now. ",
+"in front of you was a single \"pod\", and inside of it was a sleeping white haired child.⬇️it certainly didn't look comfortable... but it wasn't because of her \"bed\".⬇️she was restrained by chains and there was odd liquid in the pod. she was about half submerged.",
+"there was no other exit to this room, and the only thing here was this child. you had come here for one reason, and now it was time to act. "
+},
+c={
+"wait and hide"
+},
+b=
+{
+{
+"that amalgamation of branch and vines couldn't be far. it'd be best to hide in here.⬇️when it came in here, you could make a run for it, and head out the exit.",
+"it was a foolish idea to come here, but you might make it out with your life.⬇️still... it'd leave this child alone with the monster, but what could you do? ",
+"you were older, and stronger... but you couldn't exactly take down that monster.⬇️you'd live as a coward, but you'd live. you couldn't risk yourself, and risk your sister as a result.",
+"muttering a small apology, you hide behind a cabinet.⬇️a few minutes pass, and the monster comes inside. as it approaches the pod, you dash out the door.",
+""
+}
+}
 },
 --room8
 {
 m={"nothing"},
-c={"nothing"}
+c={"nothing"},
+b={{""}}
 },
 --room9
 {
@@ -309,9 +327,15 @@ c={
 "leave room"
 },
 b={
-{},
-{},
-{},
+{
+"",
+},
+{
+"",
+},
+{
+"",
+},
 {
 "as you move towards the door, you see something on the far wall of the next room.⬇️the door that had jammed shut lets out an awful groan something grabs at the door and forces it open, warping it in the process.",
 "after a few moments, the door is torn open, hanging loosely half open as an amalgamation of branches and vines lumbers into the room.⬇️your heart stops for a few moments. like a deer caught in headlights, your mind emptied as it tried to comprehand what it was. ",
@@ -442,7 +466,7 @@ b=
 }
 }
 },
---gameover1
+--gameover c
 {
 m={
 "as you climb up the stairs, you consider returning here to loot more in the future... but this place seems too risky.⬇️who knows, the previous owners might come back and give you hell if they find you here.",
@@ -450,8 +474,20 @@ m={
 "the items you found down here sold for a pretty penny, and you could buy your sister medicine and food for a few weeks. before long, even the memory of this place faded from your mind. it was time to move on.",
 },
 c={"return to title"},
-b={{"game over⬇️neutral ending⬇️thank you for playing."}}
-}
+b={{"game over⬇️ending \"c\"⬇️thank you for playing."}}
+},
+--gameover e
+{
+m={
+"you run, and run, and run... until finally, you're free of this place.",
+"you made a decent haul out of your exploration, and you came out unharmed. you should be happy... yet you couldn't help but wonder.",
+"could you have done anything different?⬇️did your actions doom that child?",
+"it didn't matter, you couldn't change the past no matter how you wished it.⬇️over the next few weeks, you heard rumors of a plant monster scouring the alleys, but it wasn't your problem anymore.",
+"you already had plans to leave this place with your sister, never to return.⬇️what you found down there was enough to keep you stable for a long time, though some of it was spent leaving the city... never to return.⬇️you could only hope you made the right choice. "
+},
+c={"return to title"},
+b={{"game over⬇️ending \"e\"⬇️thank you for playing. "}}
+},
 }
 
 t={
@@ -618,6 +654,10 @@ function grid()
 		 prev(pr[i][2],pr[i][3],pr[i][4])
 		end
 	end
+	
+	if td[8]==1 then
+	 blink({001,013},proom<12,1,108+((proom-10)*8),91)
+	end 
 end
 
 function prev(x,y,c)
@@ -884,6 +924,26 @@ elseif proom==6 then
 	if vsub[6][4]==1 and bp[4][2]==1 then
 	 vsub[6][6]=0
 	end
+elseif proom==7 then
+ if dsel==1 then
+  proom=14
+ elseif s[7].c[dsel]=="save child" then
+  proom=2
+ elseif s[7].c[dsel]=="kill child" then
+  proom=5
+ end
+elseif proom==8 then
+ if dsel==1 then
+  proom=7
+  if bp[6][2]==1 then
+   add(s[7].c,"save child")
+   add(s[7].b,{"this is test1"})
+  end
+  if bp[7][2]==1 then
+   add(s[7].c,"kill child")
+   add(s[7].b,{"i am test2"})
+  end
+ end
 --room9
 elseif proom==9 then
 	if vroom[10]==0 then
@@ -921,8 +981,11 @@ elseif proom==9 then
 --room10--
 elseif proom==10 then
  if dsel==1 then
+  proom=11
+  --debug
  elseif dsel==4 then
   s[10].c[4]="wait and hide"
+  td[8]=1
  end
 --room11--
 elseif proom==11 then
@@ -988,7 +1051,7 @@ elseif proom==12 then
 	 s[11].b[8][1]=tmp2
 	 s[11].b[9][1]=tmp2
  end
-elseif proom==13 then
+elseif proom>12 then
 	tcheck=true
 	res()
 end
@@ -1106,12 +1169,12 @@ end
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00000000033333300333333000000000000000000000000000000000000000000000000000000000000003300000000000000000000000000000000000000000
-00700700030000300300003003333300033333000003300000033000003333000033330000000000000000300033300000333000000000000000000000000000
-0007700003000030030bb030030000300300003000300300003bb30000300300003bb300000000000000003000300300003bb300000000000000000000000000
-0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb300000000000000003000300300003bb300000000000000000000000000
-007007000300003003000030030000300300003000333300003333000003300000033000030000300000003000300300003bb300000000000000000000000000
-00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300033300000333000000000000000000000000000
+00000000033333300333333000000000000000000000000000000000000000000000000000000000000003300000000000000000033333300000000000000000
+00700700030000300300003003333300033333000003300000033000003333000033330000000000000000300033300000333000030000300000000000000000
+0007700003000030030bb030030000300300003000300300003bb30000300300003bb300000000000000003000300300003bb300030440300000000000000000
+0007700003000030030bb03003000003030bb00300300300003bb30000300300003bb300000000000000003000300300003bb300030440300000000000000000
+007007000300003003000030030000300300003000333300003333000003300000033000030000300000003000300300003bb300030000300000000000000000
+00000000033333300333333003333300033333000000000000000000000000000000000003333330000003300033300000333000033333300000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000333333333333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
