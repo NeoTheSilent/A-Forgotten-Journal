@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=8
+proom=15
 inv=false
 invn=1
 tcheck=true
@@ -488,6 +488,20 @@ m={
 c={"return to title"},
 b={{"game over⬇️ending \"e\"⬇️thank you for playing. "}}
 },
+--gameover d
+{
+m={
+"that's what you intended to do. even as you started to pour, you could already feel a hint of regret growing inside of you.⬇️yet, it all stopped.",
+"your arm failed you.⬇️not a drop would be poured, no matter how you wished it.⬇️for a moment time froze, broken only by the sound of dripping.",
+"one drip after another.⬇️it echoed throughout the sylvan room.⬇️it wasn't loud, yet for you it was deafening.⬇️looking down, you saw it. ",
+"your shirt was stained crimson, it was your own blood dripping on the floor.⬇️a vine had erupted from the pod and pierced your chest.⬇️you hadn't even seen it move, yet it had speared through you completely.",
+"you didn't scream... rather, you couldn't even make a sound as you gasped for air.⬇️the bottle dropped from your hand, falling loudly to the floor next to the pod. ",
+"searing hot pain infested your body, and before your body started to shut down.⬇️it was clear... there would be no saving you.⬇️this would be a dream you would never wake from. ",
+"your vision started to fail, but you managed to see one last detail before it all faded away.⬇️bright green eyes dyed with hate stared at you, from not only the girl... but from each and every flower in the room."
+},
+c={"return to title"},
+b={{"game over⬇️ending \"d\"⬇️thank you for playing. "}}
+}
 }
 
 t={
@@ -906,11 +920,11 @@ elseif proom==6 then
 		elseif vsub[6][4]==1 then
 		 if td[2]==1 then
 	s[6].b[6]={
-	"you step into the scanner, shears in hand. the note had said that this 'evaconvolvulus' was plant matter. there wasn't anything stuck to your clothes, so it must be the vines on the floor.",
-	"with some regret in your heart, you trim away at the vines. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
-	"with that done, you restart the scanning procedure. the laser comes down and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
-	"carefully, you step through into the next room.",
-	""}
+"you step into the scanner, shears in hand. the note had said that this 'evaconvolvulus' was plant matter. there wasn't anything stuck to your clothes, so it must be the vines on the floor.",
+"with some regret in your heart, you trim away at the vines. you pick up the remains and toss them out of the scanner. you couldn't get it perfectly, as they seemed to originate from a small crack in the floor, but you've gotten as much as you can.",
+"with that done, you restart the scanning procedure. the laser comes down and after a few moment the scan completes. you open your eyes as the glass door ahead of you finally opens, revealing the now unlocked doorway to the next room.",
+"carefully, you step through into the next room.",
+""}
 	 	else
 	s[6].b[6][5]="as you read the screen, a lightbulb goes off in your head. the evaconvolvulus, or whatever it was, was a plant.⬇️there were plants down by your feet and thankfully, you were smart enough to bring the shears in with you. "
 	s[6].b[6][6]="after a few minutes of careful trimming, the scanner is as vine free as it'll get. you toss out the trimmed vines and press the scan button once more.⬇️the scanning process goes smoothly, though you almost blind yourself by opening your eyes too early. to your delight, the screen has a new message for you."
@@ -929,8 +943,8 @@ elseif proom==7 then
   proom=14
  elseif s[7].c[dsel]=="save child" then
   proom=2
- elseif s[7].c[dsel]=="kill child" then
-  proom=5
+ elseif s[7].c[dsel]=="use herbicide" then
+  proom=15
  end
 elseif proom==8 then
  if dsel==1 then
@@ -940,8 +954,12 @@ elseif proom==8 then
    add(s[7].b,{"this is test1"})
   end
   if bp[7][2]==1 then
-   add(s[7].c,"kill child")
-   add(s[7].b,{"i am test2"})
+   add(s[7].c,"use herbicide")
+   add(s[7].b,{
+"you couldn't be blamed for what you did. whatever was in front of you, it *wasn't* human.⬇️nobody could survive chained up in an environment like this.⬇️it was pretending to be a child, to get you to lower your guard.",
+"if the journals were to be believed, then this child-⬇️no, plant was the one that killed the three humans you saw here.⬇️it was dangerous.⬇️it would kill you.⬇️you had to defend yourself. ",
+"that branch amalgamation would be here soon.⬇️this was your only chance to end it.⬇️that's why you did it.⬇️with fear in your eyes, you took the herbicide from the storage room out and poured it into the pod.",
+""})
   end
  end
 --room9
