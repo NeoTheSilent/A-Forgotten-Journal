@@ -4,7 +4,7 @@ __lua__
 -- default functions
 
 function _init()
-proom=15
+proom=2
 inv=false
 invn=1
 tcheck=true
@@ -16,12 +16,12 @@ bckclr=1
 bp={
 {"g. keycard",0,"a keycard that has been stained green. most of the info on it has faded. "},
 {"keycard n.1",0,"a keycard numbered 1. you can also make out the word 'decontamination' on it. "},
-{"evacurine",-1,"a small bottle of medicine. it looks expensive. the label says evacurine"},
 {"shears",0,"a pair of pruning shears, the blades stained green. it's quite sharp."},
 {"metal rod",0,"a sturdy metal rod. it seems strong, but is showing signs of rust."},
-{"stained key",1,"a key you found in ethe's room. it should open a certain lock."},
-{"herbicide",1,"a bottle of industrial herbicide, able to kill any plant in seconds."},
-{"ethe's card",1,"a keycard you found in the living quarters by a corpse. should open any room. "}}
+{"evacurine",0,"a small bottle of medicine. it looks expensive. the label says evacurine"},
+{"stained key",0,"a key you found in ethe's room. it should open a certain lock."},
+{"herbicide",0,"a bottle of industrial herbicide, able to kill any plant in seconds."},
+{"ethe's card",0,"a keycard you found in the living quarters by a corpse. should open any room. "}}
 jrnl={0,0,0}
 td={0,0,0,0,0,0,0,0}
 --
@@ -30,7 +30,7 @@ pr={
 {0,116,107,3},{0,116,99,2},
 {0,116,91,2},{0,108,91,2},
 {0,108,99,2}}
-vroom={0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}
+vroom={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 vsub={
 {0},
 {0,0,0},
@@ -46,7 +46,8 @@ vsub={
 {0,0,0,0,0,0,0},
 {0},
 {0},
-{0,0,0}
+{0},
+{0}
 }
 --
 sbs=1
@@ -149,7 +150,6 @@ m={
 c={
 "look around room",
 "check window",
-"check desks",
 "check computers",
 "enter left door.",
 "enter right door.",
@@ -171,11 +171,6 @@ b={
 "\"they'd █ sell us out if trouble came their way, yet they won't ask any questions so long as we have the █. we could get as many █ █ as needed. we'll work with them.\"⬇️\"yet, even with our █, we can't throw out the thought of any quality control.\" ",
 "\"for our █ to succeed, we must have the best of █ best, █ █ █ █\"⬇️\"█ █ is our hope for █...\"⬇️the rest of the page is illegible. you hesitantly close the book and put it in your pocket. this place... what happened here? doubt starts to stain your mind as you look around the room. ",
 "you check the window to see if anything changed, but unfortunately you still can't see anything on the other side."
-},
-{
-"considering this place looked like a laboratory, it may be possible that you could find medicine here. with that thought, you start to rummage through the desks.⬇️if *that* medicine was here, it'd save you a lot of trouble. your sister's medicine has gotten terribly expensive after all. ",
-"you do happen across a few vials of medicine labeled as \"evacurine\". you're not sure what it is, but it seems like it could be valuable. taking them now is rather risky, so you make a mental note to take them before you leave, as you don't want to accidentally break them. ",
-""
 },
 {
 "flicking the power button, you try to turn on the computers. it takes a moment, but to your surprise the screen turns on with a simple message.",
@@ -495,12 +490,27 @@ m={
 "your arm failed you.⬇️not a drop would be poured, no matter how you wished it.⬇️for a moment time froze, broken only by the sound of dripping.",
 "one drip after another.⬇️it echoed throughout the sylvan room.⬇️it wasn't loud, yet for you it was deafening.⬇️looking down, you saw it. ",
 "your shirt was stained crimson, it was your own blood dripping on the floor.⬇️a vine had erupted from the pod and pierced your chest.⬇️you hadn't even seen it move, yet it had speared through you completely.",
-"you didn't scream... rather, you couldn't even make a sound as you gasped for air.⬇️the bottle dropped from your hand, falling loudly to the floor next to the pod. ",
+"you didn't scream... rather, you couldn't. even making a sound was impossible as you gasped for air.⬇️the bottle dropped from your hand, falling loudly to the floor next to the pod, never to be used. ",
 "searing hot pain infested your body, and before your body started to shut down.⬇️it was clear... there would be no saving you.⬇️this would be a dream you would never wake from. ",
 "your vision started to fail, but you managed to see one last detail before it all faded away.⬇️bright green eyes dyed with hate stared at you, from not only the girl... but from each and every flower in the room."
 },
 c={"return to title"},
 b={{"game over⬇️ending \"d\"⬇️thank you for playing. "}}
+},
+--gameover f
+{
+m={
+"the monster lets out an odd roar, hobbling back as the vines and branches around its legs burn from the herbicide.⬇️you press your advantage, splashing more of the liquid near the monster, making your threat clear.",
+"it's painfully quiet as you two stare each other down.⬇️it can't approach without risking serious damage, and you can't continue your assault as you have limited amounts of herbicide.⬇️you were nervous, scared, but tried your best not to let it show.",
+"the stalemate broke as something pricked your neck.⬇️your body went numb and you slumped over.⬇️the herbicide fell from your hand, and was caught by a vine.",
+"\"you're odd, aren't you?\"⬇️the words that came from behind you... they were weak, but there was only one voice it could come from.⬇️the child was awake?! ",
+"you watched as the child slowly approached the branched monster, climbing onto its back as if it were nothing special.⬇️she looks down at you for a few moments, before the branch monster reaches out its vines and...",
+"you closed your eyes out of fear, but the sensation of being grabbed was what you least expected.⬇️despite your attack, it seems to hold you carefully in its arms as it exits the room with the two of you. ",
+"numbly looking around, you saw that all the plant life here was facing you, with each flower possessing an eye.⬇️as you slipped into unconsciousness, it seems that this exploration has come to an unknown end. ",
+"you could only hope that when you next awoke, you would be able to reunite with your dear sister.⬇️you heard one last thing before you slipped into the dreams.⬇️\"i think it's time for some fresh air...\""
+},
+c={"return to title"},
+b={{"game over⬇️ending \"f\"⬇️truly, thank you for playing. i really hope you enjoyed this story.⬇️- neo"}}
 }
 }
 
@@ -847,12 +857,12 @@ elseif proom==4 then
 		bp[2][2]=1
   s[6].b[6][4]=sc1
   s[6].b[6][5]=sc1
-		s[5].b[6]={"walking up to the door, you take your newly acquired keycard and swipe it. after a few moments, the led above the door flashes green. the door opens, and you're free to explore this new area. "}
+		s[5].b[5]={"walking up to the door, you take your newly acquired keycard and swipe it. after a few moments, the led above the door flashes green. the door opens, and you're free to explore this new area. "}
 	elseif dsel==4 then
 		vsub[4][4]=0
 		if td[1]>0 then
 			s[5].m[#s[5].m]="this \"observation\" room seems no different from how you had left it.⬇️you take a few moments to consider your next move as you look around."
-		 s[5].b[5]={"you can't help but feel that you missed something in the research room. with that, you swipe your keycard and enter the room."}
+		 s[5].b[4]={"you can't help but feel that you missed something in the research room. with that, you swipe your keycard and enter the room."}
 			proom=5
 		end		
 	end
@@ -861,32 +871,24 @@ elseif proom==5 then
 	if dsel==2 then
 		jrnl[1]=1
 	elseif dsel==3 then	
-	bp[3][2]+=1
-	s[5].b[3]={
-"thinking about it more, you decide to put the medicine in your satchel, as you don't want to forget about them when you're getting ready to leave.",
-"you check the desks again, but there doesn't seem to be anything else worth taking right now."}
-	 if bp[3][2]<1 then
-			vsub[5][3]=0
-	 end
+		s[5].b[3][3]=s[5].b[3][2]
 	elseif dsel==4 then
-		s[5].b[4][3]=s[5].b[4][2]
-	elseif dsel==5 then
 		proom=4
+		vsub[5][4]=0
+	elseif dsel==5	then
 		vsub[5][5]=0
-	elseif dsel==6	then
-		vsub[5][6]=0
 	 if bp[2][2]==1 then
 		 proom=6
 		 pr[3][1]=1
 		else
-		 s[5].b[6]={"you try to swipe your keycard again, but like last time the scanner refuses it.⬇️it seems you may need a different card, or another way in. "}
+		 s[5].b[5]={"you try to swipe your keycard again, but like last time the scanner refuses it.⬇️it seems you may need a different card, or another way in. "}
 		end
-	elseif dsel==7 then
+	elseif dsel==6 then
 	 if td[6]==1 then
 	  proom=13
 	 end
-	 vsub[5][7]=0
-	 s[5].b[7]={"the decision to leave wasn't a hard one to make, this place looked too dangerous.⬇️one bad slip is all it'd take for you to hurt yourself on some rusty metal or worse.⬇️you had taken a few things already,  they'll have to do for now."}
+	 vsub[5][6]=0
+	 s[5].b[6]={"the decision to leave wasn't a hard one to make, this place looked too dangerous.⬇️one bad slip is all it'd take for you to hurt yourself on some rusty metal or worse.⬇️you had taken a few things already,  they'll have to do for now."}
 	 td[6]+=1
 	end
 --room6
@@ -894,14 +896,14 @@ elseif proom==6 then
  s[6].m[#s[6].m]="each drip from the leaking pipes sounds like a gunshot now. the room seems no different right now, but it would do you well to speed up your investigation.⬇️there shouldn't be anything to fear... but something about this place screams danger."
  --
 	if dsel==1 then
-  bp[4][2]=1
+  bp[3][2]=1
  elseif dsel==4 then
 		s[6].b[4][3]=s[6].b[4][2]
 	elseif dsel==5 then
   jrnl[2]=1
 	elseif dsel==6 then
 	 td[2]=1
-		if bp[4][2]==1 and vsub[6][4]==1 then
+		if bp[3][2]==1 and vsub[6][4]==1 then
 			pr[4][1]=1
 			proom=9
 		end
@@ -912,7 +914,7 @@ elseif proom==6 then
 	end
 	--
 	if vroom[9]==0 then
-		if bp[4][2]==0 then
+		if bp[3][2]==0 then
 		 if vsub[6][4]>0 then
 		  s[6].b[6][5]=tmp
 		  s[6].b[6][6]=tmp
@@ -935,23 +937,30 @@ elseif proom==6 then
 	 end
 	end
 	--
-	if vsub[6][4]==1 and bp[4][2]==1 then
+	if vsub[6][4]==1 and bp[3][2]==1 then
 	 vsub[6][6]=0
 	end
+--room7
 elseif proom==7 then
  if dsel==1 then
   proom=14
  elseif s[7].c[dsel]=="save child" then
-  proom=2
+  proom=16
  elseif s[7].c[dsel]=="use herbicide" then
   proom=15
  end
+--room8
 elseif proom==8 then
  if dsel==1 then
   proom=7
   if bp[6][2]==1 then
    add(s[7].c,"save child")
-   add(s[7].b,{"this is test1"})
+   add(s[7].b,{
+"was it even a question?⬇️moving quickly, you take the key you had found on the corpse and unlock the bindings.⬇️you freed her without any issue, though you still needed a plan. you still neded to do something about the living branches.",
+"could you sneak by the amalgamation?⬇️not likely with this child as a passenger. if she woke up and made a sound, it'd be over.⬇️it's doubtful you could run with the child either, so running wasn't an option. ",
+"hiding didn't seem like a good idea either. thus-⬇️you didn't any more time to think it over, you could see the monster approaching the door from the next room via a small window. ",
+"you take out the bottle of herbicide and uncap it, waiting for the monster to enter.⬇️just as it does, you splash the herbicide at the monster! ",
+""})
   end
   if bp[7][2]==1 then
    add(s[7].c,"use herbicide")
@@ -1033,13 +1042,13 @@ elseif proom==12 then
 	 s[12].m[#s[12].m]="it'd be best to finish your business quickly and leave, this place felt more and more dangerous by the minute. "
  end
 	if dsel==1 then
-	 bp[5][2]=1
+	 bp[4][2]=1
 	elseif dsel==3 then
 		jrnl[3]=1
 	elseif dsel==4 then
 	 if td[5]==0 then
 	  td[5]=1
-	 elseif td[5]==1 and bp[5][2]==1 then
+	 elseif td[5]==1 and bp[4][2]==1 then
  	 td[5]=2
  	 vsub[12][4]=0
  	 s[12].b[4]={"you step into the doorway. you had to be close to the finding the answers... and the valuables.⬇️what happened here?⬇️what remained here?⬇️what would you do?⬇️these questions would be answered soon."}
@@ -1058,7 +1067,7 @@ elseif proom==12 then
  		td[4]=1
  	end
 	end
-	if bp[5][2]==1 and td[5]==1 then
+	if bp[4][2]==1 and td[5]==1 then
 	 s[12].b[4]={
 "holding the metal pipe you found in your hands, you approach the erratic door. you weren't sure if this'd work, but it was worth a shot.⬇️quickly, as the door started to open, you jam the metal pipe into the frame. ",
 "as the door tries to close again, it hits the metal pipe and a *loud* whine comes from the door. you can hear the mechanisms in the door give great protest to the pipe, before finally the door comes to a stop. the metal pipe was now stuck and the door unable to move.",
@@ -1212,4 +1221,4 @@ __gfx__
 __sfx__
 0001000032750327001470014700147001470014700147001470014700147001470029700277002370021700027001d7001a7001870013700107000b700077000370000700007000070000700007000070000700
 000100003a05000000000002d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-001000001600016000160001000010000100000b0000b0000b0000f0000f0000f0001300013000130000f0000f00012000120000e0000e0000000000000000000000000000000000000000000000000000000000
+0010000018f5018f5018f5019f5015e501af501bf501df501df501ef501ef501ef501ff501ff5020f5015050190501905012050120500d0500d0500705007050090500a0500c05014050140500f0500f05008050
